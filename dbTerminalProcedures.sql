@@ -24,6 +24,9 @@ ON cargo.carg_UsuarioCreador = usr1.usua_ID LEFT JOIN acce.tbUsuarios AS usr2
 ON cargo.carg_UsuarioModificador = usr2.usua_ID
 GO
 
+DECLARE @fff TIME = GETDATE()
+SELECT @fff
+GO
 
 -------->	READ
 CREATE OR ALTER PROCEDURE term.UDP_VW_tbCargos_VW
@@ -254,11 +257,11 @@ SELECT	hora_ID,
 		hora_Destino,
 		dept2.dept_Descripcion AS hora_Destino_DeptoNombre,
 		hora_CantidadPasajeros,
+		hora_Precio,
 		hora_Estado,
 		hora_UsuarioCreador,
 		usr1.usua_Usuario AS hora_UsuarioCreador_Nombre,
 		hora_FechaCreacion,
-
 		hora_UsuarioModificador,
 		usr2.usua_Usuario AS hora_UsuarioModificador_Nombre,
 		hora_FechaModificacion
@@ -286,13 +289,14 @@ CREATE OR ALTER PROCEDURE term.UDP_tbHorarios_Create
 	@hora_FechaLlegada			DATETIME,
 	@hora_Origen				CHAR(2),
 	@hora_Destino				CHAR(2),
+	@hora_Precio				DECIMAL(18,2),
 	@hora_CantidadPasajeros		INT
 AS
 BEGIN
 	BEGIN TRY
 
-		INSERT INTO term.tbHorarios(hora_FechaSalida, hora_FechaLlegada, hora_Origen, hora_Destino, hora_CantidadPasajeros, hora_UsuarioCreador, hora_UsuarioModificador, hora_FechaModificacion)
-		VALUES(@hora_FechaSalida, @hora_FechaLlegada, @hora_Origen, @hora_Destino ,@hora_CantidadPasajeros, @hora_UsuarioCreador, NULL, NULL)								
+		INSERT INTO term.tbHorarios(hora_FechaSalida, hora_FechaLlegada, hora_Origen, hora_Destino, hora_Precio,hora_CantidadPasajeros, hora_UsuarioCreador, hora_UsuarioModificador, hora_FechaModificacion)
+		VALUES(@hora_FechaSalida, @hora_FechaLlegada, @hora_Origen, @hora_Destino, @hora_Precio ,@hora_CantidadPasajeros, @hora_UsuarioCreador, NULL, NULL)								
 		SELECT 1
 	END TRY
 	BEGIN CATCH
@@ -315,6 +319,7 @@ BEGIN
 		hora_Destino,
 		hora_Destino_DeptoNombre,
 		hora_CantidadPasajeros,
+		hora_Precio,
 		hora_Estado,
 		hora_UsuarioCreador,
 		hora_UsuarioCreador_Nombre,
@@ -335,6 +340,7 @@ CREATE OR ALTER PROCEDURE term.UDP_tbHorarios_Update
 	@hora_FechaLlegada			DATETIME,
 	@hora_Origen				CHAR(2),
 	@hora_Destino				CHAR(2),
+	@hora_Precio				DECIMAL(18,2),
 	@hora_CantidadPasajeros		INT
 AS
 BEGIN
@@ -342,7 +348,8 @@ BEGIN
 	SET		hora_FechaSalida = @hora_FechaSalida, 
 			hora_FechaLlegada = @hora_FechaLlegada, 
 			hora_Origen = @hora_Origen, 
-			hora_Destino = @hora_Destino, 
+			hora_Destino = @hora_Destino,
+			hora_Precio = @hora_Precio,
 			hora_CantidadPasajeros = @hora_CantidadPasajeros,
 			hora_UsuarioModificador = @hora_UsuarioModificador, 
 			hora_FechaModificacion = GETDATE()
@@ -549,7 +556,7 @@ AS
 			dept2.dept_Descripcion AS bole_hora_Destino_Nombre,
 			bole.pago_ID,
 			pago.pago_Descripcion,
-			bole_Precio,
+			hora.hora_Precio,
 			bole_Estado,
 			bole_UsuarioCreador,
 			usr1.usua_Usuario AS bole_UsuarioCreador_Nombre,
@@ -588,14 +595,13 @@ CREATE OR ALTER PROCEDURE term.UDP_tbBoletos_Create
 	@empl_ID				INT,
 	@clie_ID				INT,
 	@hora_ID				INT,
-	@pago_ID				INT,
-	@bole_Precio			NUMERIC(18,2)
+	@pago_ID				INT
 AS
 BEGIN 
 	BEGIN TRY
 		INSERT INTO term.tbBoletos (term_ID, comp_ID, empl_ID, clie_ID, hora_ID, pago_ID,
-					bole_Precio, bole_UsuarioCreador, bole_UsuarioModificador, bole_FechaModificacion)
-		VALUES (@term_ID, @comp_ID, @empl_ID, @clie_ID, @hora_ID, @pago_ID, @bole_Precio,
+					bole_UsuarioCreador, bole_UsuarioModificador, bole_FechaModificacion)
+		VALUES (@term_ID, @comp_ID, @empl_ID, @clie_ID, @hora_ID, @pago_ID,
 				@bole_UsuarioCreador, NULL, NULL)
 		SELECT 1
 	END TRY
@@ -639,7 +645,7 @@ BEGIN
 			bole_hora_Destino_Nombre,
 			pago_ID,
 			pago_Descripcion,
-			bole_Precio,
+			hora_Precio,
 			bole_Estado,
 			bole_UsuarioCreador,
 			bole_UsuarioCreador_Nombre,
@@ -662,8 +668,7 @@ CREATE OR ALTER PROCEDURE term.UDP_tbBoletos_Update
 	@empl_ID					INT,
 	@clie_ID					INT,
 	@hora_ID					INT,
-	@pago_ID					INT,
-	@bole_Precio				NUMERIC(18,2)
+	@pago_ID					INT
 AS
 BEGIN 
 	BEGIN TRY
@@ -674,7 +679,6 @@ BEGIN
 		clie_ID = @clie_ID, 
 		hora_ID = @hora_ID, 
 		pago_ID = @pago_ID,
-		bole_Precio = @bole_Precio,  
 		bole_UsuarioModificador = @bole_UsuarioModificador, 
 		bole_FechaModificacion = GETDATE()
 		WHERE bole_ID = @bole_ID

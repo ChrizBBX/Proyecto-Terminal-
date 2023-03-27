@@ -259,6 +259,7 @@ CREATE TABLE term.tbHorarios(
 	hora_Origen					CHAR(2),
 	hora_Destino				CHAR(2),
 	hora_CantidadPasajeros		INT,
+	hora_Precio					DECIMAL(18,2),
 	hora_Estado					INT DEFAULT 1,
 	hora_UsuarioCreador			INT,
 	hora_FechaCreacion			DATETIME DEFAULT GETDATE(),
@@ -283,7 +284,6 @@ CREATE TABLE term.tbBoletos(
 	clie_ID						INT,
 	hora_ID						INT,
 	pago_ID						INT,
-	bole_Precio					NUMERIC(18,2),
 	bole_Estado					INT DEFAULT 1,
 	bole_UsuarioCreador			INT,
 	bole_FechaCreacion			DATETIME DEFAULT GETDATE(),
@@ -299,6 +299,7 @@ CREATE TABLE term.tbBoletos(
 	CONSTRAINT FK_term_tbBoletos_gral_tbMetodosPago_pago_ID FOREIGN KEY (pago_ID) REFERENCES gral.tbMetodosPago (pago_ID),	
 )
 GO
+
 
 
 -- por mostrar en proyecto final 

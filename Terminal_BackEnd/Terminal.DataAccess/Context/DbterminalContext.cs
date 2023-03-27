@@ -42,7 +42,7 @@ namespace Terminal.DataAccess.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+            modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
 
             modelBuilder.Entity<VW_tbBoletos>(entity =>
             {
@@ -55,8 +55,6 @@ namespace Terminal.DataAccess.Context
                 entity.Property(e => e.bole_FechaCreacion).HasColumnType("datetime");
 
                 entity.Property(e => e.bole_FechaModificacion).HasColumnType("datetime");
-
-                entity.Property(e => e.bole_Precio).HasColumnType("numeric(18, 2)");
 
                 entity.Property(e => e.bole_UsuarioCreador_Nombre).HasMaxLength(100);
 
@@ -112,6 +110,8 @@ namespace Terminal.DataAccess.Context
                     .HasMaxLength(2)
                     .IsUnicode(false)
                     .IsFixedLength(true);
+
+                entity.Property(e => e.hora_Precio).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.pago_Descripcion).HasMaxLength(200);
 
@@ -211,6 +211,8 @@ namespace Terminal.DataAccess.Context
 
                 entity.Property(e => e.hora_Origen_DeptoNombre).HasMaxLength(200);
 
+                entity.Property(e => e.hora_Precio).HasColumnType("decimal(18, 2)");
+
                 entity.Property(e => e.hora_UsuarioCreador_Nombre).HasMaxLength(100);
 
                 entity.Property(e => e.hora_UsuarioModificador_Nombre).HasMaxLength(100);
@@ -271,8 +273,6 @@ namespace Terminal.DataAccess.Context
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.bole_FechaModificacion).HasColumnType("datetime");
-
-                entity.Property(e => e.bole_Precio).HasColumnType("numeric(18, 2)");
 
                 entity.HasOne(d => d.bole_UsuarioCreadorNavigation)
                     .WithMany(p => p.tbBoletosbole_UsuarioCreadorNavigation)
@@ -599,6 +599,8 @@ namespace Terminal.DataAccess.Context
                     .HasMaxLength(2)
                     .IsUnicode(false)
                     .IsFixedLength(true);
+
+                entity.Property(e => e.hora_Precio).HasColumnType("decimal(18, 2)");
 
                 entity.HasOne(d => d.hora_DestinoNavigation)
                     .WithMany(p => p.tbHorarioshora_DestinoNavigation)

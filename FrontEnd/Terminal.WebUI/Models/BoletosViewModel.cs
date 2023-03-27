@@ -66,6 +66,7 @@ namespace Terminal.WebUI.Models
         public string bole_empl_Nombre_Completo { get; set; }
 
         [Display(Name = "Cliente")]
+        [Required(ErrorMessage = "Campo '{0}' requerido")]
         public int? clie_ID { get; set; }
 
         [Display(Name = "Nombres")]
@@ -117,9 +118,7 @@ namespace Terminal.WebUI.Models
 
 
         [Display(Name = "Precio")]
-        [Required(ErrorMessage = "Campo '{0}' requerido")]
-        [RegularExpression("([0-9]+)", ErrorMessage = "Solo se aceptan numeros")]
-        public decimal? bole_Precio { get; set; }
+        public decimal? hora_Precio { get; set; }
 
         [Display(Name = "Estado")]
         public int? bole_Estado { get; set; }

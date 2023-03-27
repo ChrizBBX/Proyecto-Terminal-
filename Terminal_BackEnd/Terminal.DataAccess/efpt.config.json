@@ -94,7 +94,7 @@
          "ObjectType": 3
       }
    ],
-   "UiHint": "DESKTOP-115L2GI\\SQLEXPRESS.dbTerminal",
+   "UiHint": "DESKTOP-9N0AU71\\SERVIDORLOCAL.dbTerminal",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDbContextSplitting": false,
