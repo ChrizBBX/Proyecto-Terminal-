@@ -14,14 +14,19 @@ namespace Terminal.BusinessLogic.Services
         private readonly TerminalesRepository _terminalesRepository;
         private readonly HorariosRepository _horariosRepository;
         private readonly BoletosRepository _boletosRepository;
+        private readonly CompañiaRepository _compañiaRepository;
+        private readonly EmpleadoRepository _empleadoRepository;
 
-        public TerminalService(ClientesRepository clientesRepository, CargosRepository cargosRepository, TerminalesRepository terminalesRepository, HorariosRepository horariosRepository, BoletosRepository boletosRepository)
+        public TerminalService(ClientesRepository clientesRepository, CargosRepository cargosRepository, TerminalesRepository terminalesRepository, 
+            HorariosRepository horariosRepository, BoletosRepository boletosRepository, CompañiaRepository compañiaRepository, EmpleadoRepository empleadoRepository)
         {
             _clientesRepository = clientesRepository;
             _cargosRepository = cargosRepository;
             _terminalesRepository = terminalesRepository;
             _horariosRepository = horariosRepository;
             _boletosRepository = boletosRepository;
+            _compañiaRepository = compañiaRepository;
+            _empleadoRepository = empleadoRepository;
         }
 
         #region Clientes
@@ -429,6 +434,36 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
+        #endregion
+
+        #region Compañia
+        public IEnumerable<tbCompania> ListadoCompania()
+        {
+            try
+            {
+                return _compañiaRepository.List();
+            }
+            catch (Exception e)
+            {
+
+                return Enumerable.Empty<tbCompania>();
+            }
+        }
+        #endregion
+
+        #region Empleado
+        public IEnumerable<VW_tbEmpleados> ListadoEmpleado()
+        {
+            try
+            {
+                return _empleadoRepository.List();
+            }
+            catch (Exception e)
+            {
+
+                return Enumerable.Empty<VW_tbEmpleados>();
+            }
+        }
         #endregion
     }
 }

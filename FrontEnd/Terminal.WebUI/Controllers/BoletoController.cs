@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
@@ -43,11 +44,93 @@ namespace Terminal.WebUI.Controllers
 
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            //Llenar ddl de terminal
+            List<TerminalesViewModel> terminales = new List<TerminalesViewModel>();
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + "api/Terminal");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    terminales = JsonConvert.DeserializeObject<List<TerminalesViewModel>>(jsonResponse);
+                    ViewBag.term_Id = new SelectList(terminales, "term_ID", "term_Nombre"); 
+                }
+            }
+            //Fin Llenar ddl de tarminal
+
+
+            //Llenar ddl de Compañia
+            List<CompañiaViewModel> compania = new List<CompañiaViewModel>();
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + "api/Compania");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    compania = JsonConvert.DeserializeObject<List<CompañiaViewModel>>(jsonResponse);
+                    ViewBag.comp_Id = new SelectList(compania, "comp_ID", "comp_Nombre");
+                }
+                
+            }
+            //Fin llenar ddl de Compañia
+
+            //Llenar ddl de Empelado
+            List<EmpleadoViewModel> empleado = new List<EmpleadoViewModel>();
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + "api/Empleado");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    empleado = JsonConvert.DeserializeObject<List<EmpleadoViewModel>>(jsonResponse);
+                    ViewBag.empl_ID = new SelectList(empleado, "empl_ID", "empl_NombreCompleto");
+                }
+            }
+            //Fin Llenas ddl de empleado
+
+            //Llenar ddl de clientes 
+            List<ClientesModel> clientes = new List<ClientesModel>();
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + "api/Cliente");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    clientes = JsonConvert.DeserializeObject<List<ClientesModel>>(jsonResponse);
+                    ViewBag.clie_ID = new SelectList(clientes, "clie_ID", "clie_NombreCompleto");
+                }
+            }
+            //Fin llenar dll de clientes
+
+            //Llenar dll de Horarios
+            List<HorariosViewModel> horario = new List<HorariosViewModel>();
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + "api/Horario");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    horario = JsonConvert.DeserializeObject<List<HorariosViewModel>>(jsonResponse);
+                    ViewBag.hora_ID = new SelectList(horario, "hora_ID", "horario");
+                }
+         
+            }
+            //Fin llenar dll de horarios
             return View();
         }
-
+  
 
         public async Task<IActionResult> Create(BoletosViewModel boletosViewModel)
         {

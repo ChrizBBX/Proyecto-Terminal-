@@ -17,6 +17,8 @@ namespace Terminal.BusinessLogic
             service.AddScoped<TerminalesRepository>();
             service.AddScoped<HorariosRepository>();
             service.AddScoped<BoletosRepository>();
+            service.AddScoped<CompañiaRepository>();
+            service.AddScoped<EmpleadoRepository>();
 
             TerminalContext.BuildConnectionString(connectionString);
         }

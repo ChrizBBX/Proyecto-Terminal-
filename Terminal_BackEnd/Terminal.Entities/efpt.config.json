@@ -86,6 +86,10 @@
          "ObjectType": 3
       },
       {
+         "Name": "[term].[VW_tbEmpleados]",
+         "ObjectType": 3
+      },
+      {
          "Name": "[term].[VW_tbHorarios]",
          "ObjectType": 3
       },
@@ -94,7 +98,7 @@
          "ObjectType": 3
       }
    ],
-   "UiHint": "DESKTOP-115L2GI\\SQLEXPRESS.dbTerminal",
+   "UiHint": "DESKTOP-E6OAL4S\\SERVIDORLOCALDM.dbTerminal",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDbContextSplitting": false,

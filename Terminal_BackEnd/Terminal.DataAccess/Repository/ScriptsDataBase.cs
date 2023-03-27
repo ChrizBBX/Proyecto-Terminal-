@@ -57,5 +57,13 @@ namespace Terminal.DataAccess.Repository
         public static string UDP_CargarMunicipio_Load = "gral.UDP_CargarMunicipio_Load";
 
         #endregion
+
+        #region Compañia
+        public static string UDP_Compañia_Select = "term.UDP_tbCompania_List";
+        #endregion
+
+        #region Empleado
+        public static string UDP_EmpleadoSelect = "term.UDP_tbEmpleado_List";
+        #endregion
     }
 }

@@ -29,7 +29,7 @@ namespace Terminal.WebUI.Models
         public string term_DireccionExacta { get; set; }
 
 
-        [Display(Name = "Boleto")]
+        [Display(Name = "Compañia")]
         [Required(ErrorMessage = "Campo '{0}' requerido")]
         public int? comp_ID { get; set; }
 

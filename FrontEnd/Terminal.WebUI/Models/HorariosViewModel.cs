@@ -23,7 +23,9 @@ namespace Terminal.WebUI.Models
         [DataType(DataType.DateTime)]
         public DateTime? hora_FechaLlegada { get; set; }
 
-
+        [Display(Name = "Viaje")]
+        [Required(ErrorMessage = "Campo '{0}' requerido")]
+        public string horario { get; set; }
         [Display(Name = "Orígen")]
         [Required(ErrorMessage = "Campo '{0}' requerido")]
         public string hora_Origen { get; set; }
