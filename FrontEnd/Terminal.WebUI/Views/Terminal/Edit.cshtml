@@ -5,70 +5,120 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<div class="wrapper wrapper-content">
+    <div class="container container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="float-e-margins">
+                    <form asp-action="Create" id="formCrear">
+                        @Html.AntiForgeryToken()
 
-<h4>TerminalesViewModel</h4>
-<hr />
+                        <div class="card">
+                            <div class="card-header text-center bg-cyan-400">
+                                <div class="row">
+                                    <div class="col-4"></div>
+                                    <div class="col-4">
+                                        <strong><span style="font-family: Cooper; color: indigo; font-size: xx-large;">Terminales</span></strong>
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<form asp-action="Edit">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <input asp-for="term_ID" hidden="hidden" class="form-control" />
+                                <div class="card">
+                                    <!--<div class="card-header text-center bg-cyan-400">
+                                        <div class="row">
+                                            <div class="col-4">
+
+                                            </div>
+                                            <div class="col-4" style="margin-top: 10px">
+                                                <strong><span style="font-family: Cooper; color: black; font-size: xx-large;">Editar terminal</span></strong>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="text-end">-->
+                                                    @*<img src="https://i.gifer.com/3sf.gif" style="border-radius:100px;border:3px solid black; width:50%">*@
+                                                <!--</div>
+                                            </div>
+                                        </div>
+                                    </div>-->
+
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <input asp-for="term_ID" type="hidden" class="form-control" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <strong><label asp-for="dept_ID" class="control-label text-dark" style="font-size:  larger;"></label></strong>
+                                                    <select asp-for="dept_ID" id="dept_ID" class="form-control" asp-items="ViewBag.dept_Id" style="border-color: #1C1F3B; color: #000000;">
+                                                        <option value=""> -- Seleccione un Departamento -- </option>
+                                                    </select>
+                                                    <strong><span class="text-danger">@Html.ValidationMessage("ValidacionDepartamento") </span></strong>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <strong><label asp-for="muni_ID" class="control-label text-dark" style="font-size:  larger;"></label></strong>
+                                                    <select asp-for="muni_ID" class="form-control" asp-items="ViewBag.muni_ID" style="border-color: #1C1F3B; color: #000000;"></select>
+                                                    <strong><span asp-validation-for="muni_ID" class="text-danger"></span></strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <strong><label asp-for="term_Nombre" class="control-label text-dark" style="font-size:  larger;"></label></strong>
+                                                    <input asp-for="term_Nombre" class="form-control" style="border-color: #1C1F3B; color: #000000;"/>
+                                                    <strong><span asp-validation-for="term_Nombre" class="text-danger"></span></strong>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <strong><label asp-for="term_DireccionExacta" class="control-label text-dark" style="font-size:  larger;"></label></strong>
+                                                    <input asp-for="term_DireccionExacta" class="form-control" style="border-color: #1C1F3B; color: #000000;"/>
+                                                    <strong><span asp-validation-for="term_DireccionExacta" class="text-danger"></span></strong>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <strong><label asp-for="term_CantidadTransportes" class="control-label text-dark" style="font-size:  larger;"></label></strong>
+                                                    <input asp-for="term_CantidadTransportes" class="form-control" style="border-color: #1C1F3B; color: #000000;"/>
+                                                    <strong><span asp-validation-for="term_CantidadTransportes" class="text-danger"></span></strong>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row">
+                                            <div class="col-8"></div>
+                                            <div class="col-2">
+                                                <input type="submit" value="Confirmar Envio" class="btn btn-outline-success" />
+                                            </div>
+                                            <div class="col-2">
+                                                <a asp-action="Index" class="btn btn-outline-danger">Cancelar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label class="control-label">Departamentos</label>
-                <select asp-for="dept_ID" id="dept_ID" class="form-control" asp-items="ViewBag.dept_Id">
-                    <option value=""> -- Seleccione un Departamento -- </option>
-                </select>
-                <h7 style="color:red">@Html.ValidationMessage("ValidacionDepartamento") </h7>
-            </div>
-        </div>
 
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label asp-for="muni_ID" class="control-label"></label>
-                @*<input asp-for="muni_ID" class="form-control" hidden="hidden"/>*@
-
-                <select asp-for="muni_ID" class="form-control" asp-items="ViewBag.muni_ID"></select>
-
-                <span asp-validation-for="muni_ID" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label asp-for="term_Nombre" class="control-label"></label>
-                <input asp-for="term_Nombre" class="form-control" />
-                <span asp-validation-for="term_Nombre" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label asp-for="term_DireccionExacta" class="control-label"></label>
-                <input asp-for="term_DireccionExacta" class="form-control" />
-                <span asp-validation-for="term_DireccionExacta" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label asp-for="term_CantidadTransportes" class="control-label"></label>
-                <input asp-for="term_CantidadTransportes" class="form-control" />
-                <span asp-validation-for="term_CantidadTransportes" class="text-danger"></span>
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Crear" class="btn btn-primary" />
-        <a class="btn btn-danger" asp-action="Index">Cancelar</a>
-    </div>
-</form>
-
-<script></script>
 <script>
-
-
 
     $(document).ready(function () {
 

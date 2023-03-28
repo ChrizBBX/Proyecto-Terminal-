@@ -1,7 +1,7 @@
-﻿@model Terminal.WebUI.Models.CargosViewModel
+﻿@model Terminal.WebUI.Models.HorariosViewModel
 
 <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <form method="post" asp-controller="Cargo" asp-action="Delete">
+    <form method="post" asp-controller="Horario" asp-action="Delete">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -18,9 +18,9 @@
                 </div>
                 <div class="modal-footer">
                     <div class="row">
-                        <div class="col-6"></div>
-                        <div class="col-3"><button type="submit" class="btn btn-success">Confirmar</button></div>
-                        <div class="col-3"><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button></div>
+                        <div class="col-2"></div>
+                        <div class="col-5"><button type="submit" class="btn btn-success">Confirmar</button></div>
+                        <div class="col-4"><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button></div>
                     </div>
                 </div>
             </div>
@@ -29,13 +29,13 @@
 </div>
 
 <script>
-
     function eliminar(id) {
 
         $("#id").val(id);
 
         $("#modalDelete").appendTo("body").modal('show');
-
+        $('#modalDelete').modal({
+            keyboard: false,
+        });
     }
 </script>
-
