@@ -27,16 +27,11 @@
                             <thead class="bg-teal-400">
                                 <tr class="text-dark">
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.bole_ID)</th>
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.bole_Fecha)</th>
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.term_Nombre)</th>
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.comp_Nombre)</th>
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.bole_clie_Nombre_Completo)</th>
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.hora_FechaSalida)</th>
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.bole_hora_Origen_Nombre)</th>
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.hora_FechaLlegada)</th>
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.bole_hora_Destino_Nombre)</th>
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.pago_Descripcion)</th>
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.hora_Precio)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.bole_Fecha)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.comp_Nombre)</th>
                                     <th class="text-dark">Acciones</th>
                                 </tr>
                             </thead>
@@ -45,20 +40,15 @@
                                 {
                                     <tr role="row" data-id="@item.bole_ID" class="text-dark align-text-bottom">
                                         <td>@Html.DisplayFor(modelItem => item.bole_ID)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.bole_Fecha)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.term_Nombre)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.comp_Nombre)</td>
                                         <td>@Html.DisplayFor(modelItem => item.bole_clie_Nombre_Completo)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.hora_FechaSalida)</td>
                                         <td>@Html.DisplayFor(modelItem => item.bole_hora_Origen_Nombre)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.hora_FechaLlegada)</td>
                                         <td>@Html.DisplayFor(modelItem => item.bole_hora_Destino_Nombre)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.pago_Descripcion)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.hora_Precio)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.bole_Fecha)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.comp_Nombre)</td>
                                         <td>
                                             <a asp-action="Edit" asp-route-id="@item.bole_ID" class="btn btn-outline-warning">Editar</a>
-                                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                                            <a asp-action="Delete" asp-route-id="@item.bole_ID" class="btn btn-outline-danger">Delete</a>
+                                            <a asp-action="Details" asp-route-id="@item.bole_ID" class="btn btn-outline-dark">Detalles</a> |
+                                            <button class="btn btn-outline-danger" id="btnEliminar" onclick="eliminar('@item.bole_ID')">Eliminar</button>
                                         </td>
                                     </tr>
                                 }
@@ -66,16 +56,11 @@
                             <tfoot class="bg-teal-400">
                                 <tr class="text-dark">
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.bole_ID)</th>
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.bole_Fecha)</th>
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.term_Nombre)</th>
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.comp_Nombre)</th>
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.bole_clie_Nombre_Completo)</th>
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.hora_FechaSalida)</th>
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.bole_hora_Origen_Nombre)</th>
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.hora_FechaLlegada)</th>
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.bole_hora_Destino_Nombre)</th>
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.pago_Descripcion)</th>
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.hora_Precio)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.bole_Fecha)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.comp_Nombre)</th>
                                     <th class="text-dark">Acciones</th>
                                 </tr>
                             </tfoot>
@@ -86,3 +71,5 @@
         </div>
     </div>
 </div>
+
+@Html.Partial("_Modal_Delete", new Terminal.WebUI.Models.BoletosViewModel())
