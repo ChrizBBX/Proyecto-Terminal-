@@ -246,7 +246,7 @@ GO
 
 
 /*###############  tbHorarios  ###############*/
-
+/*Vista*/
 CREATE OR ALTER VIEW term.VW_tbHorarios
 AS
 SELECT	hora_ID,
@@ -256,6 +256,7 @@ SELECT	hora_ID,
 		dept1.dept_Descripcion AS hora_Origen_DeptoNombre,
 		hora_Destino,
 		dept2.dept_Descripcion AS hora_Destino_DeptoNombre,
+		CONCAT(hora_FechaSalida, ' / ' , dept2.dept_Descripcion ) AS horario,
 		hora_CantidadPasajeros,
 		hora_Precio,
 		hora_Estado,
@@ -366,8 +367,6 @@ BEGIN
 	WHERE hora_ID = @hora_ID 
 END
 GO
-
-
 
 
 
@@ -779,3 +778,43 @@ BEGIN
 SELECT * FROM gral.VW_graficaSexo
 		
 END 
+/*###############  tbCompa�ia ###############*/
+GO
+CREATE OR ALTER PROCEDURE term.UDP_tbCompania_List
+AS
+BEGIN
+SELECT * FROM term.tbCompania WHERE comp_Estado = 1 
+END
+
+/*###############  tbEmpleados ###############*/
+/*Empleados Vista*/
+GO
+CREATE OR ALTER VIEW term.VW_tbEmpleados
+AS
+SELECT empl_ID, 
+empl_PrimerNombre, 
+empl_SegundoNombre, 
+empl_PrimerApellido, 
+empl_SegundoApellido, 
+CONCAT(empl_PrimerNombre, ' ' ,empl_PrimerApellido) AS empl_NombreCompleto, 
+empl_DNI, 
+empl_FechaNacimiento, 
+empl_Sexo, 
+empl_Telefono, 
+carg_ID, 
+estciv_ID, 
+muni_ID, 
+empl_Estado, 
+empl_UsuarioCreador, 
+empl_FechaCreacion, 
+empl_UsuarioModificador, 
+empl_FechaModificacion
+FROM term.tbEmpleados
+
+/*Empleados Vista UDP*/
+GO
+CREATE OR ALTER PROCEDURE term.UDP_tbEmpleado_List
+AS
+BEGIN
+SELECT * FROM term.VW_tbEmpleados WHERE empl_Estado = 1
+END

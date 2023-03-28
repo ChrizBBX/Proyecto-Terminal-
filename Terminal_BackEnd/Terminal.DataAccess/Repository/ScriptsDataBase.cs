@@ -63,6 +63,12 @@ namespace Terminal.DataAccess.Repository
         public static string UDP_GraficaViajes_Load = "gral.UDP_GraficaViajes_Load";
         public static string UDP_GraficaSexo_Load = "gral.UDP_GraficaSexo_Load";
 
+        #region Compañia
+        public static string UDP_Compañia_Select = "term.UDP_tbCompania_List";
+        #endregion
+
+        #region Empleado
+        public static string UDP_EmpleadoSelect = "term.UDP_tbEmpleado_List";
         #endregion
     }
 }
