@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
@@ -44,13 +45,26 @@ namespace Terminal.WebUI.Controllers
 
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            using (var httpClient = new HttpClient())
+            {
+                var depa = await httpClient.GetAsync(_baseurl + "api/Terminal/LoadDepartamento");
+
+                if (depa.IsSuccessStatusCode)
+                {
+
+                    var content = await depa.Content.ReadAsStringAsync();
+                    var departamentos = JsonConvert.DeserializeObject<List<DepartamentoViewModel>>(content);
+                    ViewBag.departamento = new SelectList(departamentos, "dept_ID", "dept_Descripcion");
+                }
+            }
             return View();
         }
 
 
         public async Task<IActionResult> Create(HorariosViewModel horarios)
+        
         {
             if (ModelState.IsValid)
             {
@@ -71,13 +85,38 @@ namespace Terminal.WebUI.Controllers
             }
             else
             {
+                using (var httpClient = new HttpClient())
+                {
+                    var depa = await httpClient.GetAsync(_baseurl + "api/Terminal/LoadDepartamento");
+
+                    if (depa.IsSuccessStatusCode)
+                    {
+
+                        var content = await depa.Content.ReadAsStringAsync();
+                        var departamentos = JsonConvert.DeserializeObject<List<DepartamentoViewModel>>(content);
+                        ViewBag.departamento = new SelectList(departamentos, "dept_ID", "dept_Descripcion");
+                    }
+                }
                 return View();
             }
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+            using (var httpClient = new HttpClient())
+            {
+                var depa = await httpClient.GetAsync(_baseurl + "api/Terminal/LoadDepartamento");
+
+                if (depa.IsSuccessStatusCode)
+                {
+
+                    var content = await depa.Content.ReadAsStringAsync();
+                    var departamentos = JsonConvert.DeserializeObject<List<DepartamentoViewModel>>(content);
+                    ViewBag.departamento = new SelectList(departamentos, "dept_ID", "dept_Descripcion");
+                }
+            }
+
             using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.GetAsync(_baseurl + $"api/Horario/Horario/Find/{id}");
@@ -95,8 +134,8 @@ namespace Terminal.WebUI.Controllers
             }
         }
 
-
-        public async Task<IActionResult> Update(HorariosViewModel horarios)
+        [HttpPost]
+        public async Task<IActionResult> Edit(HorariosViewModel horarios)
         {
             if (ModelState.IsValid)
             {
@@ -138,5 +177,6 @@ namespace Terminal.WebUI.Controllers
                 }
             }
         }
+
     }
 }

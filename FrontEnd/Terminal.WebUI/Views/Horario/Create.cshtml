@@ -40,58 +40,44 @@
                                     <div class="card-body">
 
                                         <div class="row">
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="hora_FechaSalida" class="control-label text-dark"></label></strong>                                                    
-                                                    <input asp-for="hora_FechaSalida" class="form-control" />
-                                                    <strong>
-                                                        <span asp-validation-for="hora_FechaSalida" class="text-danger"></span>
-                                                    </strong>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="hora_FechaLlegada" class="control-label text-dark"></label></strong>                      
-                                                    <input asp-for="hora_FechaLlegada" class="form-control" />
-                                                    <strong><span asp-validation-for="hora_FechaLlegada" class="text-danger"></span></strong>                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="hora_Origen" class="control-label text-dark"></label></strong>                                                    
-                                                    <input asp-for="hora_Origen" class="form-control" />
-                                                    <strong><span asp-validation-for="hora_Origen" class="text-danger"></span></strong>                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="hora_Destino" class="control-label text-dark"></label></strong>                                                    
-                                                    <input asp-for="hora_Destino" class="form-control" />
-                                                    <strong><span asp-validation-for="hora_Destino" class="text-danger"></span></strong>                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="hora_CantidadPasajeros" class="control-label text-dark"></label></strong>
-                                                    <input asp-for="hora_CantidadPasajeros" class="form-control" />
-                                                    <strong><span asp-validation-for="hora_CantidadPasajeros" class="text-danger"></span></strong>                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="hora_Precio" class="control-label text-dark"></label></strong>                                                    
-                                                    <input asp-for="hora_Precio" class="form-control" />
-                                                    <strong><span asp-validation-for="hora_Precio" class="text-danger"></span></strong>                                                    
-                                                </div>
-                                            </div>
-                                        </div>
 
+                                            <div class="form-group col-6">
+                                                <strong><label asp-for="hora_Salida" class="control-label text-dark"></label></strong>
+                                                <input asp-for="hora_Salida" class="form-control" />
+                                                <strong>
+                                                    <span asp-validation-for="hora_Salida" class="text-danger"></span>
+                                                </strong>
+                                            </div>
+
+                                            <div class="form-group col-6">
+                                                <strong><label asp-for="hora_Llegada" class="control-label text-dark"></label></strong>
+                                                <input asp-for="hora_Llegada" class="form-control" />
+                                                <strong><span asp-validation-for="hora_Llegada" class="text-danger"></span></strong>
+                                            </div>
+
+                                            <div class="form-group col-6 mt-3">
+                                                <strong><label asp-for="hora_Origen" class="control-label text-dark"></label></strong>
+                                                <select class="form-control" asp-for="hora_Origen" asp-items="ViewBag.departamento"><option value="">--Seleccione una opcion--</option></select>
+                                                <strong><span asp-validation-for="hora_Origen" class="text-danger"></span></strong>
+                                            </div>
+
+
+                                            <div class="form-group col-6 mt-3">
+                                                <strong><label asp-for="hora_Destino" class="control-label text-dark"></label></strong>
+                                                <select class="form-control" asp-for="hora_Destino" asp-items="ViewBag.departamento"><option value="">--Seleccione una opcion--</option></select>
+                                                <strong><span asp-validation-for="hora_Destino" class="text-danger"></span></strong>
+                                            </div>
+                                            <div class="form-group col-6 mt-3">
+                                                <strong><label asp-for="hora_CantidadPasajerosMax" class="control-label text-dark"></label></strong>
+                                                <input asp-for="hora_CantidadPasajerosMax" class="form-control" />
+                                                <strong><span asp-validation-for="hora_CantidadPasajerosMax" class="text-danger"></span></strong>
+                                            </div>
+                                            <div class="form-group col-6 mt-3">
+                                                <strong><label asp-for="hora_Precio" class="control-label text-dark"></label></strong>
+                                                <input asp-for="hora_Precio" class="form-control" />
+                                                <strong><span asp-validation-for="hora_Precio" class="text-danger"></span></strong>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="card-footer">
                                         <div class="row">

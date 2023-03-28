@@ -28,10 +28,10 @@ namespace Terminal.Entities.Entities
         public string bole_clie_Nombre_Completo { get; set; }
         public string clie_Sexo { get; set; }
         public int? hora_ID { get; set; }
-        public DateTime? hora_FechaSalida { get; set; }
+        public DateTime? hora_Salida { get; set; }
         public string hora_Origen { get; set; }
         public string bole_hora_Origen_Nombre { get; set; }
-        public DateTime? hora_FechaLlegada { get; set; }
+        public DateTime? hora_Llegada { get; set; }
         public string hora_Destino { get; set; }
         public string bole_hora_Destino_Nombre { get; set; }
         public int? pago_ID { get; set; }

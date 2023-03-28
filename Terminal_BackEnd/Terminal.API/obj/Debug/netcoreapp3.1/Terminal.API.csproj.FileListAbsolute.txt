@@ -752,3 +752,4 @@ C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\Terminal_BackEnd
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\Terminal_BackEnd\Terminal.API\obj\Debug\netcoreapp3.1\Terminal.API.dll
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\Terminal_BackEnd\Terminal.API\obj\Debug\netcoreapp3.1\Terminal.API.pdb
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\Terminal_BackEnd\Terminal.API\obj\Debug\netcoreapp3.1\Terminal.API.genruntimeconfig.cache
+C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\Terminal_BackEnd\Terminal.API\obj\Debug\netcoreapp3.1\Terminal.API.MvcApplicationPartsAssemblyInfo.cs

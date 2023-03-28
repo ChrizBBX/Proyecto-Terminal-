@@ -24,6 +24,7 @@ namespace Terminal.DataAccess.Context
         public virtual DbSet<VW_tbBoletos> VW_tbBoletos { get; set; }
         public virtual DbSet<VW_tbCargos> VW_tbCargos { get; set; }
         public virtual DbSet<VW_tbClientes> VW_tbClientes { get; set; }
+        public virtual DbSet<VW_tbEmpleados> VW_tbEmpleados { get; set; }
         public virtual DbSet<VW_tbHorarios> VW_tbHorarios { get; set; }
         public virtual DbSet<VW_tbTerminales> VW_tbTerminales { get; set; }
         public virtual DbSet<tbBoletos> tbBoletos { get; set; }
@@ -74,7 +75,6 @@ namespace Terminal.DataAccess.Context
 
                 entity.Property(e => e.bole_FechaModificacion).HasColumnType("datetime");
 
-
                 entity.Property(e => e.bole_UsuarioCreador_Nombre).HasMaxLength(100);
 
                 entity.Property(e => e.bole_UsuarioModificador_Nombre).HasMaxLength(100);
@@ -121,14 +121,12 @@ namespace Terminal.DataAccess.Context
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
-                entity.Property(e => e.hora_FechaLlegada).HasColumnType("datetime");
-
-                entity.Property(e => e.hora_FechaSalida).HasColumnType("datetime");
-
                 entity.Property(e => e.hora_Origen)
                     .HasMaxLength(2)
                     .IsUnicode(false)
                     .IsFixedLength(true);
+
+                entity.Property(e => e.hora_Precio).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.pago_Descripcion).HasMaxLength(200);
 
@@ -200,6 +198,53 @@ namespace Terminal.DataAccess.Context
                 entity.Property(e => e.clie_UsuarioModificador_Nombre).HasMaxLength(100);
             });
 
+            modelBuilder.Entity<VW_tbEmpleados>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VW_tbEmpleados", "term");
+
+                entity.Property(e => e.empl_DNI)
+                    .HasMaxLength(13)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.empl_FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.empl_FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.empl_FechaNacimiento).HasColumnType("date");
+
+                entity.Property(e => e.empl_ID).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.empl_NombreCompleto)
+                    .IsRequired()
+                    .HasMaxLength(201);
+
+                entity.Property(e => e.empl_PrimerApellido).HasMaxLength(100);
+
+                entity.Property(e => e.empl_PrimerNombre).HasMaxLength(100);
+
+                entity.Property(e => e.empl_SegundoApellido).HasMaxLength(100);
+
+                entity.Property(e => e.empl_SegundoNombre).HasMaxLength(100);
+
+                entity.Property(e => e.empl_Sexo)
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.empl_Telefono)
+                    .HasMaxLength(8)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.muni_ID)
+                    .HasMaxLength(4)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+            });
+
             modelBuilder.Entity<VW_tbHorarios>(entity =>
             {
                 entity.HasNoKey();
@@ -215,11 +260,7 @@ namespace Terminal.DataAccess.Context
 
                 entity.Property(e => e.hora_FechaCreacion).HasColumnType("datetime");
 
-                entity.Property(e => e.hora_FechaLlegada).HasColumnType("datetime");
-
                 entity.Property(e => e.hora_FechaModificacion).HasColumnType("datetime");
-
-                entity.Property(e => e.hora_FechaSalida).HasColumnType("datetime");
 
                 entity.Property(e => e.hora_Origen)
                     .HasMaxLength(2)
@@ -231,6 +272,10 @@ namespace Terminal.DataAccess.Context
                 entity.Property(e => e.hora_UsuarioCreador_Nombre).HasMaxLength(100);
 
                 entity.Property(e => e.hora_UsuarioModificador_Nombre).HasMaxLength(100);
+
+                entity.Property(e => e.horario)
+                    .IsRequired()
+                    .HasMaxLength(243);
             });
 
             modelBuilder.Entity<VW_tbTerminales>(entity =>
@@ -288,7 +333,6 @@ namespace Terminal.DataAccess.Context
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.bole_FechaModificacion).HasColumnType("datetime");
-
 
                 entity.HasOne(d => d.bole_UsuarioCreadorNavigation)
                     .WithMany(p => p.tbBoletosbole_UsuarioCreadorNavigation)
@@ -605,16 +649,14 @@ namespace Terminal.DataAccess.Context
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.hora_FechaLlegada).HasColumnType("datetime");
-
                 entity.Property(e => e.hora_FechaModificacion).HasColumnType("datetime");
-
-                entity.Property(e => e.hora_FechaSalida).HasColumnType("datetime");
 
                 entity.Property(e => e.hora_Origen)
                     .HasMaxLength(2)
                     .IsUnicode(false)
                     .IsFixedLength(true);
+
+                entity.Property(e => e.hora_Precio).HasColumnType("decimal(18, 2)");
 
                 entity.HasOne(d => d.hora_DestinoNavigation)
                     .WithMany(p => p.tbHorarioshora_DestinoNavigation)

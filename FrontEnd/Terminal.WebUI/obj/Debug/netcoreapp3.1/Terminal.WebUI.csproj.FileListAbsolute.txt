@@ -304,7 +304,6 @@ C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Termina
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Terminal.WebUI.csproj.AssemblyReference.cache
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Terminal.WebUI.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Terminal.WebUI.AssemblyInfoInputs.cache
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Terminal.WebUI.AssemblyInfo.cs
@@ -623,3 +622,4 @@ C:\Users\daniz\OneDrive\Documentos\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\ob
 C:\Users\daniz\OneDrive\Documentos\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Terminal.WebUI.genruntimeconfig.cache
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Boleto\_Modal_Delete.cshtml.g.cs
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Cliente\_Modal_Delete.cshtml.g.cs
+C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Terminal.WebUI.csproj.AssemblyReference.cache

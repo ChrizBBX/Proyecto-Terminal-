@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="float-e-margins">
-                    <form asp-action="Update" id="formEditar">
+                    <form asp-action="Edit" id="formEditar">
                         @Html.AntiForgeryToken()
 
                         <div class="card">
@@ -37,63 +37,48 @@
                                     </div>
 
                                     <div class="card-body">
+                                        <div class="form-group">
+                                            <input type="hidden" asp-for="hora_ID" class="form-control" />
+                                        </div>
+                                        <div class="row">
 
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <input type="hidden" asp-for="hora_ID" class="form-control" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <strong><label asp-for="hora_FechaSalida" class="control-label text-dark"></label></strong>
-                                                    <input asp-for="hora_FechaSalida" class="form-control" />
-                                                    <strong>
-                                                        <span asp-validation-for="hora_FechaSalida" class="text-danger"></span>
-                                                    </strong>
-                                                </div>
+                                            <div class="form-group col-6">
+                                                <strong><label asp-for="hora_Salida" class="control-label text-dark"></label></strong>
+                                                <input asp-for="hora_Salida" class="form-control" />
+                                                <strong>
+                                                    <span asp-validation-for="hora_Salida" class="text-danger"></span>
+                                                </strong>
                                             </div>
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="hora_FechaLlegada" class="control-label text-dark"></label></strong>
-                                                    <input asp-for="hora_FechaLlegada" class="form-control" />
-                                                    <strong><span asp-validation-for="hora_FechaLlegada" class="text-danger"></span></strong>
-                                                </div>
+
+                                            <div class="form-group col-6">
+                                                <strong><label asp-for="hora_Llegada" class="control-label text-dark"></label></strong>
+                                                <input asp-for="hora_Llegada" class="form-control" />
+                                                <strong><span asp-validation-for="hora_Llegada" class="text-danger"></span></strong>
                                             </div>
-                                        </div>
-                                        <br />
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="hora_Origen" class="control-label text-dark"></label></strong>
-                                                    <input asp-for="hora_Origen" class="form-control" />
-                                                    <strong><span asp-validation-for="hora_Origen" class="text-danger"></span></strong>
-                                                </div>
+
+                                            <div class="form-group col-6 mt-3">
+                                                <strong><label asp-for="hora_Origen" class="control-label text-dark"></label></strong>
+                                                <select class="form-control" asp-for="hora_Origen" asp-items="ViewBag.departamento"><option value="">--Seleccione una opcion--</option></select>
+                                                <strong><span asp-validation-for="hora_Origen" class="text-danger"></span></strong>
                                             </div>
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="hora_Destino" class="control-label text-dark"></label></strong>
-                                                    <input asp-for="hora_Destino" class="form-control" />
-                                                    <strong><span asp-validation-for="hora_Destino" class="text-danger"></span></strong>
-                                                </div>
+
+
+                                            <div class="form-group col-6 mt-3">
+                                                <strong><label asp-for="hora_Destino" class="control-label text-dark"></label></strong>
+                                                <select class="form-control" asp-for="hora_Destino" asp-items="ViewBag.departamento"><option value="">--Seleccione una opcion--</option></select>
+                                                <strong><span asp-validation-for="hora_Destino" class="text-danger"></span></strong>
                                             </div>
-                                        </div>
-                                        <br />
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="hora_CantidadPasajeros" class="control-label text-dark"></label></strong>
-                                                    <input asp-for="hora_CantidadPasajeros" class="form-control" />
-                                                    <strong><span asp-validation-for="hora_CantidadPasajeros" class="text-danger"></span></strong>
-                                                </div>
+                                            <div class="form-group col-6 mt-3">
+                                                <strong><label asp-for="hora_CantidadPasajerosMax" class="control-label text-dark"></label></strong>
+                                                <input asp-for="hora_CantidadPasajerosMax" class="form-control" />
+                                                <strong><span asp-validation-for="hora_CantidadPasajerosMax" class="text-danger"></span></strong>
                                             </div>
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="hora_Precio" class="control-label text-dark"></label></strong>
-                                                    <input asp-for="hora_Precio" class="form-control" />
-                                                    <strong><span asp-validation-for="hora_Precio" class="text-danger"></span></strong>
-                                                </div>
+                                            <div class="form-group col-6 mt-3">
+                                                <strong><label asp-for="hora_Precio" class="control-label text-dark"></label></strong>
+                                                <input asp-for="hora_Precio" class="form-control" />
+                                                <strong><span asp-validation-for="hora_Precio" class="text-danger"></span></strong>
                                             </div>
                                         </div>
-                                    </div>
                                     <div class="card-footer bg-indigo-500">
                                         <div class="row">
                                             <div class="col-8"></div>
@@ -107,6 +92,7 @@
                                     </div>
                                 </div>
                             </div>
+                                </div>
                             <div class="card-footer">
 
                             </div>
@@ -118,3 +104,15 @@
     </div>
 </div>
 
+<script>
+    $('#hora_Precio').on('input', function () {
+        var c = this.selectionStart,
+            r = /[^0-9,]/gi,
+            v = $(this).val();
+        if (r.test(v)) {
+            $(this).val(v.replace(r, ''));
+            c--;
+        }
+        this.setSelectionRange(c, c);
+    });
+</script>

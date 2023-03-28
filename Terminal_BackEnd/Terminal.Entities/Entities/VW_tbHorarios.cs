@@ -9,15 +9,15 @@ namespace Terminal.Entities.Entities
     public partial class VW_tbHorarios
     {
         public int hora_ID { get; set; }
-        public DateTime? hora_FechaSalida { get; set; }
-        public DateTime? hora_FechaLlegada { get; set; }
+        public DateTime? hora_Salida { get; set; }
+        public DateTime? hora_Llegada { get; set; }
         public string hora_Origen { get; set; }
         public string hora_Origen_DeptoNombre { get; set; }
         public string hora_Destino { get; set; }
         public string hora_Destino_DeptoNombre { get; set; }
         public string horario { get; set; }
-        public int? hora_CantidadPasajeros { get; set; }
-        public decimal? hora_Precio { get; set; }
+        public int? hora_CantidadPasajerosMax { get; set; }
+        public int? hora_Precio { get; set; }
         public int? hora_Estado { get; set; }
         public int? hora_UsuarioCreador { get; set; }
         public string hora_UsuarioCreador_Nombre { get; set; }

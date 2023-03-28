@@ -250,15 +250,16 @@ GO
 CREATE OR ALTER VIEW term.VW_tbHorarios
 AS
 SELECT	hora_ID,
-		hora_FechaSalida,
-		hora_FechaLlegada,
+		hora_Salida,
+		hora_Llegada,
 		hora_Origen,
 		dept1.dept_Descripcion AS hora_Origen_DeptoNombre,
 		hora_Destino,
 		dept2.dept_Descripcion AS hora_Destino_DeptoNombre,
-		CONCAT(hora_FechaSalida, ' / ' , dept2.dept_Descripcion ) AS horario,
-		hora_CantidadPasajeros,
-		hora_Precio,
+		CONCAT(hora_Salida, ' / ' , dept2.dept_Descripcion ) AS horario,
+		hora_CantidadPasajerosMax,
+		hora_CantidadPasajerosActual,
+		hora.hora_Precio,
 		hora_Estado,
 		hora_UsuarioCreador,
 		usr1.usua_Usuario AS hora_UsuarioCreador_Nombre,
@@ -286,18 +287,18 @@ GO
 --------> CREATE
 CREATE OR ALTER PROCEDURE term.UDP_tbHorarios_Create
 	@hora_UsuarioCreador		INT,
-	@hora_FechaSalida			DATETIME,
-	@hora_FechaLlegada			DATETIME,
+	@hora_Salida			DATETIME,
+	@hora_Llegada			DATETIME,
 	@hora_Origen				CHAR(2),
 	@hora_Destino				CHAR(2),
 	@hora_Precio				DECIMAL(18,2),
-	@hora_CantidadPasajeros		INT
+	@hora_CantidadPasajerosMax	INT
 AS
 BEGIN
 	BEGIN TRY
 
-		INSERT INTO term.tbHorarios(hora_FechaSalida, hora_FechaLlegada, hora_Origen, hora_Destino, hora_Precio,hora_CantidadPasajeros, hora_UsuarioCreador, hora_UsuarioModificador, hora_FechaModificacion)
-		VALUES(@hora_FechaSalida, @hora_FechaLlegada, @hora_Origen, @hora_Destino, @hora_Precio ,@hora_CantidadPasajeros, @hora_UsuarioCreador, NULL, NULL)								
+		INSERT INTO term.tbHorarios(hora_Salida, hora_Llegada, hora_Origen, hora_Destino, hora_Precio,hora_CantidadPasajerosMax, hora_UsuarioCreador, hora_UsuarioModificador, hora_FechaModificacion)
+		VALUES(@hora_Salida, @hora_Llegada, @hora_Origen, @hora_Destino, @hora_Precio ,@hora_CantidadPasajerosMax, @hora_UsuarioCreador, NULL, NULL)
 		SELECT 1
 	END TRY
 	BEGIN CATCH
@@ -313,13 +314,13 @@ CREATE OR ALTER PROCEDURE term.UDP_VW_tbHorarios_Find
 AS
 BEGIN
 	SELECT hora_ID,
-		hora_FechaSalida,
-		hora_FechaLlegada,
+		hora_Salida,
+		hora_Llegada,
 		hora_Origen,
 		hora_Origen_DeptoNombre,
 		hora_Destino,
 		hora_Destino_DeptoNombre,
-		hora_CantidadPasajeros,
+		hora_CantidadPasajerosMax,
 		hora_Precio,
 		hora_Estado,
 		hora_UsuarioCreador,
@@ -337,21 +338,21 @@ GO
 CREATE OR ALTER PROCEDURE term.UDP_tbHorarios_Update
 	@hora_UsuarioModificador	INT,
 	@hora_ID					INT,
-	@hora_FechaSalida			DATETIME,
-	@hora_FechaLlegada			DATETIME,
+	@hora_Salida				DATETIME,
+	@hora_Llegada				DATETIME,
 	@hora_Origen				CHAR(2),
 	@hora_Destino				CHAR(2),
 	@hora_Precio				DECIMAL(18,2),
-	@hora_CantidadPasajeros		INT
+	@hora_CantidadPasajerosMax	INT
 AS
 BEGIN
 	UPDATE	term.tbHorarios 
-	SET		hora_FechaSalida = @hora_FechaSalida, 
-			hora_FechaLlegada = @hora_FechaLlegada, 
+	SET		hora_Salida = @hora_Salida, 
+			hora_Llegada = @hora_Llegada, 
 			hora_Origen = @hora_Origen, 
 			hora_Destino = @hora_Destino,
 			hora_Precio = @hora_Precio,
-			hora_CantidadPasajeros = @hora_CantidadPasajeros,
+			hora_CantidadPasajerosMax = @hora_CantidadPasajerosMax,
 			hora_UsuarioModificador = @hora_UsuarioModificador, 
 			hora_FechaModificacion = GETDATE()
 	WHERE	hora_ID = @hora_ID
@@ -521,7 +522,6 @@ UPDATE [term].[tbTerminales]
 END
 GO
 
-
 /*###############  tbBoletos  ###############*/
 
 --------> VIEW	
@@ -547,10 +547,10 @@ AS
 			CONCAT(clie_Nombres, ' ', clie_Apellidos) AS bole_clie_Nombre_Completo,
 			clie.clie_Sexo,
 			bole.hora_ID,
-			hora.hora_FechaSalida,
+			hora.hora_Salida,
 			hora.hora_Origen,
 			dept1.dept_Descripcion AS bole_hora_Origen_Nombre,
-			hora.hora_FechaLlegada,
+			hora.hora_Llegada,
 			hora.hora_Destino,
 			dept2.dept_Descripcion AS bole_hora_Destino_Nombre,
 			bole.pago_ID,
@@ -602,6 +602,10 @@ BEGIN
 					bole_UsuarioCreador, bole_UsuarioModificador, bole_FechaModificacion)
 		VALUES (@term_ID, @comp_ID, @empl_ID, @clie_ID, @hora_ID, @pago_ID,
 				@bole_UsuarioCreador, NULL, NULL)
+		
+		UPDATE term.tbHorarios
+		SET hora_CantidadPasajerosActual = hora_CantidadPasajerosActual+1
+		WHERE hora_ID = @hora_ID
 		SELECT 1
 	END TRY
 	BEGIN CATCH
@@ -636,10 +640,10 @@ BEGIN
 			bole_clie_Nombre_Completo,
 			clie_Sexo,
 			hora_ID,
-			hora_FechaSalida,
+			hora_Salida,
 			hora_Origen,
 			bole_hora_Origen_Nombre,
-			hora_FechaLlegada,
+			hora_Llegada,
 			hora_Destino,
 			bole_hora_Destino_Nombre,
 			pago_ID,

@@ -398,14 +398,13 @@ INSERT INTO term.tbClientes(clie_Nombres, clie_Apellidos, clie_DNI, clie_Sexo, c
 VALUES ('Calidonio', 'Panchame', '457214798', 'M', '00000000', 'panchame@gmail.com', 1, NULL, NULL),
 		('Sr.obama', 'Obama', '546795214', 'F', '45877454', 'Sr.obama@gmail.com', 1, NULL, NULL)
 
-INSERT INTO term.tbHorarios(hora_FechaSalida, hora_FechaLlegada, hora_Origen, hora_Destino, hora_CantidadPasajeros, hora_Precio ,hora_UsuarioCreador, hora_UsuarioModificador, hora_FechaModificacion)
-VALUES(GETDATE(), GETDATE(), '05', '08', 100,  200,1, NULL, NULL)
+INSERT INTO term.tbHorarios(hora_Salida, hora_Llegada, hora_Origen, hora_Destino, hora_CantidadPasajerosMax, hora_CantidadPasajerosActual, hora_Precio, hora_Estado, hora_UsuarioCreador, hora_FechaCreacion)
+VALUES('9:30','12:00', '05', '08', 100,0, 200,1, NULL, NULL)
 
 
 INSERT INTO term.tbBoletos(bole_Fecha, term_ID, comp_ID, empl_ID, clie_ID, hora_ID, pago_ID, bole_UsuarioCreador, bole_UsuarioModificador, bole_FechaModificacion)
 VALUES (GETDATE(), 1, 1, 1, 1, 1, 1, 1, NULL, NULL)
-INSERT INTO term.tbHorarios(hora_FechaSalida, hora_FechaLlegada, hora_Origen, hora_Destino, hora_CantidadPasajeros, hora_UsuarioCreador, hora_UsuarioModificador, hora_FechaModificacion)
-VALUES(GETDATE(), GETDATE(), '05', '09', 100, 1, NULL, NULL)
+
 
 /********************** CONSTRAINTS ***********************/
 

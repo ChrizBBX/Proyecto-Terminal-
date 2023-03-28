@@ -222,10 +222,6 @@ namespace Terminal.WebUI.Controllers
                         var LoadDepartamento = await LoadDepartamentos.Content.ReadAsStringAsync();
                         var departamentos = JsonConvert.DeserializeObject<List<DepartamentoViewModel>>(LoadDepartamento);
                         ViewBag.dept_ID = new SelectList(departamentos, "dept_ID", "dept_Descripcion");
-
-
-                        
-
                     }
 
                 }
