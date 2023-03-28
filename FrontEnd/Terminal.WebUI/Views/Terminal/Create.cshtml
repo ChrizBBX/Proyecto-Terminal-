@@ -5,162 +5,138 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="wrapper wrapper-content">
-    <div class="container container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="float-e-margins">
-                    <form asp-action="Create" id="formCrear">
-                        @Html.AntiForgeryToken()
+<h1>Create</h1>
 
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row"><h1>Boletos</h1></div>
-                            </div>
-                            <div class="card-body">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<h4>TerminalesViewModel</h4>
+<hr />
 
-                                <div class="card">
-                                    <div class="card-header text-center bg-teal-300">
-                                        <div class="row">
-                                            <div class="col-4">
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
 
-                                            </div>
-                                            <div class="col-4" style="margin-top: 10px">
-                                                <h1 style="font-family: Cooper; color: azure">Crear Registro</h1>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="text-end">
-                                                    @*<img src="https://i.gifer.com/3sf.gif" style="border-radius:100px;border:3px solid black; width:50%">*@
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card-body">
-
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="dept_ID" class="control-label text-dark"></label></strong>                                                    
-                                                    <select asp-for="dept_ID" id="dept_ID" class="form-control" asp-items="ViewBag.dept_Id">
-                                                        <option value=""> -- Seleccione un Departamento -- </option>
-                                                    </select>
-                                                    <strong><span class="text-danger">@Html.ValidationMessage("ValidacionDepartamento") </span></strong>
-                                                    
-                                                </div>
-                                            </div>
-
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="muni_ID" class="control-label text-dark"></label></strong>
-                                                    @*<input asp-for="muni_ID" class="form-control" hidden="hidden"/>*@
-
-                                                    <select asp-for="muni_ID" class="form-control" asp-items="ViewBag.muni_ID">
-                                                        <option value=""> -- Seleccione un Municipio -- </option>
-                                                    </select>
-                                                    <strong><span class="text-danger">@Html.ValidationMessage("ValidacionMunicipio")</span></strong>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br />
-
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="term_Nombre" class="control-label text-dark"></label></strong>
-                                                    <input asp-for="term_Nombre" class="form-control" />
-                                                    <strong><span asp-validation-for="term_Nombre" class="text-danger"></span></strong>
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="term_DireccionExacta" class="control-label text-dark"></label></strong>                                                    
-                                                    <input asp-for="term_DireccionExacta" class="form-control" />
-                                                    <strong><span asp-validation-for="term_DireccionExacta" class="text-danger"></span></strong>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br />
-
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <strong><label asp-for="term_CantidadTransportes" class="control-label text-dark"></label></strong>                                                    
-                                                    <input asp-for="term_CantidadTransportes" class="form-control" />
-                                                    <strong><span asp-validation-for="term_CantidadTransportes" class="text-danger"></span></strong>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="row">
-                                            <div class="col-8"></div>
-                                            <div class="col-2">
-                                                <input type="submit" value="Confirmar Envio" class="btn btn-outline-success" />
-                                            </div>
-                                            <div class="col-2">
-                                                <a asp-action="Index" class="btn btn-outline-danger">Cancelar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="card-footer">
-
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label">Departamentos</label>
+                <select asp-for="dept_ID" id="dept_ID" class="form-control" asp-items="ViewBag.dept_Id">
+                    <option value="0"> -- Seleccione un Departamento -- </option>
+                </select>
+                <h6  style="color:crimson">@Html.ValidationMessage("ValidacionDepartamento") </h6>
             </div>
         </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for="muni_ID" class="control-label"></label>
+                @*<input asp-for="muni_ID" class="form-control" hidden="hidden"/>*@
+
+                <select asp-for="muni_ID" class="form-control" asp-items="ViewBag.muni_ID">
+                    @*<option value=""> -- Seleccione un Municipio -- </option>*@
+                </select>
+
+                <h6 style="color:red">@Html.ValidationMessage("ValidacionMunicipio") </h6>
+                <h6 style="color:red" id="validar">Seleccione Un Departamento</h6>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+
+            <div class="form-group">
+                <label asp-for="term_Nombre" class="control-label"></label>
+                <input asp-for="term_Nombre" class="form-control" />
+                <span asp-validation-for="term_Nombre" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for="term_DireccionExacta" class="control-label"></label>
+                <input asp-for="term_DireccionExacta" class="form-control" />
+                <span asp-validation-for="term_DireccionExacta" class="text-danger"></span>
+            </div>
+        </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="term_CantidadTransportes" class="control-label"></label>
+                    <input asp-for="term_CantidadTransportes" class="form-control" />
+                    <span asp-validation-for="term_CantidadTransportes" class="text-danger"></span>
+                </div>
+            </div>
+     </div>
+    <div class="form-group">
+        <input type="submit" id="btn" value="Crear" class="btn btn-primary" />
+        <a class="btn btn-danger" asp-action="Index">Cancelar</a>
     </div>
-</div>
+</form>
+    
 
-
+<script></script>
 <script>
+
+
+
 
     $(document).ready(function () {
 
-        $("#muni_ID").prop("disabled", true);
+        // Toma los elementos del DOM
+        var departamentoSelect = $('#dept_ID');
+        var municipioSelect = $('#muni_ID');
+        var Validacion = $("#validar");
 
-        $("#dept_ID").change(function () {
-            console.log("si cambio");
-            var departamentoId = $("#dept_ID").val();
-            $.getJSON('/Terminal/CargarMunicipios', { id: departamentoId })
+        // Deshabilita el select de municipios al inicio
+        municipioSelect.prop('disabled', true);
+        Validacion.hide();
 
-                .done(function (municipios) {
+        // Agrega un comentario explicando la función
+        // que se ejecuta cuando se cambia el departamento
+        departamentoSelect.change(function () {
+            console.log('Departamento cambiado');
+            var departamentoId = departamentoSelect.val();
 
-                    $("#muni_ID").prop("disabled", false);
-                    var municipiosSelect = $('#muni_ID');
-                    municipiosSelect.empty();
+            // Usa $.ajax en lugar de $.getJSON para manejar errores más fácilmente
+            $.ajax({
+                url: '/Terminal/CargarMunicipios',
+                data: { id: departamentoId },
+                dataType: 'json',
+                success: function (municipios) {
+                    // Habilita el select de municipios
+                    municipioSelect.prop('disabled', false);
 
-                    municipiosSelect.append($('<option>', {
+                    // Limpia el select de municipios
+                    municipioSelect.empty();
+
+                    // Agrega un valor predeterminado a la lista de opciones
+                    municipioSelect.append($('<option>', {
                         value: '',
                         text: '--Selecciona un municipio--'
                     }));
 
-                    $.each(municipios, function (index, item) {
-                        municipiosSelect.append($('<option>', {
-                            value: item.muni_ID,
-                            text: item.muni_Descripcion
+                    // Agrega las opciones de municipios
+                    $.each(municipios, function (index, municipio) {
+                        municipioSelect.append($('<option>', {
+                            value: municipio.muni_ID,
+                            text: municipio.muni_Descripcion
                         }));
-                        console.log(item.muni_ID)
+                        console.log(municipio.muni_ID);
                     });
 
-                })
+                    if (departamentoSelect.val() === "0") {
 
-                .fail(function (jqXHR, textStatus, errorThrown) {
+                        var muni_ddl = $("#muni_ID").val();
+                        muni_ddl = "";
+                        Validacion.show();
+                        
+                        console.log("Entro");
+
+                    } else {
+                        Validacion.hide();
+                        console.log(departamentoSelect.val());
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
                     console.error('Error al cargar los municipios: ' + textStatus + ', ' + errorThrown);
-                });
-
+                }
+            });
         });
+
     });
 
 </script>

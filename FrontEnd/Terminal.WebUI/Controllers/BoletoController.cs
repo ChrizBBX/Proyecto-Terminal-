@@ -137,5 +137,51 @@ namespace Terminal.WebUI.Controllers
                 }
             }
         }
+
+        public async Task<IActionResult> GraficaViajes()
+        {
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + $"api/Boleto/LoadTrips");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    var Grafica = JsonConvert.DeserializeObject<List<GraficaViajesViewModel>>(content);
+
+                    return Json(Grafica);
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+
+                }
+            }
+
+        }
+
+        public async Task<IActionResult> GraficaSexo()
+        {
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + $"api/Boleto/LoadSex");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    var Grafica = JsonConvert.DeserializeObject<List<GraficaSexoViewModel>>(content);
+
+                    return Json(Grafica);
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+
+                }
+            }
+
+        }
     }
 }
