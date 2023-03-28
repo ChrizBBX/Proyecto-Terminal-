@@ -76,7 +76,7 @@ namespace Terminal.WebUI.Controllers
                 if (string.IsNullOrEmpty(terminales.dept_ID))
                 {
 
-                    ModelState.AddModelError("ValidacionDepartamento", "El campo ' Departamento ' es requerido");
+                    ModelState.AddModelError("ValidacionDepartamento", "Campo 'Departamento' requerido");
 
                 }
                 else
@@ -93,7 +93,7 @@ namespace Terminal.WebUI.Controllers
                 }
 
                 if (string.IsNullOrEmpty(terminales.muni_ID))
-                    ModelState.AddModelError("ValidacionMunicipio", "El campo ' Municipio ' es requerido");
+                    ModelState.AddModelError("ValidacionMunicipio", "Campo 'Municipio' requerido");
 
             }
 
@@ -182,7 +182,7 @@ namespace Terminal.WebUI.Controllers
                 if (string.IsNullOrEmpty(terminales.dept_ID))
                 {
 
-                    ModelState.AddModelError("ValidacionDepartamento", "El campo ' Departamento ' es requerido");
+                    ModelState.AddModelError("ValidacionDepartamento", "Campo 'Departamento' requerido");
 
                 }
                 else
@@ -199,7 +199,7 @@ namespace Terminal.WebUI.Controllers
                 }
 
                 if (string.IsNullOrEmpty(terminales.muni_ID))
-                    ModelState.AddModelError("ValidacionMunicipio", "El campo ' Municipio ' es requerido");
+                    ModelState.AddModelError("ValidacionMunicipio", "Campo 'Municipio' requerido");
 
             }
 

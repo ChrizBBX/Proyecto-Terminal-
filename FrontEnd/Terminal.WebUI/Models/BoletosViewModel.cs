@@ -8,7 +8,7 @@ namespace Terminal.WebUI.Models
 {
     public class BoletosViewModel
     {
-        [Display(Name = "Boleto #:")]
+        [Display(Name = "Boleto N°")]
         public int bole_ID { get; set; }
         
 

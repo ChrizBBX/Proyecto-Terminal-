@@ -38,8 +38,8 @@
                                         <td>@Html.DisplayFor(modelItem => item.carg_ID)</td>
                                         <td>@Html.DisplayFor(modelItem => item.carg_Nombre)</td>
                                         <td>
-                                            <a class="btn btn-outline-warning Editar" data-id="@item.carg_ID" data-nombre="@item.carg_Nombre">Editar</a>
-                                            <a class="btn btn-outline-dark">Detalles</a> |
+                                            <a asp-action="Details" asp-route-id="@item.carg_ID" class="btn btn-outline-dark">Detalle</a> |                                            
+                                            <a class="btn btn-outline-warning Editar" data-id="@item.carg_ID" data-nombre="@item.carg_Nombre">Editar</a> |
                                             <button class="btn btn-outline-danger" id="btnEliminar" onclick="eliminar('@item.carg_ID')">Eliminar</button>
                                         </td>
                                     </tr>

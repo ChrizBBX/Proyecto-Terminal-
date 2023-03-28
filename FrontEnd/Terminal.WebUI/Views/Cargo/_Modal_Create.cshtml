@@ -1,9 +1,12 @@
 ﻿@model Terminal.WebUI.Models.CargosViewModel
 <!-- Modal -->
-<form method="post" asp-controller="Cargo" asp-action="Create" id="formCreate">
     <div class="modal fade" id="_Modal_Create" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"  data-backdrop="static">
         <div class="modal-dialog" role="document">
-            <div class="modal-content bg-transparent">
+<form method="post" asp-controller="Cargo" asp-action="Create" id="formCreate">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                </div>
                 <div class="modal-body">
                     <div class="card">
                         <div class="card-header">
@@ -11,20 +14,20 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-3"></div>
+                                <div class="col-2"></div>
 
-                                <div class="col-6">
+                                <div class="col-8">
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <input type="hidden" asp-for="carg_ID" id="carg_ID" />
                                     <div class="form-group">
-                                        <strong><label asp-for="carg_Nombre" class="control-label"></label></strong>
-                                        <input asp-for="carg_Nombre" id="carg_Nombre" class="form-control" />
-                                        <strong><label name="lbl_carg_Nombre_CreateError" id="lbl_carg_Nombre_CreateError" class="control-label" hidden style="color: red;">Campo 'Cargo' requerido</label></strong>
+                                        <strong><label asp-for="carg_Nombre" class="control-label text-dark"></label></strong>
+                                        <input asp-for="carg_Nombre" id="carg_Nombre" class="form-control" style="border-color: darkgray; border-width: 1px; background-color: lightgray; font-weight: 500; color: black;" />
+                                        <strong><span name="lbl_carg_Nombre_CreateError" id="lbl_carg_Nombre_CreateError" class="control-label" hidden style="color: red;">Campo 'Cargo' requerido</span></strong>
 
                                     </div>
                                 </div>
 
-                                <div class="col-3"></div>
+                                <div class="col-2"></div>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -33,10 +36,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+
+                </div>
             </div>
+</form>
         </div>
     </div>
-</form>
 
 
 <script>
