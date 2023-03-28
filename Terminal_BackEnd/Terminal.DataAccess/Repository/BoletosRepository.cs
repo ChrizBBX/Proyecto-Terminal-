@@ -39,7 +39,6 @@ namespace Terminal.DataAccess.Repository
             parametros.Add("@clie_ID", item.clie_ID, DbType.String, ParameterDirection.Input);
             parametros.Add("@hora_ID", item.hora_ID, DbType.String, ParameterDirection.Input);
             parametros.Add("@pago_ID", item.pago_ID, DbType.String, ParameterDirection.Input);
-            parametros.Add("@bole_Precio", item.bole_Precio, DbType.Int64, ParameterDirection.Input);
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Boletos_Insert, parametros, commandType: CommandType.StoredProcedure);
 
         }
@@ -56,7 +55,6 @@ namespace Terminal.DataAccess.Repository
             parametros.Add("@clie_ID", item.clie_ID, DbType.String, ParameterDirection.Input);
             parametros.Add("@hora_ID", item.hora_ID, DbType.String, ParameterDirection.Input);
             parametros.Add("@pago_ID", item.pago_ID, DbType.String, ParameterDirection.Input);
-            parametros.Add("@bole_Precio", item.bole_Precio, DbType.Int64, ParameterDirection.Input);
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Boletos_Update, parametros, commandType: CommandType.StoredProcedure);
 
         }

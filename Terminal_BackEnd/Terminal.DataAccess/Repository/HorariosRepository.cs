@@ -38,6 +38,7 @@ namespace Terminal.DataAccess.Repository
             parametros.Add("@hora_Origen", item.hora_Origen, DbType.String, ParameterDirection.Input);
             parametros.Add("@hora_Destino", item.hora_Destino, DbType.String, ParameterDirection.Input);
             parametros.Add("@hora_CantidadPasajeros", item.hora_CantidadPasajeros, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@hora_Precio", item.hora_Precio, DbType.Int32, ParameterDirection.Input);
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Horarios_Insert, parametros, commandType: CommandType.StoredProcedure);
         }
 
@@ -52,6 +53,7 @@ namespace Terminal.DataAccess.Repository
             parametros.Add("@hora_Origen", item.hora_Origen, DbType.String, ParameterDirection.Input);
             parametros.Add("@hora_Destino", item.hora_Destino, DbType.String, ParameterDirection.Input);
             parametros.Add("@hora_CantidadPasajeros", item.hora_CantidadPasajeros, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@hora_Precio", item.hora_Precio, DbType.Int32, ParameterDirection.Input);
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Horarios_Update, parametros, commandType: CommandType.StoredProcedure);
 
         }

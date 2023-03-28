@@ -16,7 +16,6 @@ namespace Terminal.Entities.Entities
         public int? clie_ID { get; set; }
         public int? hora_ID { get; set; }
         public int? pago_ID { get; set; }
-        public decimal? bole_Precio { get; set; }
         public int? bole_Estado { get; set; }
         public int? bole_UsuarioCreador { get; set; }
         public DateTime? bole_FechaCreacion { get; set; }

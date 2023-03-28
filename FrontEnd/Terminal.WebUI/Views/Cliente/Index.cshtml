@@ -7,67 +7,71 @@
 
 
 
-<p>
-    <a href="/Cliente/Create/">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.clie_ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.clie_Nombres)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.clie_Apellidos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.clie_DNI)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.clie_Sexo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.clie_Telefono)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.clie_Email)
-            </th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.clie_ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.clie_Nombres)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.clie_Apellidos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.clie_DNI)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.clie_Sexo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.clie_Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.clie_Email)
-            </td>
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", new {item.clie_ID}) |*@
-                <a asp-action="Edit" asp-route-id="@item.clie_ID" class="btn btn-warning">Editar</a>
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                <a asp-action="Delete" asp-route-id="@item.clie_ID" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="card">
+    <div class="card-body">
+        <h1>Clientes</h1>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="float-e-margins">
+                    <div class="ibox-title">
+                        <div class="ibox-tools">
+                            <div class="row">
+                                <div class="col-3">
+                                    <p><a asp-action="Create" class="btn btn-outline-info">Nuevo Registro</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="table-responsive">
+                        <table class="table text-nowrap table-striped table-hover dataTables-example" id="DataTable">
+                            <thead class="bg-teal-400">
+                                <tr class="text-dark">
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.clie_ID)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.clie_Nombres)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.clie_Apellidos)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.clie_DNI)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.clie_Sexo)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.clie_Telefono)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.clie_Email)</th>
+                                    <th class="text-dark">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr role="row" data-id="@item.clie_ID" class="text-dark align-text-bottom">
+                                        <td>@Html.DisplayFor(modelItem => item.clie_ID)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.clie_Nombres)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.clie_Apellidos)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.clie_DNI)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.clie_Sexo)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.clie_Telefono)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.clie_Email)</td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.clie_ID" class="btn btn-outline-warning">Editar</a>
+                                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                            <a asp-action="Delete" asp-route-id="@item.clie_ID" class="btn btn-outline-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot class="bg-teal-400">
+                                <tr class="text-dark">
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.clie_ID)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.clie_Nombres)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.clie_Apellidos)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.clie_DNI)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.clie_Sexo)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.clie_Telefono)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.clie_Email)</th>
+                                    <th class="text-dark">Acciones</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

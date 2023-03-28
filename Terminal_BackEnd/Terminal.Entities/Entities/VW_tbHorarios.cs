@@ -17,6 +17,7 @@ namespace Terminal.Entities.Entities
         public string hora_Destino_DeptoNombre { get; set; }
         public string horario { get; set; }
         public int? hora_CantidadPasajeros { get; set; }
+        public decimal? hora_Precio { get; set; }
         public int? hora_Estado { get; set; }
         public int? hora_UsuarioCreador { get; set; }
         public string hora_UsuarioCreador_Nombre { get; set; }
