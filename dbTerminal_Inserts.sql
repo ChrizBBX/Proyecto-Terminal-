@@ -407,18 +407,6 @@ VALUES (GETDATE(), 1, 1, 1, 1, 1, 1, 1, NULL, NULL)
 INSERT INTO term.tbHorarios(hora_FechaSalida, hora_FechaLlegada, hora_Origen, hora_Destino, hora_CantidadPasajeros, hora_UsuarioCreador, hora_UsuarioModificador, hora_FechaModificacion)
 VALUES(GETDATE(), GETDATE(), '05', '09', 100, 1, NULL, NULL)
 
-
-INSERT INTO term.tbBoletos(bole_Fecha, term_ID, comp_ID, empl_ID, clie_ID, hora_ID, pago_ID, bole_Precio, bole_UsuarioCreador, bole_UsuarioModificador, bole_FechaModificacion)
-VALUES (GETDATE(), 1, 1, 1, 7, 15, 1, 200, 1, NULL, NULL) 
-
-
-select * from term.tbHorarios
- 
-
-
-
-
-
 /********************** CONSTRAINTS ***********************/
 
 ALTER TABLE gral.tbEstadosCiviles

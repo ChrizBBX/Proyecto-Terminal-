@@ -74,7 +74,6 @@ namespace Terminal.DataAccess.Context
 
                 entity.Property(e => e.bole_FechaModificacion).HasColumnType("datetime");
 
-                entity.Property(e => e.bole_Precio).HasColumnType("numeric(18, 2)");
 
                 entity.Property(e => e.bole_UsuarioCreador_Nombre).HasMaxLength(100);
 
@@ -290,7 +289,6 @@ namespace Terminal.DataAccess.Context
 
                 entity.Property(e => e.bole_FechaModificacion).HasColumnType("datetime");
 
-                entity.Property(e => e.bole_Precio).HasColumnType("numeric(18, 2)");
 
                 entity.HasOne(d => d.bole_UsuarioCreadorNavigation)
                     .WithMany(p => p.tbBoletosbole_UsuarioCreadorNavigation)
