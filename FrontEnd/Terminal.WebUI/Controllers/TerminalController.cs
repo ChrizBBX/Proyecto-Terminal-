@@ -288,7 +288,6 @@ namespace Terminal.WebUI.Controllers
 
         public async Task<IActionResult> CargarMunicipios(string id)
         {           
-
             using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.GetAsync(_baseurl + $"api/Terminal/Terminal/FindMunicipio/{id}");
@@ -304,10 +303,8 @@ namespace Terminal.WebUI.Controllers
                 else
                 {
                     return RedirectToAction("Index");
-                    
                 }
             }
-
         }
     }
 }

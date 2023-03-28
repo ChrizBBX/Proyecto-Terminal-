@@ -76,13 +76,13 @@
 
 <script>
     $(document).ready(function () {
-        $("#dept_ID").change(function () {
+        $("#hora_ID").change(function () {
             console.log("si cambio");
-            var departamentoId = $("#dept_ID").val();
-            $.getJSON('/Terminal/CargarMunicipios', { id: departamentoId })
+            var hora_ID = $("#hora_ID").val();
+            $.getJSON('/Boleto/GetPrecio', { id: hora_ID })
 
-                .done(function (municipios) {
-
+                .done(function (horario) {
+                    console.log(horario);
                     $("#muni_ID").prop("disabled", false);
                     var municipiosSelect = $('#muni_ID');
                     municipiosSelect.empty();

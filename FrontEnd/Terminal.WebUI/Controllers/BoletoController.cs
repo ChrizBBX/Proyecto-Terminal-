@@ -177,6 +177,25 @@ namespace Terminal.WebUI.Controllers
             }
         }
 
+        public async Task<IActionResult> GetPrecio(int id)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + $"api/Boleto/Boleto/Find/{id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    var cliente = JsonConvert.DeserializeObject<BoletosViewModel>(content);
+                    return Json(cliente);
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+        }
+
 
         public async Task<IActionResult> Update(BoletosViewModel boletos)
         {
