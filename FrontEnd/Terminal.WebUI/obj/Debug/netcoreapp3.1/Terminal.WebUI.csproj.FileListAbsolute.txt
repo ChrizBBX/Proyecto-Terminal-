@@ -623,3 +623,6 @@ C:\Users\daniz\OneDrive\Documentos\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\ob
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Boleto\_Modal_Delete.cshtml.g.cs
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Cliente\_Modal_Delete.cshtml.g.cs
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Terminal.WebUI.csproj.AssemblyReference.cache
+C:\Users\Chris\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Boleto\_Modal_Delete.cshtml.g.cs
+C:\Users\Chris\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Cliente\_Modal_Delete.cshtml.g.cs
+C:\Users\Chris\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Terminal\_TerminalView.cshtml.g.cs

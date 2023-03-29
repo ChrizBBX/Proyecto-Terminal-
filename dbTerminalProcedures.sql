@@ -44,10 +44,25 @@ CREATE OR ALTER PROCEDURE term.UDP_tbCargos_Create
 AS
 BEGIN
 	BEGIN TRY
+	
+	IF NOT EXISTS(SELECT carg_Nombre FROM term.tbCargos WHERE carg_Nombre = @carg_Nombre)
+	BEGIN
 		INSERT INTO term.tbCargos(carg_Nombre, carg_UsuarioCreador, carg_UsuarioModificador, carg_FechaModificacion)
 		VALUES (@carg_Nombre, @carg_UsuarioCreador, NULL, NULL)
-		SELECT 1
+		SELECT 'Registro agregado exitosamente'
+		END
+		ELSE IF EXISTS(SELECT carg_Nombre FROM term.tbCargos WHERE carg_Nombre = @carg_Nombre AND carg_Estado = 0)
+		BEGIN
+		UPDATE term.tbCargos
+		SET carg_Estado = 1
+		WHERE carg_Nombre = @carg_Nombre;
+	SELECT 'Registro agregado exitosamente'
+		END
+		ELSE
+		SELECT 'Ya existe un cargo con ese nombre'
+
 	END TRY
+
 	BEGIN CATCH
 		SELECT 0
 	END CATCH
@@ -602,14 +617,13 @@ BEGIN
 					bole_UsuarioCreador, bole_UsuarioModificador, bole_FechaModificacion)
 		VALUES (@term_ID, @comp_ID, @empl_ID, @clie_ID, @hora_ID, @pago_ID,
 				@bole_UsuarioCreador, NULL, NULL)
-		
 		UPDATE term.tbHorarios
 		SET hora_CantidadPasajerosActual = hora_CantidadPasajerosActual+1
 		WHERE hora_ID = @hora_ID
-		SELECT 1
+		SELECT 'Registro agregado exitosamente'
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH 
 END
 GO

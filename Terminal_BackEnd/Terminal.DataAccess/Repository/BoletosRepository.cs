@@ -31,6 +31,7 @@ namespace Terminal.DataAccess.Repository
         public RequestStatus Insert(tbBoletos item)
         {
             using var db = new SqlConnection(TerminalContext.ConnectionString);
+            RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@bole_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@term_ID", item.term_ID, DbType.String, ParameterDirection.Input);
@@ -39,8 +40,11 @@ namespace Terminal.DataAccess.Repository
             parametros.Add("@clie_ID", item.clie_ID, DbType.String, ParameterDirection.Input);
             parametros.Add("@hora_ID", item.hora_ID, DbType.String, ParameterDirection.Input);
             parametros.Add("@pago_ID", item.pago_ID, DbType.String, ParameterDirection.Input);
-            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Boletos_Insert, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.UDP_Boletos_Insert, parametros, commandType: CommandType.StoredProcedure);
 
+            result.MessageStatus = answer;
+
+            return result;
         }
 
         public RequestStatus Update(tbBoletos item)

@@ -32,11 +32,15 @@ namespace Terminal.DataAccess.Repository
         public RequestStatus Insert(tbCargos item)
         {
             using var db = new SqlConnection(TerminalContext.ConnectionString);
+            RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@carg_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@carg_Nombre", item.carg_Nombre, DbType.String, ParameterDirection.Input);
-            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Cargos_Insert, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.UDP_Cargos_Insert, parametros, commandType: CommandType.StoredProcedure);
+            
+            result.MessageStatus = answer;
 
+            return result;
         }
 
         public RequestStatus Update(tbCargos item)
