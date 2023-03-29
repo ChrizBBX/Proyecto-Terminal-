@@ -39,14 +39,14 @@ namespace Terminal.API.Controllers
             return Ok(listado);
         }
 
-        [HttpGet("Boleto/Find/{id}")]
+        [HttpGet("Usuario/Find/{id}")]
         public IActionResult Edit(int id)
         {
             var listado = _accesoService.BuscarUsuarios(id);
             return Ok(listado);
         }
 
-        [HttpPut("Boleto/Update/{id}")]
+        [HttpPut("Usuario/Update/{id}")]
         public IActionResult Edit(UsuariosViewModel usuariosViewModel)
         {
             var listado = _mapper.Map<tbUsuarios>(usuariosViewModel);
@@ -54,7 +54,7 @@ namespace Terminal.API.Controllers
             return Ok(Result);
         }
 
-        [HttpPost("Boleto/Delete/{id}")]
+        [HttpPost("Usuario/Delete/{id}")]
         public IActionResult Delete(int id)
         {
             var listado = _accesoService.BorrarUsuarios(id);

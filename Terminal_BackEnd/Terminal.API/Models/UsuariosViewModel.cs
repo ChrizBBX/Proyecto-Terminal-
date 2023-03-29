@@ -15,7 +15,7 @@ namespace Terminal.API.Models
         public string usua_Pass { get; set; }
 
         public byte[] usua_Clave { get; set; }
-        public int? usua_EsAdmin { get; set; }
+        public bool usua_EsAdmin { get; set; }
         public int? empl_ID { get; set; }
         public string empl_PrimerNombre { get; set; }
         public string empl_SegundoNombre { get; set; }

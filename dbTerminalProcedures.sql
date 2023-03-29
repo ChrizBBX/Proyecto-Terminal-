@@ -802,6 +802,7 @@ empl_FechaNacimiento,
 empl_Sexo, 
 empl_Telefono, 
 carg_ID, 
+role_ID,
 estciv_ID, 
 muni_ID, 
 empl_Estado, 
@@ -837,6 +838,10 @@ SELECT	usrs.usua_ID,
 		CONCAT(empl_PrimerNombre, ' ', empl_SegundoNombre) AS usua_empl_Nombres,
 		CONCAT(empl_PrimerApellido, ' ', empl_SegundoApellido) AS usua_empl_Apellidos,
 		CONCAT(empl_PrimerNombre, ' ', empl_SegundoNombre, ' ',empl_PrimerApellido, ' ', empl_SegundoApellido) AS usua_empl_NombreCompleto,
+		empl.carg_ID,
+		carg.carg_Nombre,
+		empl.role_ID,
+		rol.role_Descripcion,
 		usr1.usua_Usuario AS usua_UsuarioCreador_Nombre,
 		usr2.usua_Usuario AS usua_UsuarioModificador_Nombre,
 		usrs.usua_Estado,
@@ -847,8 +852,11 @@ SELECT	usrs.usua_ID,
 FROM acce.tbUsuarios AS usrs INNER JOIN term.tbEmpleados AS empl
 ON usrs.empl_ID = empl.empl_ID INNER JOIN acce.tbUsuarios AS usr1
 ON usrs.usua_UsuarioCreador = usr1.usua_ID LEFT JOIN acce.tbUsuarios AS usr2
-ON usrs.usua_UsuarioModificador = usr2.usua_ID
+ON usrs.usua_UsuarioModificador = usr2.usua_ID INNER JOIN acce.tbRoles AS rol
+ON empl.role_ID = rol.role_ID INNER JOIN term.tbCargos AS carg
+ON empl.carg_ID = carg.carg_ID
 GO
+
 
 --------> READ	
 CREATE OR ALTER PROCEDURE acce.UDP_VW_tbUsuarios_VW
@@ -857,6 +865,7 @@ BEGIN
 	SELECT * FROM acce.VW_tbUsuarios WHERE usua_Estado = 1
 END
 GO
+
 
 --------> CREATE	
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Create
@@ -898,6 +907,10 @@ BEGIN
 		usua_empl_Nombres,
 		usua_empl_Apellidos,
 		usua_empl_NombreCompleto,
+		carg_ID,
+		carg_Nombre,
+		role_ID,
+		role_Descripcion,
 		usua_UsuarioCreador_Nombre,
 		usua_UsuarioModificador_Nombre,
 		usua_Estado,
@@ -960,3 +973,64 @@ GO
  DECLARE @f VARBINARY(MAX) = HASHBYTES('SHA2_512', @e)
 
  SELECT @f
+ GO
+
+ --CREATE OR ALTER VIEW acce.VW_tbUsuarios_EmpleadosDDl
+ --AS
+ --SELECT * FROM term.tbEmpleados WHERE empl_ID NOT IN ()
+
+ --SELECT usr.empl_ID FROM term.tbEmpleados AS empl INNER JOIN acce.tbUsuarios AS usr
+ --ON empl.empl_ID = usr.empl_ID
+ --GO
+
+ --CREATE OR ALTER PROCEDURE acce.UDP_VW_-tbUsuarios_EmpleadosDDL
+ --AS
+ --BEGIN
+	--SELECT * FROM acce.VW_tbUsuarios WHERE 
+ --END
+ --GO
+
+
+ -- LOGIN ----
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Login
+
+	@usua_Usuario  NVARCHAR(150),
+	@usua_Clave   VARCHAR(150)
+AS
+BEGIN
+	DECLARE @Pass VARBINARY(MAX) = CONVERT(VARBINARY(MAX), HASHBYTES('SHA2_512', @usua_Clave));
+
+	SELECT	*
+	  FROM  acce.VW_tbUsuarios
+	 WHERE  (usua_Usuario = @usua_Usuario AND usua_Clave = @Pass)
+	   AND  usua_Estado = 1
+END
+GO
+
+
+
+--CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_UserExists
+--    @usua_Usuario    NVARCHAR(20)
+--AS
+--BEGIN
+--    SELECT usua_ID  
+--	  FROM acce.[tbUsuarios] 
+--	 WHERE usua_Usuario = @usua_Usuario 
+--	   AND usua_Estado = 1
+--END
+--GO
+
+
+--CREATE PROCEDURE 'UDP_tbUsuarios_ActualizarContraseniausuario'
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_ChangePassword
+	@usua_Usuario NVARCHAR(150),
+	@usua_Clave   VARCHAR(150)
+AS
+BEGIN
+	DECLARE @Pass VARBINARY(MAX) = CONVERT(VARBINARY(MAX), HASHBYTES('SHA2_512', @usua_Clave));
+
+	UPDATE acce.tbUsuarios
+	   SET usua_Clave = @Pass
+	 WHERE usua_Usuario = @usua_Usuario
+END
+GO

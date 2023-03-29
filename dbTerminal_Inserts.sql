@@ -386,8 +386,19 @@ INSERT INTO term.tbTerminales(muni_ID, term_Nombre, term_DireccionExacta, term_C
 VALUES('0501', 'Terminal de San Pedro Sula', 'Salida a la Lima', 200, 1, NULL, NULL)
 
 
-INSERT INTO term.tbEmpleados(empl_PrimerNombre, empl_SegundoNombre, empl_PrimerApellido, empl_SegundoApellido, empl_DNI, empl_FechaNacimiento, empl_Sexo, empl_Telefono, carg_ID, estciv_ID, muni_ID, empl_UsuarioCreador, empl_UsuarioModificador, empl_FechaModificacion)
-VALUES ('Maria', 'Jose','Antonieta', 'De las nieves', '1234567891234', GETDATE(), 'F', '00000000', 1, 1, '0501', 1, NULL, NULL)
+INSERT INTO acce.tbRoles(role_Descripcion, role_UsuarioCreador, role_UsuarioModificador, role_FechaModificacion)
+VALUES	('Vendedor', 1, NULL, NULL),
+		('HHRR', 1, NULL, NULL),
+		('Seguridad', 1, NULL, NULL)
+GO
+
+--HHRR
+--Seguridad
+
+INSERT INTO term.tbEmpleados(empl_PrimerNombre, empl_SegundoNombre, empl_PrimerApellido, empl_SegundoApellido, empl_DNI, empl_FechaNacimiento, empl_Sexo, empl_Telefono, carg_ID, role_ID, estciv_ID, muni_ID, empl_UsuarioCreador, empl_UsuarioModificador, empl_FechaModificacion)
+VALUES	('Maria', 'Jose','Antonieta', 'De las nieves', '1234567891234', GETDATE(), 'F', '00000000', 1, 1 ,1, '0501', 1, NULL, NULL),
+		('Edwin', 'Josue','Rodriguez', 'Ortíz', '3333333333333', GETDATE(), 'M', '00000000', 1, 2 ,1,'0501', 1, NULL, NULL),
+		('Josue', 'Obed','Sarmiento', 'Elvir', '1111111111111', GETDATE(), 'M', '00000000', 1, 3 ,1, '0501', 1, NULL, NULL)
 
 DECLARE @PassEncrypt VARBINARY(MAX) = HASHBYTES('SHA2_512', 'AWSD')
 INSERT INTO acce.tbUsuarios(usua_Usuario, usua_Clave, usua_EsAdmin, empl_ID, usua_UsuarioCreador, usua_UsuarioModificador, usua_FechaModificacion)

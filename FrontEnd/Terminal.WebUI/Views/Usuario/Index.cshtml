@@ -15,14 +15,14 @@
                             <div class="row">
                                 <div class="col-5"></div>
                                 <div class="col-4">
-                                    <strong><span style="font-family: Cooper; color: indigo; font-size: xx-large;">Boletos</span></strong>
+                                    <strong><span style="font-family: Cooper; color: indigo; font-size: xx-large;">Usuarios</span></strong>
                                 </div>
                                 <div class="col-3"></div>
                             </div>
                             <div class="row">
                                 <div class="col-5"></div>
                                 <div class="col-4">
-                                    <a onclick="AbrirModalCreate()" class="btn btn-outline-primary">Nuevo usuario</a>
+                                    <a onclick="OpenCreate()" class="btn btn-outline-primary">Nuevo usuario</a>
                                 </div>
                                 <div class="col-3"></div>
                             </div>
@@ -75,4 +75,4 @@
 
 @Html.Partial("_Modal_Create", new Terminal.WebUI.Models.UsuariosViewModel())
 @Html.Partial("_Modal_Edit", new Terminal.WebUI.Models.UsuariosViewModel())
-@*@Html.Partial("_Modal_Delete", new Terminal.WebUI.Models.UsuariosViewModel())*@
+@Html.Partial("_Modal_Delete", new Terminal.WebUI.Models.UsuariosViewModel())

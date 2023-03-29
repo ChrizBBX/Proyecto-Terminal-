@@ -24,6 +24,7 @@ namespace Terminal.DataAccess.Context
         public virtual DbSet<VW_tbBoletos> VW_tbBoletos { get; set; }
         public virtual DbSet<VW_tbCargos> VW_tbCargos { get; set; }
         public virtual DbSet<VW_tbClientes> VW_tbClientes { get; set; }
+        public virtual DbSet<VW_tbEmpleados> VW_tbEmpleados { get; set; }
         public virtual DbSet<VW_tbHorarios> VW_tbHorarios { get; set; }
         public virtual DbSet<VW_tbTerminales> VW_tbTerminales { get; set; }
         public virtual DbSet<VW_tbUsuarios> VW_tbUsuarios { get; set; }
@@ -45,7 +46,7 @@ namespace Terminal.DataAccess.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+            modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
 
             modelBuilder.Entity<VW_graficaSexo>(entity =>
             {
@@ -200,6 +201,53 @@ namespace Terminal.DataAccess.Context
                 entity.Property(e => e.clie_UsuarioCreador_Nombre).HasMaxLength(100);
 
                 entity.Property(e => e.clie_UsuarioModificador_Nombre).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<VW_tbEmpleados>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VW_tbEmpleados", "term");
+
+                entity.Property(e => e.empl_DNI)
+                    .HasMaxLength(13)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.empl_FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.empl_FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.empl_FechaNacimiento).HasColumnType("date");
+
+                entity.Property(e => e.empl_ID).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.empl_NombreCompleto)
+                    .IsRequired()
+                    .HasMaxLength(201);
+
+                entity.Property(e => e.empl_PrimerApellido).HasMaxLength(100);
+
+                entity.Property(e => e.empl_PrimerNombre).HasMaxLength(100);
+
+                entity.Property(e => e.empl_SegundoApellido).HasMaxLength(100);
+
+                entity.Property(e => e.empl_SegundoNombre).HasMaxLength(100);
+
+                entity.Property(e => e.empl_Sexo)
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.empl_Telefono)
+                    .HasMaxLength(8)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.muni_ID)
+                    .HasMaxLength(4)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
             });
 
             modelBuilder.Entity<VW_tbHorarios>(entity =>
