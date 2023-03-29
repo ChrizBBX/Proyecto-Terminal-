@@ -125,7 +125,7 @@ VALUES	('01','0101','La Ceiba', '1', NULL, GETDATE(), NULL, GETDATE()),
 
 		('06',	'0601','Choluteca', '1', NULL, GETDATE(), NULL, GETDATE()),
 		('06',	'0602','Apacilagua', '1', NULL, GETDATE(), NULL, GETDATE()),
-		('06',	'0603','Concepci�n de Mar�a', '1', NULL, GETDATE(), NULL, GETDATE()),
+		('06',	'0603','Concepci�n de María', '1', NULL, GETDATE(), NULL, GETDATE()),
 		('06',	'0604','Duyure', '1', NULL, GETDATE(), NULL, GETDATE()),
 		('06',	'0605','El Corpus', '1', NULL, GETDATE(), NULL, GETDATE()),
 		('06',	'0606','El Triunfo', '1', NULL, GETDATE(), NULL, GETDATE()),

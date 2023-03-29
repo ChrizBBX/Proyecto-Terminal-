@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Terminal.WebUI.Models.UsuariosViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="float-e-margins">
+                    <div class="ibox-title">
+                        <div class="ibox-tools">
+                            <div class="row">
+                                <div class="col-5"></div>
+                                <div class="col-4">
+                                    <strong><span style="font-family: Cooper; color: indigo; font-size: xx-large;">Boletos</span></strong>
+                                </div>
+                                <div class="col-3"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5"></div>
+                                <div class="col-4">
+                                    <a onclick="AbrirModalCreate()" class="btn btn-outline-primary">Nuevo usuario</a>
+                                </div>
+                                <div class="col-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="table-responsive">
+                        <table class="table text-nowrap table-striped table-hover dataTables-example" id="DataTable">
+                            <thead class="bg-cyan-400">
+                                <tr class="text-dark">
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.usua_ID)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.usua_Usuario)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.usua_EsAdmin)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.usua_empl_NombreCompleto)</th>
+                                    <th class="text-dark">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-dark">
+                                @foreach (var item in Model)
+                                {
+                                    <tr role="row" data-id="@item.usua_ID" class="text-dark align-text-bottom even">
+                                        <td>@Html.DisplayFor(modelItem => item.usua_ID)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.usua_Usuario)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.usua_EsAdmin)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.usua_empl_NombreCompleto)</td>
+                                        <td>
+
+                                            <a class="btn btn-outline-warning Editar" data-id="@item.usua_ID" data-nombre="@item.usua_Usuario,@item.empl_ID">Editar</a> |
+                                            <button class="btn btn-outline-danger" id="btnEliminar" onclick="eliminar('@item.usua_ID')">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot class="bg-cyan-400">
+                                <tr class="text-dark">
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.usua_ID)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.usua_Usuario)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.usua_EsAdmin)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.usua_empl_NombreCompleto)</th>
+                                    <th class="text-dark">Acciones</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_Modal_Create", new Terminal.WebUI.Models.UsuariosViewModel())
+@Html.Partial("_Modal_Edit", new Terminal.WebUI.Models.UsuariosViewModel())
+@*@Html.Partial("_Modal_Delete", new Terminal.WebUI.Models.UsuariosViewModel())*@

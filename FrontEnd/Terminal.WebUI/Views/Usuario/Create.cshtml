@@ -1,0 +1,66 @@
+﻿@model Terminal.WebUI.Models.UsuariosViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content">
+    <div class="container container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="float-e-margins">
+                    <form asp-action="Create" id="formCrear">
+                        @Html.AntiForgeryToken()
+
+                        <div class="card">
+                            <div class="card-header text-center bg-cyan-400">
+                                <div class="row">
+                                    <div class="col-4"></div>
+                                    <div class="col-4">
+                                        <strong><span style="font-family: Cooper; color: indigo; font-size: xx-large;">Usuarios</span></strong>
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <div class="card">
+
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label asp-for="usua_Usuario" class="control-label text-dark" style="font-size:  larger;"></label>
+                                                    <input asp-for="usua_Usuario" class="form-control" />
+                                                    <span asp-validation-for="usua_Usuario" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="usua_Pass" class="control-label text-dark" style="font-size:  larger;"></label>
+                                                    <input asp-for="usua_Pass" class="form-control" />
+                                                    <span asp-validation-for="usua_Pass" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="usua_EsAdmin" class="control-label"></label>
+                                                    <input asp-for="usua_EsAdmin" class="form-control" />
+                                                    <span asp-validation-for="usua_EsAdmin" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="empl_ID" class="control-label"></label>
+                                                    <input asp-for="empl_ID" class="form-control" />
+                                                    <span asp-validation-for="empl_ID" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
