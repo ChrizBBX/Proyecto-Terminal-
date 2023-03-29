@@ -46,7 +46,6 @@ namespace Terminal.WebUI.Models
         [Display(Name = "Transportes")]
         [Required(ErrorMessage = "Campo '{0}' requerido")]
         [RegularExpression("([0-9]+)", ErrorMessage = "Solo se aceptan numeros")]
-        [MinLength(1, ErrorMessage = "Minimo requerido 1")]
         public int? term_CantidadTransportes { get; set; }
 
 

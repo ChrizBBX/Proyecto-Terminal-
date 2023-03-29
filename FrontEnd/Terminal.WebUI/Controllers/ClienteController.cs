@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,6 +35,11 @@ namespace Terminal.WebUI.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
+                    if (TempData["Script"] is string script)
+                    {
+                        TempData.Remove("Script");
+                        ViewBag.Script = script;
+                    }
                     var jsonResponse = await response.Content.ReadAsStringAsync();
                     listado = JsonConvert.DeserializeObject<List<ClientesModel>>(jsonResponse);
                 }
@@ -56,11 +62,31 @@ namespace Terminal.WebUI.Controllers
             {
                 using (var httpClient = new HttpClient())
                 {
-                    var content = new StringContent(JsonConvert.SerializeObject(cliente), Encoding.UTF8, "application/json");
+                    var json = JsonConvert.SerializeObject(cliente);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
                     var response = await httpClient.PostAsync(_baseurl + "api/Cliente/Insertar", content);
 
                     if (response.IsSuccessStatusCode)
                     {
+                        var jsonResponse = await response.Content.ReadAsStringAsync();
+                        JObject jsonObj = JObject.Parse(jsonResponse);
+                        ViewBag.message = jsonObj["message"];
+
+                        if (jsonObj["code"].ToString() == "200")
+                        {
+                            string script = "MostrarMensajeSuccess('" + ViewBag.message + "');";
+                            TempData["script"] = script;
+                        }
+                        else if (jsonObj["code"].ToString() == "409")
+                        {
+                            string script = "MostrarMensajeWarning('" + ViewBag.message + "'); $('#New').click();";
+                            TempData["script"] = script;
+                        }
+                        else
+                        {
+                            string script = "MostrarMensajeDanger('" + ViewBag.message + "');";
+                            TempData["script"] = script;
+                        }
                         return RedirectToAction("Index");
                     }
                     else
@@ -102,11 +128,31 @@ namespace Terminal.WebUI.Controllers
             {
                 using (var httpClient = new HttpClient())
                 {
-                    var content = new StringContent(JsonConvert.SerializeObject(cliente), Encoding.UTF8, "application/json");
+                    var json = JsonConvert.SerializeObject(cliente);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
                     var response = await httpClient.PutAsync(_baseurl + $"api/Cliente/Cliente/Update/{cliente.clie_ID}", content);
 
                     if (response.IsSuccessStatusCode)
                     {
+                        var jsonResponse = await response.Content.ReadAsStringAsync();
+                        JObject jsonObj = JObject.Parse(jsonResponse);
+                        ViewBag.message = jsonObj["message"];
+
+                        if (jsonObj["code"].ToString() == "200")
+                        {
+                            string script = "MostrarMensajeSuccess('" + ViewBag.message + "');";
+                            TempData["script"] = script;
+                        }
+                        else if (jsonObj["code"].ToString() == "409")
+                        {
+                            string script = "MostrarMensajeWarning('" + ViewBag.message + "'); $('#New').click();";
+                            TempData["script"] = script;
+                        }
+                        else
+                        {
+                            string script = "MostrarMensajeDanger('" + ViewBag.message + "');";
+                            TempData["script"] = script;
+                        }
                         return RedirectToAction("Index");
                     }
                     else
@@ -130,6 +176,25 @@ namespace Terminal.WebUI.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    JObject jsonObj = JObject.Parse(jsonResponse);
+                    ViewBag.message = jsonObj["message"];
+
+                    if (jsonObj["code"].ToString() == "200")
+                    {
+                        string script = "MostrarMensajeSuccess('" + ViewBag.message + "');";
+                        TempData["script"] = script;
+                    }
+                    else if (jsonObj["code"].ToString() == "409")
+                    {
+                        string script = "MostrarMensajeWarning('" + ViewBag.message + "'); $('#New').click();";
+                        TempData["script"] = script;
+                    }
+                    else
+                    {
+                        string script = "MostrarMensajeDanger('" + ViewBag.message + "');";
+                        TempData["script"] = script;
+                    }
                     return RedirectToAction("Index");
                 }
                 else

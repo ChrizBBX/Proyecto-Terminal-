@@ -42,19 +42,19 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <strong><label asp-for="clie_Nombres" class="control-label text-dark"></label></strong>                                                    
+                                                    <strong><label asp-for="clie_Nombres" class="control-label text-dark"></label></strong>
                                                     <input asp-for="clie_Nombres" class="form-control" />
                                                     <strong><span asp-validation-for="clie_Nombres" class="text-danger"></span></strong>
-                                                    
+
                                                 </div>
                                             </div>
 
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <strong><label asp-for="clie_Apellidos" class="control-label text-dark"></label></strong>                                                    
+                                                    <strong><label asp-for="clie_Apellidos" class="control-label text-dark"></label></strong>
                                                     <input asp-for="clie_Apellidos" class="form-control" />
                                                     <strong><span asp-validation-for="clie_Apellidos" class="text-danger"></span></strong>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -63,19 +63,19 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <strong><label asp-for="clie_DNI" class="control-label text-dark"></label></strong>                                                    
+                                                    <strong><label asp-for="clie_DNI" class="control-label text-dark"></label></strong>
                                                     <input asp-for="clie_DNI" class="form-control" />
                                                     <strong><span asp-validation-for="clie_DNI" class="text-danger"></span></strong>
-                                                    
+
                                                 </div>
                                             </div>
 
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <strong><label asp-for="clie_Sexo" class="control-label text-dark"></label></strong>                                                    
-                                                    <input asp-for="clie_Sexo" class="form-control" />
+                                                    <strong><label asp-for="clie_Sexo" class="control-label text-dark"></label></strong><br />
+                                                    <input type="radio" asp-for="clie_Sexo" value="M"/>    M
+                                                    <input type="radio" asp-for="clie_Sexo" value="F"/>    F
                                                     <strong><span asp-validation-for="clie_Sexo" class="text-danger"></span></strong>
-                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -83,19 +83,19 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <strong><label asp-for="clie_Telefono" class="control-label text-dark"></label></strong>                                                    
+                                                    <strong><label asp-for="clie_Telefono" class="control-label text-dark"></label></strong>
                                                     <input asp-for="clie_Telefono" class="form-control" />
                                                     <strong><span asp-validation-for="clie_Telefono" class="text-danger"></span></strong>
-                                                    
+
                                                 </div>
                                             </div>
 
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <strong><label asp-for="clie_Email" class="control-label text-dark"></label></strong>                                                    
+                                                    <strong><label asp-for="clie_Email" class="control-label text-dark"></label></strong>
                                                     <input asp-for="clie_Email" class="form-control" />
                                                     <strong><span asp-validation-for="clie_Email" class="text-danger"></span></strong>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -125,3 +125,13 @@
     </div>
 </div>
 
+@if (ViewBag.Script != null)
+{
+    <script>
+        $(document).ready(function () {
+            @Html.Raw(ViewBag.Script)
+        })
+    </script>
+
+    ViewBag.Script = null;
+}

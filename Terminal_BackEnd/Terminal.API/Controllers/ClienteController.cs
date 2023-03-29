@@ -59,7 +59,7 @@ namespace Terminal.API.Controllers
         public IActionResult Delete(int id)
         {
             var listado = _terminalService.BorrarCliente(id);
-            return Ok();
+            return Ok(listado);
         }
 
     }

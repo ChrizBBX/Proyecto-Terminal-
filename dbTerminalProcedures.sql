@@ -24,8 +24,6 @@ ON cargo.carg_UsuarioCreador = usr1.usua_ID LEFT JOIN acce.tbUsuarios AS usr2
 ON cargo.carg_UsuarioModificador = usr2.usua_ID
 GO
 
-DECLARE @fff TIME = GETDATE()
-SELECT @fff
 GO
 
 -------->	READ
@@ -75,8 +73,6 @@ CREATE OR ALTER PROCEDURE term.UDP_tbCargos_Find
 @carg_ID INT
 AS
 BEGIN
-
-
 	SELECT carg_ID, 
 		carg_Nombre, 
 		carg_Estado, 
@@ -101,15 +97,42 @@ CREATE OR ALTER PROCEDURE term.UDP_tbCargos_Update
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE term.tbCargos 
-		SET carg_Nombre = @carg_Nombre, 
-		carg_UsuarioModificador = @carg_UsuarioModificador, 
-		carg_FechaModificacion = GETDATE()
-		WHERE carg_ID = @carg_ID
-		SELECT 1
+		IF NOT EXISTS (SELECT carg_Id FROM term.tbCargos WHERE carg_Id = @carg_Id)
+			BEGIN 
+				SELECT 'El registro que intenta editar no existe'
+			END
+		ELSE
+			BEGIN
+				IF NOT EXISTS (SELECT carg_Nombre 
+					   FROM term.tbCargos 
+					   WHERE carg_Nombre = @carg_Nombre
+					   AND carg_Id != @carg_Id)
+					BEGIN
+						UPDATE term.tbCargos 
+						SET carg_Nombre = @carg_Nombre,
+							carg_UsuarioModificador = @carg_UsuarioModificador,
+							carg_FechaModificacion = GETDATE()
+						WHERE carg_Id = @carg_Id
+
+						SELECT 'El registro ha sido editado con éxito'
+					END
+				ELSE IF EXISTS (SELECT carg_Nombre 
+								FROM term.tbCargos
+								WHERE carg_Estado = 0
+								AND carg_Nombre = @carg_Nombre)
+					BEGIN
+						UPDATE term.tbCargos
+						SET carg_Estado = 1
+						WHERE carg_Nombre = @carg_Nombre
+
+						SELECT 'El registro ha sido editado con éxito'
+					END
+				ELSE
+					SELECT 'Ya existe un cargo con este nombre'
+			END
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH
 END
 GO
@@ -123,10 +146,10 @@ BEGIN
 		UPDATE term.tbCargos
 		SET carg_Estado = 0
 		WHERE carg_ID = @carg_ID
-		SELECT 1
+		SELECT 'Registro Eliminado con exito'
 	END TRY
 	BEGIN CATCH 
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH 
 END
 GO
@@ -181,14 +204,29 @@ CREATE OR ALTER PROCEDURE term.UDP_tbClientes_Create
 AS
 BEGIN
 	BEGIN TRY
+	IF NOT EXISTS (SELECT clie_DNI FROM term.tbClientes WHERE clie_DNI  = @clie_DNI)
+	BEGIN
 		INSERT INTO term.tbClientes(clie_Nombres ,clie_Apellidos,clie_DNI ,clie_Sexo, clie_Telefono, clie_Email, clie_UsuarioCreador, 
 									clie_UsuarioModificador, clie_FechaModificacion)
 		VALUES	(@clie_Nombres, @clie_Apellidos ,@clie_DNI, @clie_Sexo, @clie_Telefono, 
 				@clie_Email, @clie_UsuarioCreador, NULL, NULL)
-		SELECT 1
+		SELECT 'Registro agregado correctamente'
+		END
+		ELSE IF EXISTS (SELECT clie_DNI FROM term.tbClientes WHERE clie_DNI = @clie_DNI AND clie_Estado = 0) 
+		BEGIN
+		UPDATE term.tbClientes
+		SET clie_Estado = 1
+		WHERE clie_ID = @clie_DNI
+		SELECT 'Registro agregado correctamente'
+		END
+		ELSE IF EXISTS (SELECT clie_DNI FROM term.tbClientes WHERE clie_DNI  = @clie_DNI)
+		BEGIN
+		SELECT 'Ya existe un cliente con ese numero de Identidad'
+		END
+	
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH
 END
 GO
@@ -219,6 +257,12 @@ CREATE OR ALTER PROCEDURE term.UDP_tbClientes_Update
 AS
 BEGIN
 	BEGIN TRY
+	IF EXISTS (SELECT clie_DNI FROM term.tbClientes WHERE clie_DNI = @clie_DNI AND clie_ID != @clie_ID)
+	BEGIN 
+	SELECT 'Ya hay un cliente con ese numero de identidad'
+	END 
+	ELSE 
+	BEGIN
 		UPDATE	term.tbClientes 
 		SET		clie_Nombres = @clie_Nombres,
 				clie_Apellidos = @clie_Apellidos,
@@ -229,10 +273,11 @@ BEGIN
 				clie_UsuarioModificador = @clie_UsuarioModificador, 
 				clie_FechaModificacion = GETDATE()
 		WHERE	clie_ID = @clie_ID
-		SELECT 1
+		SELECT 'Registro editado exitosamente'
+		END
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH
 END
 GO
@@ -247,11 +292,11 @@ BEGIN
 		UPDATE	term.tbClientes
 		SET		clie_Estado  = 0
 		WHERE clie_ID = @clie_ID
-		SELECT 1
+		SELECT 'Registro eliminado correctamente'
 	END TRY
 
 	BEGIN CATCH 
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH
 END
 GO
@@ -699,10 +744,10 @@ BEGIN
 		bole_UsuarioModificador = @bole_UsuarioModificador, 
 		bole_FechaModificacion = GETDATE()
 		WHERE bole_ID = @bole_ID
-		SELECT 1
+		SELECT 'Registro editado exitosamente'
 	END TRY 
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH
 END
 GO
@@ -718,10 +763,10 @@ BEGIN
 		UPDATE term.tbBoletos
 		SET bole_Estado = 0
 		WHERE bole_ID = @bole_ID
-		SELECT 1
+		SELECT 'Registro eliminado correctamente'
 	END TRY
 	BEGIN CATCH 
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH
 END
 GO
