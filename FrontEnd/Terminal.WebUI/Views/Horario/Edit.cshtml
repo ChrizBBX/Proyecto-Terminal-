@@ -79,20 +79,20 @@
                                                 <strong><span asp-validation-for="hora_Precio" class="text-danger"></span></strong>
                                             </div>
                                         </div>
-                                    <div class="card-footer bg-indigo-500">
-                                        <div class="row">
-                                            <div class="col-8"></div>
-                                            <div class="col-2">
-                                                <input type="submit" value="Confirmar Envio" class="btn btn-outline-success" />
-                                            </div>
-                                            <div class="col-2">
-                                                <a asp-action="Index" class="btn btn-outline-danger">Cancelar</a>
+                                        <div class="card-footer bg-indigo-500">
+                                            <div class="row">
+                                                <div class="col-8"></div>
+                                                <div class="col-2">
+                                                    <input type="submit" value="Confirmar Envio" class="btn btn-outline-success" />
+                                                </div>
+                                                <div class="col-2">
+                                                    <a asp-action="Index" class="btn btn-outline-danger">Cancelar</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                                </div>
                             <div class="card-footer">
 
                             </div>
@@ -103,6 +103,17 @@
         </div>
     </div>
 </div>
+
+@if (ViewBag.Script != null)
+{
+    <script>
+        $(document).ready(function () {
+            @Html.Raw(ViewBag.Script)
+        })
+    </script>
+
+    ViewBag.Script = null;
+}
 
 <script>
     $('#hora_Precio').on('input', function () {

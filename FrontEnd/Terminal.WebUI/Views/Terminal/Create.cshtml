@@ -68,6 +68,17 @@
             </div>
         </form>
 
+        @if (ViewBag.Script != null)
+        {
+            <script>
+        $(document).ready(function () {
+            @Html.Raw(ViewBag.Script)
+        })
+            </script>
+
+            ViewBag.Script = null;
+        }
+
 
         <script></script>
         <script>

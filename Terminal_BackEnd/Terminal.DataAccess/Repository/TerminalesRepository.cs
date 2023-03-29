@@ -31,20 +31,29 @@ namespace Terminal.DataAccess.Repository
 
         public RequestStatus Insert(tbTerminales item)
         {
+
             using var db = new SqlConnection(TerminalContext.ConnectionString);
+            RequestStatus result = new RequestStatus();
+
             var parametros = new DynamicParameters();
             parametros.Add("@term_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@muni_ID", item.muni_ID, DbType.String, ParameterDirection.Input);
             parametros.Add("@term_Nombre", item.term_Nombre, DbType.String, ParameterDirection.Input);
             parametros.Add("@term_DireccionExacta", item.term_DireccionExacta, DbType.String, ParameterDirection.Input);
             parametros.Add("@term_CantidadTransportes", item.term_CantidadTransportes, DbType.Int32, ParameterDirection.Input);
-            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Terminales_Insert, parametros, commandType: CommandType.StoredProcedure);
+
+             var answer = db.QueryFirst<string>(ScriptsDataBase.UDP_Terminales_Insert, parametros, commandType: CommandType.StoredProcedure);
+             result.MessageStatus = answer;
+
+            return result; 
 
         }
 
         public RequestStatus Update(tbTerminales item)
         {
             using var db = new SqlConnection(TerminalContext.ConnectionString);
+            RequestStatus result = new RequestStatus();
+
             var parametros = new DynamicParameters();
             parametros.Add("@term_UsuarioModificador", 1, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@term_ID", item.term_ID, DbType.Int32, ParameterDirection.Input);
@@ -52,17 +61,26 @@ namespace Terminal.DataAccess.Repository
             parametros.Add("@term_Nombre", item.term_Nombre, DbType.String, ParameterDirection.Input);
             parametros.Add("@term_DireccionExacta", item.term_DireccionExacta, DbType.String, ParameterDirection.Input);
             parametros.Add("@term_CantidadTransportes", item.term_CantidadTransportes, DbType.Int32, ParameterDirection.Input);
-            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Terminales_Update, parametros, commandType: CommandType.StoredProcedure);
 
+            var answer =  db.QueryFirst<string>(ScriptsDataBase.UDP_Terminales_Update, parametros, commandType: CommandType.StoredProcedure);
+
+            result.MessageStatus = answer;
+
+            return result;
         }
 
         public RequestStatus Delete(int id)
         {
+            RequestStatus result = new RequestStatus();
             using var db = new SqlConnection(TerminalContext.ConnectionString);
+
             var parametros = new DynamicParameters();
             parametros.Add("@term_ID", id, DbType.Int32, ParameterDirection.Input);
-            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Terminales_Delete, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.UDP_Terminales_Delete, parametros, commandType: CommandType.StoredProcedure);
 
+            result.MessageStatus = answer;
+
+            return result;
         }
 
 

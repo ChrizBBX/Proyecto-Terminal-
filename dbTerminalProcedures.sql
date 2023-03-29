@@ -314,11 +314,12 @@ BEGIN
 
 		INSERT INTO term.tbHorarios(hora_Salida, hora_Llegada, hora_Origen, hora_Destino, hora_Precio,hora_CantidadPasajerosMax, hora_UsuarioCreador, hora_UsuarioModificador, hora_FechaModificacion)
 		VALUES(@hora_Salida, @hora_Llegada, @hora_Origen, @hora_Destino, @hora_Precio ,@hora_CantidadPasajerosMax, @hora_UsuarioCreador, NULL, NULL)
-		SELECT 1
+SELECT 'Registro agregado exitosamente'
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+SELECT 'A ocurrido un Error!!!'
 	END CATCH
+
 END
 GO
 
@@ -361,7 +362,10 @@ CREATE OR ALTER PROCEDURE term.UDP_tbHorarios_Update
 	@hora_CantidadPasajerosMax	INT
 AS
 BEGIN
-	UPDATE	term.tbHorarios 
+BEGIN TRY	
+
+
+UPDATE	term.tbHorarios 
 	SET		hora_Salida = @hora_Salida, 
 			hora_Llegada = @hora_Llegada, 
 			hora_Origen = @hora_Origen, 
@@ -371,6 +375,13 @@ BEGIN
 			hora_UsuarioModificador = @hora_UsuarioModificador, 
 			hora_FechaModificacion = GETDATE()
 	WHERE	hora_ID = @hora_ID
+
+	SELECT 'Registro agregado exitosamente'
+	END TRY
+	BEGIN CATCH
+SELECT 'A ocurrido un Error!!!'
+	END CATCH
+
 END
 GO
 
@@ -378,9 +389,16 @@ CREATE OR ALTER PROCEDURE term.UDP_tbHorarios_Delete
 	@hora_ID INT
 AS
 BEGIN
-	UPDATE term.tbHorarios
+BEGIN TRY	UPDATE term.tbHorarios
 	SET hora_Estado = 0
 	WHERE hora_ID = @hora_ID 
+
+	SELECT 'Registro agregado exitosamente'
+	END TRY
+	BEGIN CATCH
+SELECT 'A ocurrido un Error!!!'
+	END CATCH
+
 END
 GO
 
@@ -449,10 +467,10 @@ BEGIN TRY
            ,@term_UsuarioCreador
            ,NULL
            ,NULL)
-SELECT 1
+SELECT 'Registro agregado exitosamente'
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+SELECT 'A ocurrido un Error!!!'
 	END CATCH
 
 END
@@ -464,6 +482,7 @@ CREATE OR ALTER PROCEDURE term.UDP_VW_tbTerminales_Find
 @term_ID INT
 AS
 BEGIN
+
 	SELECT	term_ID, 
 			muni_ID,
 			muni_Descripcion,
@@ -507,10 +526,10 @@ UPDATE [term].[tbTerminales]
       ,[term_FechaModificacion] = GETDATE()
  WHERE term_ID	= @term_ID	
 
- SELECT 1
+SELECT 'Registro actualizado exitosamente'
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+SELECT 'A ocurrido un Error!!!'
 	END CATCH
 
 END
@@ -529,10 +548,9 @@ UPDATE [term].[tbTerminales]
   WHERE term_ID	= @term_ID	
 
 
- SELECT 1
-	END TRY
+  SELECT 'Registro eliminado exitosamente'	END TRY
 	BEGIN CATCH
-		SELECT 0
+  SELECT 'A ocurrido un Error!!!'
 	END CATCH
 END
 GO

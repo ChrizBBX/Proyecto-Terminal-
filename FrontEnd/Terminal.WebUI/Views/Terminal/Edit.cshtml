@@ -64,6 +64,18 @@
             </div>
         </form>
 
+
+        @if (ViewBag.Script != null)
+        {
+            <script>
+        $(document).ready(function () {
+            @Html.Raw(ViewBag.Script)
+        })
+            </script>
+
+            ViewBag.Script = null;
+        }
+
         <script></script>
         <script>
             $(document).ready(function () {
@@ -73,7 +85,7 @@
                 var Validacion = $("#validar");
 
                 // Deshabilita el select de municipios al inicio
-/*                municipioSelect.prop('disabled', true);*/
+                /*                municipioSelect.prop('disabled', true);*/
                 Validacion.hide();
 
                 // Agrega un comentario explicando la función

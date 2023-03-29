@@ -21,13 +21,13 @@
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                                 <div class="card">
-                                    <div class="card-header text-center bg-teal-300"  >
+                                    <div class="card-header text-center bg-teal-300">
                                         <div class="row">
                                             <div class="col-4">
 
                                             </div>
-                                            <div class="col-4" style="margin-top: 10px"> 
-                                                <h1 style="font-family: Cooper; color: azure">Crear Registro</h1>                                                 
+                                            <div class="col-4" style="margin-top: 10px">
+                                                <h1 style="font-family: Cooper; color: azure">Crear Registro</h1>
                                             </div>
                                             <div class="col-4">
                                                 <div class="text-end">
@@ -102,3 +102,14 @@
         </div>
     </div>
 </div>
+
+@if (ViewBag.Script != null)
+{
+    <script>
+        $(document).ready(function () {
+            @Html.Raw(ViewBag.Script)
+        })
+    </script>
+
+    ViewBag.Script = null;
+}

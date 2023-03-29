@@ -32,6 +32,8 @@ namespace Terminal.DataAccess.Repository
         {
             using var db = new SqlConnection(TerminalContext.ConnectionString);
             var parametros = new DynamicParameters();
+            RequestStatus result = new RequestStatus();
+
             parametros.Add("@hora_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@hora_Salida", item.hora_Salida, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@hora_Llegada", item.hora_Llegada, DbType.DateTime, ParameterDirection.Input);
@@ -39,11 +41,17 @@ namespace Terminal.DataAccess.Repository
             parametros.Add("@hora_Destino", item.hora_Destino, DbType.String, ParameterDirection.Input);
             parametros.Add("@hora_CantidadPasajerosMax", item.hora_CantidadPasajerosMax, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@hora_Precio", item.hora_Precio, DbType.Decimal, ParameterDirection.Input);
-            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Horarios_Insert, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.UDP_Horarios_Insert, parametros, commandType: CommandType.StoredProcedure);
+
+            result.MessageStatus = answer;
+
+            return result;
         }
 
         public RequestStatus Update(tbHorarios item)
         {
+            RequestStatus result = new RequestStatus();
+
             using var db = new SqlConnection(TerminalContext.ConnectionString);
             var parametros = new DynamicParameters();
             parametros.Add("@hora_UsuarioModificador", 1, DbType.Int32, ParameterDirection.Input);
@@ -54,8 +62,11 @@ namespace Terminal.DataAccess.Repository
             parametros.Add("@hora_Destino", item.hora_Destino, DbType.String, ParameterDirection.Input);
             parametros.Add("@hora_CantidadPasajerosMax", item.hora_CantidadPasajerosMax, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@hora_Precio", item.hora_Precio, DbType.Int32, ParameterDirection.Input);
-            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Horarios_Update, parametros, commandType: CommandType.StoredProcedure);
+           var answer =  db.QueryFirst<string>(ScriptsDataBase.UDP_Horarios_Update, parametros, commandType: CommandType.StoredProcedure);
 
+            result.MessageStatus = answer;
+
+            return result;
         }
 
         public RequestStatus Delete(int id)
@@ -63,8 +74,12 @@ namespace Terminal.DataAccess.Repository
             using var db = new SqlConnection(TerminalContext.ConnectionString);
             var parametros = new DynamicParameters();
             parametros.Add("@hora_ID", id, DbType.Int32, ParameterDirection.Input);
-            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Horarios_Delete, parametros, commandType: CommandType.StoredProcedure);
+            RequestStatus result = new RequestStatus();
+            var answer = db.QueryFirst<string>(ScriptsDataBase.UDP_Horarios_Delete, parametros, commandType: CommandType.StoredProcedure);
 
+            result.MessageStatus = answer;
+
+            return result;
         }
     }
 }
