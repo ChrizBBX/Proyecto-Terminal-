@@ -71,5 +71,15 @@ namespace Terminal.DataAccess.Repository
         #region Empleado
         public static string UDP_EmpleadoSelect = "term.UDP_tbEmpleado_List";
         #endregion
+
+
+        #region Usuarios
+            public static string UDP_Usuarios_Select = "acce.UDP_VW_tbUsuarios_VW";
+            public static string UDP_Usuarios_Create = "acce.UDP_tbUsuarios_Create";
+            public static string UDP_Usuarios_Find = "acce.UDP_VW_tbUsuarios_Find";
+            public static string UDP_Usuarios_Update = "acce.UDP_tbUsuarios_Update";
+            public static string UDP_Usuarios_Delete = "acce.UDP_tbUsuarios_Delete";
+        #endregion
+
     }
 }

@@ -131,7 +131,7 @@ CREATE TABLE acce.tbUsuarios(
 	usua_ID						INT IDENTITY(1,1), 
 	usua_Usuario				NVARCHAR(100), 
 	usua_Clave					VARBINARY(MAX),
-	usua_EsAdmin				INT,
+	usua_EsAdmin				BIT,
 	empl_ID						INT,
 	usua_Estado					INT DEFAULT 1,
 	usua_UsuarioCreador			INT,
@@ -143,8 +143,6 @@ CREATE TABLE acce.tbUsuarios(
 	CONSTRAINT UQ_acce_tbUsuarios_usua_Usuario UNIQUE (usua_Usuario),
 )
 GO
-
-
 
 
 
@@ -176,6 +174,7 @@ CREATE TABLE term.tbEmpleados(
 	empl_Sexo					CHAR(1),
 	empl_Telefono				CHAR(8),
 	carg_ID						INT,
+	role_ID						INT,
 	estciv_ID					INT,
 	muni_ID						CHAR(4),
 	empl_Estado					INT DEFAULT 1,
@@ -189,7 +188,8 @@ CREATE TABLE term.tbEmpleados(
 	CONSTRAINT UQ_term_tbEmpleados_empl_DNI UNIQUE (empl_DNI),
 	CONSTRAINT FK_term_tbEmpleados_gral_tbEstadosCiviles_estciv_ID FOREIGN KEY (estciv_ID) REFERENCES gral.tbEstadosCiviles (estciv_ID),
 	CONSTRAINT FK_term_tbEmpleados_gral_tbMunicipios_muni_ID FOREIGN KEY (muni_ID) REFERENCES gral.tbMunicipios (muni_ID),
-	CONSTRAINT FK_term_tbEmpleados_tbCargos_carg_ID	FOREIGN KEY (carg_ID) REFERENCES term.tbCargos (carg_ID) 
+	CONSTRAINT FK_term_tbEmpleados_tbCargos_carg_ID	FOREIGN KEY (carg_ID) REFERENCES term.tbCargos (carg_ID),
+	CONSTRAINT FK_term_tbEmpleados_acce_tbRoles_role_ID FOREIGN KEY (role_ID) REFERENCES acce.tbRoles (role_ID)
 )
 GO
 

@@ -1,0 +1,114 @@
+﻿@model Terminal.WebUI.Models.UsuariosViewModel
+<!-- Modal -->
+<div class="modal fade" id="_Modal_Create" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <form method="post" asp-controller="Usuario" asp-action="Create" id="formCreate">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="row"><h3 class="modal-title" id="exampleModalLongTitle" style=" color: black;"><strong>Nuevo Usuario</strong></h3></div>
+
+                </div>
+                <div class="modal-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <strong><label asp-for="usua_Usuario" class="control-label text-dark"></label></strong>
+                                <input asp-for="usua_Usuario" id="usua_Usuario" class="form-control" style="font-weight: 500; color: black; border-color: #1C1F3B;" />
+                                <strong><label hidden="hidden" id="lblUsuarioError" class="control-label text-danger" >Campo 'Usuario' requerido</label></strong>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <strong><label asp-for="usua_Pass" class="control-label text-dark"></label></strong>
+                                <input asp-for="usua_Pass" id="usua_Pass" class="form-control" style="font-weight: 500; color: black; border-color: #1C1F3B;" />
+                                <strong><label hidden="hidden" id="lblPassError" class="control-label text-danger">Campo 'Contraseña' requerido</label></strong>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <strong><label asp-for="empl_ID" class="control-label text-dark"></label></strong>
+                                <select id="empl_ID" asp-for="empl_ID" class="form-control" asp-items="ViewBag.empl_ID" style="font-weight: 500; border-color: #1C1F3B; color: black; ">
+                                    <option value="">--Seleccione una opcion--</option>
+                                </select>
+                                <strong><label hidden="hidden" id="lblEmpleadoError" class="control-label text-danger">Campo 'Empleado' requerido</label></strong>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <strong><label asp-for="usua_EsAdmin" class="control-label text-dark"></label></strong>
+                                <input type="checkbox" asp-for="usua_EsAdmin" id="usua_EsAdmin" style="font-weight: 500; color: black;" border-color: #1C1F3B;/>
+
+                            </div>
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-5"><button type="button" onclick="Crear()" class="btn btn-outline-success">Crear</button></div>
+                        <div class="col-4"><button type="button" onclick="Limpiar()" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    //Limitar Inputs
+</script>
+
+<script>
+    function OpenCreate() {
+        $("#_Modal_Create").appendTo('body').modal('show');
+        $("#lblUsuarioError").attr('hidden', true);
+        $("#lblPassError").attr('hidden', true);
+        $("#lblEmpleadoError").attr('hidden', true);
+    };
+
+    function Crear() {
+
+        console.log(1);
+
+        var x = true;
+
+        if ($("#usua_Usuario").val() == "") {
+            $("#lblUsuarioError").attr('hidden', false);
+            x = false;
+        }
+
+        if ($("#usua_Pass").val() == "") {
+            $("#lblPassError").attr('hidden', false);
+            x = false;
+        }
+
+        if ($("#empl_ID").val() == "") {
+            $("#lblEmpleadoError").attr('hidden', false);
+            x = false;
+        }
+
+        if (x) {
+            $("#lblUsuarioError").attr('hidden', true);
+            $("#lblPassError").attr('hidden', true);
+            $("#lblEmpleadoError").attr('hidden', true);
+            $("#formCreate").submit();
+        }
+    }
+
+    function Limpiar() {
+        $("#lblUsuarioError").attr('hidden', true);
+        $("#lblPassError").attr('hidden', true);
+        $("#lblEmpleadoError").attr('hidden', true);
+        $("#usua_Usuario").val("");
+        $("#usua_Pass").val("");
+        $("#empl_ID").val("");
+
+
+    }
+</script>
