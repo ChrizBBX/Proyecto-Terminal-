@@ -70,12 +70,12 @@ namespace Terminal.WebUI.Controllers
 
                         if (jsonObj["code"].ToString() == "200")
                         {
-                            string script = "MostrarMensajeSuccess('" + ViewBag.message + "');";
+                            string script = "MostrarMensajeSuccess('" + ViewBag.message + "'); Swal.fire( 'Agregado!', 'Registro Agregado exitosamente!', 'success' )";
                             TempData["script"] = script;
                         }
                         else if (jsonObj["code"].ToString() == "409")
                         {
-                            string script = "MostrarMensajeWarning('" + ViewBag.message + "'); $('#New').click();";
+                            string script = "MostrarMensajeWarning('" + ViewBag.message + "'); Swal.fire( 'Registro Existente!', 'Ya existe un registro con ese nombre!', 'warning' )";
                             TempData["script"] = script;
                         }
                         else

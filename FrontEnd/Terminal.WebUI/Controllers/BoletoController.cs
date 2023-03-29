@@ -267,7 +267,7 @@ namespace Terminal.WebUI.Controllers
             }
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             #region Llenar ddl
@@ -390,8 +390,8 @@ namespace Terminal.WebUI.Controllers
             }
         }
 
-
-        public async Task<IActionResult> Update(BoletosViewModel boletos)
+        [HttpPost]
+        public async Task<IActionResult> Edit(BoletosViewModel boletos)
         {
             if (ModelState.IsValid)
             {
