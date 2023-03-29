@@ -283,11 +283,20 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public RequestStatus UpdateTerminales(tbTerminales terminales)
+        public ServiceResult UpdateTerminales(tbTerminales terminales)
         {
+            var result = new ServiceResult();
             try
             {
-                return _terminalesRepository.Update(terminales);
+                 var edit = _terminalesRepository.Update(terminales);
+                if(edit.MessageStatus == "Registro actualizado exitosamente")
+                {
+                   return result.Ok(edit.MessageStatus);
+                }
+                else
+                {
+                   return result.BadRequest(edit.MessageStatus);
+                }
             }
             catch (Exception e)
             {
@@ -315,17 +324,15 @@ namespace Terminal.BusinessLogic.Services
             var result = new ServiceResult();
             try
             {
-                var map = _horariosRepository.Insert(item);
-                return result.Ok(map);
-                //if (map.CodeStatus > 0)
-                //{
-
-                //}
-                //else
-                //{ 
-                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
-                //    return result.Error(map);
-                //}
+                var insert = _horariosRepository.Insert(item);
+                if(insert.MessageStatus == "Registro agregado exitosamente")
+                {
+                    return result.Ok(insert.MessageStatus);
+                }
+                else
+                {
+                    return result.BadRequest(insert.MessageStatus);
+                }
 
             }
             catch (Exception)
@@ -346,11 +353,20 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public RequestStatus BorrarHorarios(int id)
+        public ServiceResult BorrarHorarios(int id)
         {
+            var result = new ServiceResult();
             try
             {
-                return _horariosRepository.Delete(id);
+               var delete =  _horariosRepository.Delete(id);
+                if(delete.MessageStatus == "Registro eliminado exitosamente")
+                {
+                    return result.Ok(delete.MessageStatus);
+                }
+                else
+                {
+                    return result.BadRequest(delete.MessageStatus);
+                }
             }
             catch (Exception e)
             {
@@ -358,11 +374,20 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public RequestStatus UpdateHorarios(tbHorarios horarios)
+        public ServiceResult UpdateHorarios(tbHorarios horarios)
         {
+            var result = new ServiceResult();
             try
             {
-                return _horariosRepository.Update(horarios);
+                var edit = _horariosRepository.Update(horarios);
+                if (edit.MessageStatus == "Registro editado exitosamente")
+                {
+                    return result.Ok(edit.MessageStatus);
+                }
+                else
+                {
+                    return result.BadRequest(edit.MessageStatus);
+                }
             }
             catch (Exception e)
             {

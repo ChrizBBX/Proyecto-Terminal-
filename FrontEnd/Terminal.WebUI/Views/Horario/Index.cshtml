@@ -47,7 +47,7 @@
                                         <td class="text-dark">
                                             <a asp-action="Details" asp-route-id="@item.hora_ID" class="btn btn-outline-dark">Detalle</a> |
                                             <a asp-action="Edit" asp-route-id="@item.hora_ID" class="btn btn-outline-warning">Editar</a> |
-                                            <a asp-action="Delete" asp-route-id="@item.hora_ID" class="btn btn-outline-danger">Eliminar</a>
+                                            <button class="btn btn-outline-danger btn-sm" id="btnEliminar" onclick="eliminar('@item.hora_ID')">Eliminar</button>
                                         </td>
                                     </tr>
                                 }
@@ -80,4 +80,4 @@
     </script>
 
     ViewBag.Script = null;
-}
+}@Html.Partial("_Modal_Delete", new Terminal.WebUI.Models.HorariosViewModel())

@@ -408,8 +408,6 @@ CREATE OR ALTER PROCEDURE term.UDP_tbHorarios_Update
 AS
 BEGIN
 BEGIN TRY	
-
-
 UPDATE	term.tbHorarios 
 	SET		hora_Salida = @hora_Salida, 
 			hora_Llegada = @hora_Llegada, 
@@ -421,7 +419,7 @@ UPDATE	term.tbHorarios
 			hora_FechaModificacion = GETDATE()
 	WHERE	hora_ID = @hora_ID
 
-	SELECT 'Registro agregado exitosamente'
+	SELECT 'Registro editado exitosamente'
 	END TRY
 	BEGIN CATCH
 SELECT 'A ocurrido un Error!!!'
@@ -438,7 +436,7 @@ BEGIN TRY	UPDATE term.tbHorarios
 	SET hora_Estado = 0
 	WHERE hora_ID = @hora_ID 
 
-	SELECT 'Registro agregado exitosamente'
+	SELECT 'Registro eliminado exitosamente'
 	END TRY
 	BEGIN CATCH
 SELECT 'A ocurrido un Error!!!'
