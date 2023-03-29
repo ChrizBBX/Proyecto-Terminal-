@@ -45,6 +45,26 @@ namespace Terminal.WebUI.Controllers
             }
         }
 
+        public async Task<IActionResult> Details(int id)
+        {
+            List<CargosViewModel> listado = new List<CargosViewModel>();
+            if (TempData["script"] is string script)
+            {
+                TempData.Remove("script");
+                ViewBag.Script = script;
+            }
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + "api/Cargos");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    listado = JsonConvert.DeserializeObject<List<CargosViewModel>>(jsonResponse);
+                }
+                return View(listado.Where(X => X.carg_ID == id));
+            }
+        }
 
         [HttpGet]
         public IActionResult Create()
