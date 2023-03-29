@@ -49,6 +49,31 @@ namespace Terminal.WebUI.Controllers
         }
 
 
+        public async Task<IActionResult> Details(int id)
+        {
+
+            List<ClientesModel> listado = new List<ClientesModel>();
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + "api/Cliente");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    if (TempData["Script"] is string script)
+                    {
+                        TempData.Remove("Script");
+                        ViewBag.Script = script;
+                    }
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    listado = JsonConvert.DeserializeObject<List<ClientesModel>>(jsonResponse);
+                }
+                return View(listado.Where(x => x.clie_ID == id));
+            }
+        }
+
+
+
         [HttpGet]
         public IActionResult Create()
         {

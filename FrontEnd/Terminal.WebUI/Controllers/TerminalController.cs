@@ -52,6 +52,33 @@ namespace Terminal.WebUI.Controllers
         }
 
 
+        public async Task<IActionResult> Details(int id)
+        {
+
+            List<TerminalesViewModel> listado = new List<TerminalesViewModel>();
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + "api/Terminal");
+
+                if (response.IsSuccessStatusCode)
+                {
+
+                    if (TempData["Script"] is string script)
+                    {
+                        TempData.Remove("Script");
+                        ViewBag.Script = script;
+                    }
+
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+
+                    listado = JsonConvert.DeserializeObject<List<TerminalesViewModel>>(jsonResponse);
+                }
+                return View(listado.Where(x => x.term_ID == id));
+            }
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> CreateAsync()
         {

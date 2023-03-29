@@ -7,7 +7,7 @@
 
 
 
-<div class="card">
+<div class="card border-5">
     <div class="card-body">
 
         <div class="row">
@@ -25,7 +25,7 @@
                             <div class="row">
                                 <div class="col-5"></div>
                                 <div class="col-4">
-                                    <p><a asp-action="Create" class="btn btn-outline-primary">Nuevo cliente</a></p>
+                                    <p><a asp-action="Create" class="btn bg-purple-700 text-light">Nuevo cliente</a></p>
                                 </div>
                                 <div class="col-3"></div>
                             </div>
@@ -34,7 +34,7 @@
                     <br />
                     <div class="table-responsive">
                         <table class="table text-nowrap table-striped table-hover dataTables-example" id="DataTable">
-                            <thead class="bg-cyan-400">
+                            <thead class="">
                                 <tr class="text-dark">
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.clie_ID)</th>
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.clie_Nombres)</th>
@@ -58,14 +58,14 @@
                                         <td>@Html.DisplayFor(modelItem => item.clie_Telefono)</td>
                                         <td>@Html.DisplayFor(modelItem => item.clie_Email)</td>
                                         <td>
-                                            <a asp-action="Details" asp-route-id="@item.clie_ID" class="btn btn-outline-success btn-sm">Detalles</a> |
-                                            <a asp-action="Edit" asp-route-id="@item.clie_ID" class="btn btn-outline-warning btn-sm">Editar</a> |
+                                            <a asp-action="Edit" asp-route-id="@item.clie_ID" class="btn btn-outline-primary btn-sm">Editar</a> |
+                                            <a asp-action="Details" asp-route-id="@item.clie_ID" class="btn btn-outline-secondary btn-sm">Detalle</a> |
                                             <button class="btn btn-outline-danger btn-sm" id="btnEliminar" onclick="eliminar('@item.clie_ID')">Eliminar</button>
                                         </td>
                                     </tr>
                                 }
                             </tbody>
-                            <tfoot class="bg-cyan-400">
+                            <tfoot class="">
                                 <tr class="text-dark">
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.clie_ID)</th>
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.clie_Nombres)</th>

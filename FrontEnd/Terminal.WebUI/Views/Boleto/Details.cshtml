@@ -6,45 +6,127 @@
 }
 
 
-<div class="card">
+<div class="card border-5">
     <div class="card-header">
-        <h1>Detalles</h1>
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-3">
+                <h1>Detalles</h1>
+            </div>
+            <div class="col-4"></div>
+
+        </div>
     </div>
-    <div class="card-body">
+    <div class="card-body align-content-xl-center">
         @foreach (var item in Model)
         {
-        <div class="row">
-            <div class="form-group col-6">
-                <h5>ID</h5>
-                @Html.DisplayFor(modelItem => item.bole_ID)
+            <div class="row mt-1">
+
+                <div class="col-1"></div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <h5>Boleto N° :</h5>
+                        <label class="text-dark">@Html.DisplayFor(modelItem => item.bole_ID)</label>
+                    </div>
+                </div>
+
+                <div class="form-group col-3">
+                    <h5>Fecha :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.bole_Fecha)</label>                    
+                </div>
+
+                <div class="form-group col-4">
+                    <h5>Terminal :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.term_Nombre)</label>
+                </div>
+            </div>
+            <div class="row mt-3">
+
+                <div class="col-1"></div>
+
+                <div class="form-group col-4">
+                    <h5>Dirección :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.term_DireccionExacta)</label>
+                </div>
+
+                <div class="form-group col-3">
+                    <h5>Compañia :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.comp_Nombre)</label>
+                </div>
+
+                <div class="form-group col-4">
+                    <h5>Empleado :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.bole_empl_Nombre_Completo)</label>
+                </div>
+            </div>
+            <div class="row mt-3">
+
+
+                <div class="col-1"></div>
+
+                <div class="form-group col-4">
+                    <h5>Cliente :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.bole_clie_Nombre_Completo)</label>
+                </div>
+
+                <div class="form-group col-3">
+                    <h5>Fecha/Hora salida :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_Salida)</label>
+                </div>
+
+                <div class="form-group col-4">
+                    <h5>Origen :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.bole_hora_Origen_Nombre)</label>
+                </div>
+            </div>
+            <div class="row mt-3">
+
+                <div class="col-1"></div>
+
+                <div class="form-group col-4">
+                    <h5>Fecha/Hora llegada :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_Llegada)</label>
+                </div>
+
+                <div class="form-group col-3">
+                    <h5>Destino :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.bole_hora_Destino_Nombre)</label>
+                </div>
+
+                <div class="form-group col-4">
+                    <h5>Método de pago :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.pago_Descripcion)</label>
+                </div>
+
+            </div>
+            <div class="row mt-3">
+
+                <div class="col-1"></div>
+
+
+                <div class="form-group col-4">
+                    <h5>Precio :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_Precio)</label>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-9 mt-3"></div>
+                <div class="form-group col-1 mt-3">
+                    <a asp-action="Edit" asp-route-id="@item.bole_ID" class="btn btn-warning btn-sm">Editar</a>
+                </div>
+                <div class="form-group col-1 mt-3">
+                    <a asp-action="Index" class="btn btn-dark btn-sm">Regresar</a>
+                </div>
             </div>
 
-            <div class="form-group col-6">
-                <h5>Fecha</h5>
-                @Html.DisplayFor(modelItem => item.bole_Fecha)
-            </div>
-
-            <div class="form-group col-6">
-                <h5>Terminal</h5>
-                @Html.DisplayFor(modelItem => item.term_Nombre)
-            </div>
-
-            <div class="form-group col-6">
-                <h5>Dirección</h5>
-                @Html.DisplayFor(modelItem => item.bole_Fecha)
-            </div>
-        </div>
-            <div class="form-group col-3 mt-3">
-                <a asp-action="Update" asp-route-id="@item.carg_ID" class="btn btn-warning">Editar</a>
-            </div>
         }
         <div style="height:20px"></div>
         <div class="card">
-            <div class="card-header"><h2>Auditoria</h2></div>
+            <div class="card-header"><h2>Auditoría</h2></div>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Accion</th>
+                        <th>Acción</th>
                         <th>Usuario</th>
                         <th>Fecha</th>
                     </tr>
@@ -53,22 +135,29 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td><label>Creacion</label></td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_UsuarioCreador_Nombre)</td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_FechaCreacion)</td>
+                            <td><label>Creación</label></td>
+                            <td>@Html.DisplayFor(modelItem => item.bole_UsuarioCreador_Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.bole_FechaCreacion)</td>
                         </tr>
                         <tr>
-                            <td>Modificacion</td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_UsuarioModificador_Nombre)</td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_FechaModificacion)</td>
+                            <td><label>Modificación</label></td>
+                            <td>@Html.DisplayFor(modelItem => item.bole_UsuarioModificador_Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.bole_FechaModificacion)</td>
                         </tr>
 
                     }
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
-    <a asp-action="Index" class="btn btn-dark btn-sm">Regresar</a>
+    
 
 </div>
 

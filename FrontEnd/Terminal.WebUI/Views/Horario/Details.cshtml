@@ -1,9 +1,10 @@
-﻿@model IEnumerable<Terminal.WebUI.Models.CargosViewModel>
-
+﻿@model IEnumerable<Terminal.WebUI.Models.HorariosViewModel>
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 <div class="card border-5">
     <div class="card-header">
         <div class="row">
@@ -24,27 +25,59 @@
                 <div class="col-4">
                     <div class="form-group">
                         <h5>ID :</h5>
-                        <label class="text-dark">@Html.DisplayFor(modelItem => item.carg_ID)</label>
+                        <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_ID)</label>
                     </div>
                 </div>
 
                 <div class="form-group col-3">
-                    <h5>Descripción :</h5>
-                    <label class="text-dark">@Html.DisplayFor(modelItem => item.carg_Nombre)</label>
+                    <h5>Fecha/Hora salida :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_Salida)</label>
                 </div>
 
+                <div class="form-group col-4">
+                    <h5>Fecha/Hora llegada :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_Llegada)</label>
+                </div>
             </div>
+            <div class="row mt-3">
+
+                <div class="col-1"></div>
+
+                <div class="form-group col-4">
+                    <h5>Origen :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_Origen_DeptoNombre)</label>
+                </div>
+
+                <div class="form-group col-3">
+                    <h5>Destino :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_Destino_DeptoNombre)</label>
+                </div>
+
+                <div class="form-group col-4">
+                    <h5>Maximo pasajeros :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_CantidadPasajerosMax)</label>
+                </div>
+            </div>
+            <div class="row mt-3">
+
+                <div class="col-1"></div>
 
 
+                <div class="form-group col-4">
+                    <h5>Precio :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_Precio)</label>
+                </div>
+            </div>
             <div class="row mt-3">
                 <div class="col-9 mt-3"></div>
                 <div class="form-group col-1 mt-3">
-                    <a asp-action="Edit" asp-route-id="@item.carg_ID" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-action="Edit" asp-route-id="@item.hora_ID" class="btn btn-warning btn-sm">Editar</a>
                 </div>
                 <div class="form-group col-1 mt-3">
                     <a asp-action="Index" class="btn btn-dark btn-sm">Regresar</a>
                 </div>
             </div>
+
         }
         <div style="height:20px"></div>
         <div class="card">
@@ -62,14 +95,15 @@
                     {
                         <tr>
                             <td><label>Creación</label></td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_UsuarioCreador_Nombre)</td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_FechaCreacion)</td>
+                            <td>@Html.DisplayFor(modelItem => item.hora_UsuarioCreador_Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.hora_FechaCreacion)</td>
                         </tr>
                         <tr>
                             <td><label>Modificación</label></td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_UsuarioModificador_Nombre)</td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_FechaModificacion)</td>
+                            <td>@Html.DisplayFor(modelItem => item.hora_UsuarioModificador_Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.hora_FechaModificacion)</td>
                         </tr>
+
                     }
                 </tbody>
                 <tfoot>
@@ -83,4 +117,7 @@
         </div>
     </div>
 
+
 </div>
+
+

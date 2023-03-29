@@ -447,7 +447,6 @@ C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\bin\D
 C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Terminal.WebUI.csproj.AssemblyReference.cache
 C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Terminal.WebUI.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Terminal.WebUI.AssemblyInfoInputs.cache
 C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Terminal.WebUI.AssemblyInfo.cs
@@ -643,3 +642,8 @@ C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\D
 C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Usuario\_Modal_Create.cshtml.g.cs
 C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Usuario\_Modal_Delete.cshtml.g.cs
 C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Usuario\_Modal_Edit.cshtml.g.cs
+C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Boleto\Details.cshtml.g.cs
+C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Cliente\Details.cshtml.g.cs
+C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Horario\Details.cshtml.g.cs
+C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Terminal\Details.cshtml.g.cs
+C:\Users\LAB01\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Terminal.WebUI.csproj.AssemblyReference.cache
