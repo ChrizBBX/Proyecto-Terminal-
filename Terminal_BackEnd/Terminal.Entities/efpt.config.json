@@ -74,6 +74,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[acce].[VW_tbUsuarios]",
+         "ObjectType": 3
+      },
+      {
          "Name": "[gral].[VW_graficaSexo]",
          "ObjectType": 3
       },
@@ -106,7 +110,7 @@
          "ObjectType": 3
       }
    ],
-   "UiHint": "DESKTOP-E6OAL4S\\SERVIDORLOCALDM.dbTerminal",
+   "UiHint": "DESKTOP-7ECKOKU\\SQLEXPRESS.dbTerminal",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDbContextSplitting": false,

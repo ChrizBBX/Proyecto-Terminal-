@@ -37,16 +37,6 @@ namespace Terminal.BusinessLogic.Services
             {
                 var map = _usuariosRepository.Insert(item);
                 return result.Ok(map);
-                //if (map.CodeStatus > 0)
-                //{
-
-                //}
-                //else
-                //{ 
-                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
-                //    return result.Error(map);
-                //}
-
             }
             catch (Exception)
             {
@@ -86,6 +76,19 @@ namespace Terminal.BusinessLogic.Services
                 return _usuariosRepository.Update(usuarios);
             }
             catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public IEnumerable<VW_tbUsuarios> Login(string user, string contrasena)
+        {
+            try
+            {
+                return _usuariosRepository.Login(user,contrasena);
+               
+            }
+            catch(Exception error)
             {
                 return null;
             }

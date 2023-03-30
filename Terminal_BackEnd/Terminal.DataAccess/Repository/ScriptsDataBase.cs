@@ -79,6 +79,7 @@ namespace Terminal.DataAccess.Repository
             public static string UDP_Usuarios_Find = "acce.UDP_VW_tbUsuarios_Find";
             public static string UDP_Usuarios_Update = "acce.UDP_tbUsuarios_Update";
             public static string UDP_Usuarios_Delete = "acce.UDP_tbUsuarios_Delete";
+            public static string UDP_Login = "acce.UDP_tbUsuarios_Login";
         #endregion
 
     }

@@ -967,8 +967,6 @@ CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Create
 END
 GO
 
-
-
 --------> FIND
 CREATE OR ALTER PROCEDURE acce.UDP_VW_tbUsuarios_Find
 	@usua_ID INT
@@ -1071,7 +1069,7 @@ GO
 
 
  -- LOGIN ----
-CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Login
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Login 'AWSD','AWSD'
 
 	@usua_Usuario  NVARCHAR(150),
 	@usua_Clave   VARCHAR(150)

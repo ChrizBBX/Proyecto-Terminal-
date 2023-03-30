@@ -31,6 +31,13 @@ namespace Terminal.API.Controllers
             return Ok(listado);
         }
 
+        [HttpGet("Login")]
+        public IActionResult Login(string user, string contrasena)
+        {
+            var listado = _accesoService.Login(user,contrasena);
+            return Ok(listado);
+        }
+
         [HttpPost("Insertar")]
         public IActionResult Create(UsuariosViewModel item)
         {

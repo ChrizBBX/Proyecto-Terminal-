@@ -81,23 +81,6 @@ namespace Terminal.WebUI.Controllers
             }
             else
             {
-                ////Llenar ddl de Empelado
-                //List<EmpleadoViewModel> empleado = new List<EmpleadoViewModel>();
-
-                //using (var httpClient = new HttpClient())
-                //{
-                //    var response = await httpClient.GetAsync(_baseurl + "api/Empleado");
-
-                //    if (response.IsSuccessStatusCode)
-                //    {
-                //        var jsonResponse = await response.Content.ReadAsStringAsync();
-                //        empleado = JsonConvert.DeserializeObject<List<EmpleadoViewModel>>(jsonResponse);
-                //        ViewBag.empl_ID = new SelectList(empleado, "empl_ID", "empl_NombreCompleto");
-                //    }
-                //}
-                ////Fin Llenas ddl de empleado
-
-
                 return View(usuariosViewModel);
             }
         }

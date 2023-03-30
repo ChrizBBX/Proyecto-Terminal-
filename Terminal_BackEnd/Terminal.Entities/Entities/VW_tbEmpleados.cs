@@ -19,6 +19,7 @@ namespace Terminal.Entities.Entities
         public string empl_Sexo { get; set; }
         public string empl_Telefono { get; set; }
         public int? carg_ID { get; set; }
+        public int? role_ID { get; set; }
         public int? estciv_ID { get; set; }
         public string muni_ID { get; set; }
         public int? empl_Estado { get; set; }
