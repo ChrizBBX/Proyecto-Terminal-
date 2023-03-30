@@ -21,8 +21,6 @@ namespace Terminal.Entities.Entities
         public int? carg_UsuarioModificador { get; set; }
         public DateTime? carg_FechaModificacion { get; set; }
 
-        public virtual tbUsuarios carg_UsuarioCreadorNavigation { get; set; }
-        public virtual tbUsuarios carg_UsuarioModificadorNavigation { get; set; }
         public virtual ICollection<tbEmpleados> tbEmpleados { get; set; }
     }
 }

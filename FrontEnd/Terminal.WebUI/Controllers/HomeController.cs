@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -37,6 +38,27 @@ namespace Terminal.WebUI.Controllers
             return View();
         }
 
+        public async Task<IActionResult> PantallasMenu(PantallaViewModel item)
+        {
+            item.role_ID = (int)HttpContext.Session.GetInt32("role_ID");
+            string EsAdmin = HttpContext.Session.GetString("usua_EsAdmin");
+            item.usua_esAdmin = Convert.ToBoolean(HttpContext.Session.GetString("usua_EsAdmin"));
+
+            using (var httpClient = new HttpClient())
+            {
+
+                var json = JsonConvert.SerializeObject(item);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await httpClient.PutAsync(_baseurl + $"api/Usuario/Roles?role_ID={item.role_ID}&esAdmin={EsAdmin}", content);
+                //var response = await client.PutAsync(_baseurl + $"api/Usuario/Roles?role_ID={item.role_ID}&esAdmin={1}'", content);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                //JObject jsonObj = JObject.Parse(jsonResponse);
+
+                var pantalla = JsonConvert.DeserializeObject<List<PantallaViewModel>>(jsonResponse.ToString());
+
+                return Json(pantalla);
+            }
+        }
         public IActionResult Privacy()
         {
             return View();

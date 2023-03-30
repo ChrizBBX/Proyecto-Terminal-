@@ -21,8 +21,6 @@ namespace Terminal.Entities.Entities
         public int? estciv_UsuarioModificador { get; set; }
         public DateTime? estciv_FechaModificacion { get; set; }
 
-        public virtual tbUsuarios estciv_UsuarioCreadorNavigation { get; set; }
-        public virtual tbUsuarios estciv_UsuarioModificadorNavigation { get; set; }
         public virtual ICollection<tbEmpleados> tbEmpleados { get; set; }
     }
 }

@@ -54,7 +54,7 @@ namespace Terminal.WebUI.Controllers
 
                         HttpContext.Session.SetInt32("usua_ID", usua_Id);
                         HttpContext.Session.SetString("usua_Usuario", usua_Usuario);
-                        HttpContext.Session.SetString("usua_ID", usua_EsAdmin.ToString());
+                        HttpContext.Session.SetString("usua_EsAdmin", usua_EsAdmin.ToString());
                         HttpContext.Session.SetInt32("empl_ID", empl_ID);
                         HttpContext.Session.SetString("usua_empl_NombreCompleto", usua_empl_NombreCompleto);
                         HttpContext.Session.SetInt32("carg_ID", carg_ID);

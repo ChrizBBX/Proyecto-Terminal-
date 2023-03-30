@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32929.386
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terminal.Entities", "Terminal.Entities\Terminal.Entities.csproj", "{AAC1A6B9-4881-4FAF-A853-F21573379337}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Terminal.Entities", "Terminal.Entities\Terminal.Entities.csproj", "{AAC1A6B9-4881-4FAF-A853-F21573379337}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terminal.DataAccess", "Terminal.DataAccess\Terminal.DataAccess.csproj", "{4FFDED26-C841-4E68-812E-DC613EF52807}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Terminal.DataAccess", "Terminal.DataAccess\Terminal.DataAccess.csproj", "{4FFDED26-C841-4E68-812E-DC613EF52807}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terminal.BusinessLogic", "Terminal.BusinessLogic\Terminal.BusinessLogic.csproj", "{01825806-D08F-48D1-88B2-822236F9FB2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Terminal.BusinessLogic", "Terminal.BusinessLogic\Terminal.BusinessLogic.csproj", "{01825806-D08F-48D1-88B2-822236F9FB2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terminal.API", "Terminal.API\Terminal.API.csproj", "{4905AC7C-606A-44AE-8D42-81DE7676CCA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Terminal.API", "Terminal.API\Terminal.API.csproj", "{4905AC7C-606A-44AE-8D42-81DE7676CCA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -87,5 +87,14 @@ namespace Terminal.DataAccess.Repository
             parametros.Add("@usua_Clave", contrasena, DbType.String, ParameterDirection.Input);
             return db.Query<VW_tbUsuarios>(ScriptsDataBase.UDP_Login, parametros, commandType: CommandType.StoredProcedure);
         }
+
+        public IEnumerable<tbPantallas> Roles (int role_ID,bool esAdmin)
+        {
+            using var db = new SqlConnection(TerminalContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@role_ID", role_ID, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@esAdmin", esAdmin, DbType.Boolean, ParameterDirection.Input);
+            return db.Query<tbPantallas>(ScriptsDataBase.UDP_Roles, parametros, commandType: CommandType.StoredProcedure);
+        }
     }
 }

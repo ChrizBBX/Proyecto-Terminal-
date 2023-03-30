@@ -550,33 +550,41 @@
                     <!-- Navigation Category -->
                     <div class="mainnav__categoriy py-3">
                         <h6 class="mainnav__caption mt-0 px-3 fw-bold" style="color:white">Navigation</h6>
-                        <ul class="mainnav__menu nav flex-column">
-
+                        <ul class="mainnav__menu nav flex-column" id="menu">
+                            
+                            <li class="nav-item has-sub">
+                                <a href="#" class="mininav-toggle nav-link">Prueba</a>
+                                <ul class="mininav-content nav collapse">
+                                    <li class="nav-item">
+                                        <a href="./index.html" class="nav-link active">Dashboard 1</a>
+                                    </li>
+                                </ul>
+                            </li>
                             <!-- Link with submenu -->
-                            <li class="nav-item">
+                            @*<li class="nav-item">
                                 <a href="./widgets.html" class="nav-link mininav-toggle">
                                     <i class="demo-pli-bar-chart fs-5 me-2"></i>
 
                                     <span class="nav-label mininav-content ms-1">Estadisticas</span>
                                 </a>
-                            </li>
+                            </li>*@
                             <!-- END : Link with submenu -->
                             <!-- Link with submenu -->
-                            <li class="nav-item">
+                            @*<li class="nav-item">
                                 <a asp-controller="Boleto" asp-action="Index" class="nav-link mininav-toggle">
                                     <i class="demo-pli-split-vertical-2 fs-5 me-2"></i>
 
                                     <span class="nav-label mininav-content ms-1">Boletos</span>
                                 </a>
-                            </li>
-                            <li class="nav-item">
+                            </li>*@
+                            @*<li class="nav-item">
                                 <a asp-controller="Cargo" asp-action="Index" class="nav-link mininav-toggle">
                                     <i class="demo-pli-split-vertical-2 fs-5 me-2"></i>
 
                                     <span class="nav-label mininav-content ms-1">Cargos</span>
                                 </a>
-                            </li>
-                            <li class="nav-item">
+                            </li>*@
+                            @*<li class="nav-item">
                                 <a asp-controller="Cliente" asp-action="Index" class="nav-link mininav-toggle">
                                     <i class="demo-pli-split-vertical-2 fs-5 me-2"></i>
 
@@ -603,7 +611,7 @@
 
                                     <span class="nav-label mininav-content ms-1">Usuario</span>
                                 </a>
-                            </li>
+                            </li>*@
                             <!-- END : Link with submenu -->
 
                         </ul>
@@ -900,16 +908,19 @@
     <script src="/js/toastr/toastr.js"></script>
     <script src="/js/toastr/toastr.min.js"></script>
 
-    @*<script>
+    <script>
             $(document).ready(function () {
                 $.getJSON('/Home/PantallasMenu', {})
                     .done(function (pantallas) {
-                        /*var pantallasSelect = $("#probando");*/
-                        /*pantallasSelect.empty();*/
-                        $.each(pantallas, function (index, item) {
+                        console.log(pantallas);
+                        var LicenciaIterador = 1;
+                        var AccesoIterador = 1;
+                        var ReporteIterador = 1;
+                        var menu = $("#menu");
+;                        $.each(pantallas, function (index, item) {
 
-                            if (item.pant_Menu == "General") {
-                                $("#subMenuGeneral").append($('<li>', {
+                                if (item.pant_Menu == "Terminal") {
+                                    $(menu).append($('<li>', {
                                     class: 'nav-item',
                                 }).append($('<a>', {
                                     href: item.pant_Url,
@@ -949,45 +960,19 @@
                                 $("#menuAcceso").prop('hidden', false);
                                 $("#subMenuAcceso").prop('hidden', false);
                             }
-                        })
-
-                        //$("#muni_Id").prop("disabled", false);
-                        //var municipiosSelect = $('#muni_Id');
-                        //municipiosSelect.empty();
-                        //municipiosSelect.append($('<option>', {
-                        //    value: '',
-                        //    text: '--Selecciona un municipio--'
-                        //}));
-                        //$.each(municipios, function (index, item) {
-                        //    municipiosSelect.append($('<option>', {
-                        //        value: item.muni_id,
-                        //        text: item.muni_Nombre
-                        //    }));
-                        //    console.log(item.muni_Id)
-                        //});
-
-                        console.log(pantallas);
-
-                        /*$("#muni_Id").val(sessionStorage.getItem('muniId'));*/
+                        })          
                     })
                     .fail(function (jqXHR, textStatus, errorThrown) {
                         console.error('Error al cargar los municipios: ' + textStatus + ', ' + errorThrown);
                     });
-
-                $('#DataTable').DataTable({
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/1.13.2/i18n/es-MX.json'
-                    }
-                });
 
                 $('input').keypress(function (e) {
                     if (e.which == 39 || e.which == 44) { // Código ASCII para ' " y ,
                         return false; // Bloquear la entrada del caracter
                     }
                 });
-
             });
-        </script>*@
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
     <script>
         $('#DataTable').DataTable({

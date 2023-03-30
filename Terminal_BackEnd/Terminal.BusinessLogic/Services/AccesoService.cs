@@ -125,6 +125,19 @@ namespace Terminal.BusinessLogic.Services
                 return null;
             }
         }
+
+        public IEnumerable<tbPantallas> Roles(int role_ID, bool esAdmin)
+        {
+            try
+            {
+                return _usuariosRepository.Roles(role_ID,esAdmin);
+
+            }
+            catch (Exception error)
+            {
+                return null;
+            }
+        }
         #endregion
     }
 }

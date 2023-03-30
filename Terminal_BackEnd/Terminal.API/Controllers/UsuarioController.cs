@@ -38,6 +38,13 @@ namespace Terminal.API.Controllers
             return Ok(listado);
         }
 
+        [HttpPut("Roles")]
+        public IActionResult Roles(int role_ID, bool esAdmin)
+        {
+            var listado = _accesoService.Roles(role_ID, esAdmin);
+            return Ok(listado);
+        }
+
         [HttpPost("Insertar")]
         public IActionResult Create(UsuariosViewModel item)
         {

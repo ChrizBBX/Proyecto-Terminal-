@@ -407,16 +407,11 @@ GO
 
 
 
-
-
-
---HHRR
---Seguridad
-
 INSERT INTO term.tbEmpleados(empl_PrimerNombre, empl_SegundoNombre, empl_PrimerApellido, empl_SegundoApellido, empl_DNI, empl_FechaNacimiento, empl_Sexo, empl_Telefono, carg_ID, role_ID, estciv_ID, muni_ID, empl_UsuarioCreador, empl_UsuarioModificador, empl_FechaModificacion)
 VALUES	('Maria', 'Jose','Antonieta', 'De las nieves', '1234567891234', GETDATE(), 'F', '00000000', 1, 1 ,1, '0501', 1, NULL, NULL),
 		('Edwin', 'Josue','Rodriguez', 'Ortíz', '3333333333333', GETDATE(), 'M', '00000000', 1, 2 ,1,'0501', 1, NULL, NULL),
 		('Josue', 'Obed','Sarmiento', 'Elvir', '1111111111111', GETDATE(), 'M', '00000000', 1, 3 ,1, '0501', 1, NULL, NULL)
+GO
 
 DECLARE @PassEncrypt VARBINARY(MAX) = HASHBYTES('SHA2_512', 'AWSD')
 INSERT INTO acce.tbUsuarios(usua_Usuario, usua_Clave, usua_EsAdmin, empl_ID, usua_UsuarioCreador, usua_UsuarioModificador, usua_FechaModificacion)
@@ -433,10 +428,6 @@ VALUES('9:30','12:00', '05', '08', 100,0, 200,1, NULL, NULL)
 
 INSERT INTO term.tbBoletos(bole_Fecha, term_ID, comp_ID, empl_ID, clie_ID, hora_ID, pago_ID, bole_UsuarioCreador, bole_UsuarioModificador, bole_FechaModificacion)
 VALUES (GETDATE(), 1, 1, 1, 1, 1, 1, 1, NULL, NULL)
-
-
-
-INSERT INTO acce.tbRoles
 
 
 
@@ -480,8 +471,7 @@ GO
 
 
 ALTER TABLE acce.tbRolesXPantallas
-ADD CONSTRAINT FK_acce_tbRolesXPantallas_tbUsuarios_usua_ID FOREIGN KEY (usua_ID) REFERENCES acce.tbUsuarios (usua_ID),
-	CONSTRAINT FK_acce_tbRolesXPantallas_roleXpant_UsuarioCreador_tbUsuarios_usua_ID FOREIGN KEY (roleXpant_UsuarioCreador) REFERENCES acce.tbUsuarios (usua_ID),
+ADD CONSTRAINT FK_acce_tbRolesXPantallas_roleXpant_UsuarioCreador_tbUsuarios_usua_ID FOREIGN KEY (roleXpant_UsuarioCreador) REFERENCES acce.tbUsuarios (usua_ID),
 	CONSTRAINT FK_acce_tbRolesXPantallas_roleXpant_UsuarioModificador_tbUsuarios_usua_ID FOREIGN KEY (roleXpant_UsuarioModificador) REFERENCES acce.tbUsuarios (usua_ID)
 GO
 

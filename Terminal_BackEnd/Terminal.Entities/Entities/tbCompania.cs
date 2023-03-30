@@ -23,8 +23,6 @@ namespace Terminal.Entities.Entities
         public int? comp_UsuarioModificador { get; set; }
         public DateTime? comp_FechaModificacion { get; set; }
 
-        public virtual tbUsuarios comp_UsuarioCreadorNavigation { get; set; }
-        public virtual tbUsuarios comp_UsuarioModificadorNavigation { get; set; }
         public virtual ICollection<tbBoletos> tbBoletos { get; set; }
     }
 }

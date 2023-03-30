@@ -21,8 +21,6 @@ namespace Terminal.Entities.Entities
         public int? pago_UsuarioModificador { get; set; }
         public DateTime? pago_FechaModificacion { get; set; }
 
-        public virtual tbUsuarios pago_UsuarioCreadorNavigation { get; set; }
-        public virtual tbUsuarios pago_UsuarioModificadorNavigation { get; set; }
         public virtual ICollection<tbBoletos> tbBoletos { get; set; }
     }
 }
