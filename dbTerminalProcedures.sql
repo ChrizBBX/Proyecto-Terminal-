@@ -1133,3 +1133,20 @@ BEGIN
 	 WHERE usua_Usuario = @usua_Usuario
 END
 GO
+
+/***********Roles x Pantalla menu******************/
+CREATE OR ALTER PROCEDURE acce.RolesxPantallaMenu
+@role_ID INT,
+@esAdmin BIT
+AS
+BEGIN
+IF @esAdmin = 1
+		BEGIN
+		SELECT DISTINCT pant_ID, pant_Descripcion, pant_URL, pant_Menu, pant_HtmlID, @role_ID AS role_ID, @esAdmin AS esAdmin FROM acce.tbPantallas
+		END
+		ELSE
+		SELECT DISTINCT t1.pant_ID, pant_Descripcion, pant_URL, pant_Menu, pant_HtmlID, @role_ID AS role_ID, @esAdmin AS esAdmin 
+		FROM acce.tbPantallas t1 INNER JOIN acce.tbRolesXPantallas t2
+		ON t1.pant_ID  = t2.pant_ID
+		WHERE role_ID = @role_ID
+END
