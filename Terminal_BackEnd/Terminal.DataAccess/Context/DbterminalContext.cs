@@ -28,6 +28,7 @@ namespace Terminal.DataAccess.Context
         public virtual DbSet<VW_tbEmpleados> VW_tbEmpleados { get; set; }
         public virtual DbSet<VW_tbHorarios> VW_tbHorarios { get; set; }
         public virtual DbSet<VW_tbTerminales> VW_tbTerminales { get; set; }
+        public virtual DbSet<VW_tbUsuarios> VW_tbUsuarios { get; set; }
         public virtual DbSet<tbBoletos> tbBoletos { get; set; }
         public virtual DbSet<tbCargos> tbCargos { get; set; }
         public virtual DbSet<tbClientes> tbClientes { get; set; }
@@ -347,6 +348,51 @@ namespace Terminal.DataAccess.Context
                 entity.Property(e => e.term_UsuarioModificador_Nombre).HasMaxLength(100);
             });
 
+            modelBuilder.Entity<VW_tbUsuarios>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VW_tbUsuarios", "acce");
+
+                entity.Property(e => e.carg_Nombre)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.empl_PrimerApellido).HasMaxLength(100);
+
+                entity.Property(e => e.empl_PrimerNombre).HasMaxLength(100);
+
+                entity.Property(e => e.empl_SegundoApellido).HasMaxLength(100);
+
+                entity.Property(e => e.empl_SegundoNombre).HasMaxLength(100);
+
+                entity.Property(e => e.role_Descripcion)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.usua_FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.usua_FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.usua_Usuario).HasMaxLength(100);
+
+                entity.Property(e => e.usua_UsuarioCreador_Nombre).HasMaxLength(100);
+
+                entity.Property(e => e.usua_UsuarioModificador_Nombre).HasMaxLength(100);
+
+                entity.Property(e => e.usua_empl_Apellidos)
+                    .IsRequired()
+                    .HasMaxLength(201);
+
+                entity.Property(e => e.usua_empl_NombreCompleto)
+                    .IsRequired()
+                    .HasMaxLength(403);
+
+                entity.Property(e => e.usua_empl_Nombres)
+                    .IsRequired()
+                    .HasMaxLength(201);
+            });
+
             modelBuilder.Entity<tbBoletos>(entity =>
             {
                 entity.HasKey(e => e.bole_ID)
@@ -631,6 +677,11 @@ namespace Terminal.DataAccess.Context
                     .WithMany(p => p.tbEmpleados)
                     .HasForeignKey(d => d.muni_ID)
                     .HasConstraintName("FK_term_tbEmpleados_gral_tbMunicipios_muni_ID");
+
+                entity.HasOne(d => d.role)
+                    .WithMany(p => p.tbEmpleados)
+                    .HasForeignKey(d => d.role_ID)
+                    .HasConstraintName("FK_term_tbEmpleados_acce_tbRoles_role_ID");
             });
 
             modelBuilder.Entity<tbEstadosCiviles>(entity =>

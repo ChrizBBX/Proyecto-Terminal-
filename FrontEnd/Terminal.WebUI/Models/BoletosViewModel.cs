@@ -62,7 +62,7 @@ namespace Terminal.WebUI.Models
         public string empl_SegundoApellido { get; set; }
 
 
-        [Display(Name = "Nombre Completo")]
+        [Display(Name = "Empleado")]
         public string bole_empl_Nombre_Completo { get; set; }
 
         [Display(Name = "Cliente")]
@@ -76,7 +76,7 @@ namespace Terminal.WebUI.Models
         public string clie_Apellidos { get; set; }
 
 
-        [Display(Name = "Nombre completo")]
+        [Display(Name = "Cliente")]
         public string bole_clie_Nombre_Completo { get; set; }
 
         [Display(Name = "Sexo")]
@@ -88,7 +88,7 @@ namespace Terminal.WebUI.Models
 
 
         [Display(Name = "Fecha/Hora Salida")]
-        public DateTime? hora_FechaSalida { get; set; }
+        public DateTime? hora_Salida { get; set; }
 
 
         [Display(Name = "Origen ID")]
@@ -99,7 +99,7 @@ namespace Terminal.WebUI.Models
         public string bole_hora_Origen_Nombre { get; set; }
 
         [Display(Name = "Fecha/Hora Llegada")]
-        public DateTime? hora_FechaLlegada { get; set; }
+        public DateTime? hora_Llegada { get; set; }
 
 
         [Display(Name = "Destino ID")]

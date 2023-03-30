@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,6 +36,12 @@ namespace Terminal.WebUI.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
+                    if (TempData["Script"] is string script)
+                    {
+                        TempData.Remove("Script");
+                        ViewBag.Script = script;
+                    }
+
                     var jsonResponse = await response.Content.ReadAsStringAsync();
                     listado = JsonConvert.DeserializeObject<List<HorariosViewModel>>(jsonResponse);
                 }
@@ -42,25 +50,83 @@ namespace Terminal.WebUI.Controllers
         }
 
 
+        public async Task<IActionResult> Details(int id)
+        {
+
+            List<HorariosViewModel> listado = new List<HorariosViewModel>();
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + "api/Horario");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    if (TempData["Script"] is string script)
+                    {
+                        TempData.Remove("Script");
+                        ViewBag.Script = script;
+                    }
+
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    listado = JsonConvert.DeserializeObject<List<HorariosViewModel>>(jsonResponse);
+                }
+                return View(listado.Where(x => x.hora_ID == id));
+            }
+        }
+
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            using (var httpClient = new HttpClient())
+            {
+                var depa = await httpClient.GetAsync(_baseurl + "api/Terminal/LoadDepartamento");
+
+                if (depa.IsSuccessStatusCode)
+                {
+
+                    var content = await depa.Content.ReadAsStringAsync();
+                    var departamentos = JsonConvert.DeserializeObject<List<DepartamentoViewModel>>(content);
+                    ViewBag.departamento = new SelectList(departamentos, "dept_ID", "dept_Descripcion");
+                }
+            }
             return View();
         }
 
 
         public async Task<IActionResult> Create(HorariosViewModel horarios)
+        
         {
             if (ModelState.IsValid)
             {
                 using (var httpClient = new HttpClient())
                 {
-                    var content = new StringContent(JsonConvert.SerializeObject(horarios), Encoding.UTF8, "application/json");
+                    var json = JsonConvert.SerializeObject(horarios);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
                     var response = await httpClient.PostAsync(_baseurl + "api/Horario/Insertar", content);
 
                     if (response.IsSuccessStatusCode)
                     {
+                        var jsonResponse = await response.Content.ReadAsStringAsync();
+                        JObject jsonObj = JObject.Parse(jsonResponse);
+                        ViewBag.message = jsonObj["message"];
+
+                        if (jsonObj["code"].ToString() == "200")
+                        {
+                            string script = "MostrarMensajeSuccess('" + ViewBag.message + "'); Swal.fire( 'Agregado!', 'Registro Agregado exitosamente!', 'success' );";
+                            TempData["script"] = script;
+                        }
+                        else if (jsonObj["code"].ToString() == "409")
+                        {
+                            string script = "MostrarMensajeWarning('" + ViewBag.message + "'); $('#New').click();";
+                            TempData["script"] = script;
+                        }
+                        else
+                        {
+                            string script = "MostrarMensajeDanger('" + ViewBag.message + "');";
+                            TempData["script"] = script;
+                        }
+                        return RedirectToAction("Index");
                         return RedirectToAction("Index");
                     }
                     else
@@ -71,13 +137,38 @@ namespace Terminal.WebUI.Controllers
             }
             else
             {
+                using (var httpClient = new HttpClient())
+                {
+                    var depa = await httpClient.GetAsync(_baseurl + "api/Terminal/LoadDepartamento");
+
+                    if (depa.IsSuccessStatusCode)
+                    {
+
+                        var content = await depa.Content.ReadAsStringAsync();
+                        var departamentos = JsonConvert.DeserializeObject<List<DepartamentoViewModel>>(content);
+                        ViewBag.departamento = new SelectList(departamentos, "dept_ID", "dept_Descripcion");
+                    }
+                }
                 return View();
             }
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+            using (var httpClient = new HttpClient())
+            {
+                var depa = await httpClient.GetAsync(_baseurl + "api/Terminal/LoadDepartamento");
+
+                if (depa.IsSuccessStatusCode)
+                {
+
+                    var content = await depa.Content.ReadAsStringAsync();
+                    var departamentos = JsonConvert.DeserializeObject<List<DepartamentoViewModel>>(content);
+                    ViewBag.departamento = new SelectList(departamentos, "dept_ID", "dept_Descripcion");
+                }
+            }
+
             using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.GetAsync(_baseurl + $"api/Horario/Horario/Find/{id}");
@@ -95,20 +186,40 @@ namespace Terminal.WebUI.Controllers
             }
         }
 
-
-        public async Task<IActionResult> Update(HorariosViewModel horarios)
+        [HttpPost]
+        public async Task<IActionResult> Edit(HorariosViewModel horarios)
         {
             if (ModelState.IsValid)
             {
                 using (var httpClient = new HttpClient())
                 {
-                    var content = new StringContent(JsonConvert.SerializeObject(horarios), Encoding.UTF8, "application/json");
+                    var json = JsonConvert.SerializeObject(horarios);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
                     var response = await httpClient.PutAsync(_baseurl + $"api/Horario/Horario/Update/{horarios.hora_ID}", content);
 
                     if (response.IsSuccessStatusCode)
                     {
+                        var jsonResponse = await response.Content.ReadAsStringAsync();
+                        JObject jsonObj = JObject.Parse(jsonResponse);
+                        ViewBag.message = jsonObj["message"];
+
+                        if (jsonObj["code"].ToString() == "200")
+                        {
+                            string script = "MostrarMensajeSuccess('" + ViewBag.message + "');";
+                            TempData["script"] = script;
+                        }
+                        else if (jsonObj["code"].ToString() == "409")
+                        {
+                            string script = "MostrarMensajeWarning('" + ViewBag.message + "'); $('#New').click();";
+                            TempData["script"] = script;
+                        }
+                        else
+                        {
+                            string script = "MostrarMensajeDanger('" + ViewBag.message + "');";
+                            TempData["script"] = script;
+                        }
                         return RedirectToAction("Index");
-                    }
+                     }
                     else
                     {
                         return View();
@@ -130,13 +241,34 @@ namespace Terminal.WebUI.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
+
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    JObject jsonObj = JObject.Parse(jsonResponse);
+                    ViewBag.message = jsonObj["message"];
+
+                    if (jsonObj["code"].ToString() == "200")
+                    {
+                        string script = "MostrarMensajeSuccess('" + ViewBag.message + "');";
+                        TempData["script"] = script;
+                    }
+                    else if (jsonObj["code"].ToString() == "409")
+                    {
+                        string script = "MostrarMensajeWarning('" + ViewBag.message + "'); $('#New').click();";
+                        TempData["script"] = script;
+                    }
+                    else
+                    {
+                        string script = "MostrarMensajeDanger('" + ViewBag.message + "');";
+                        TempData["script"] = script;
+                    }
                     return RedirectToAction("Index");
-                }
+                 }
                 else
                 {
                     return RedirectToAction("Index");
                 }
             }
         }
+
     }
 }

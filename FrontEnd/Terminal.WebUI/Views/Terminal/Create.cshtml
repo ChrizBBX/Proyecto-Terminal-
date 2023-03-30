@@ -5,74 +5,125 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
 
-<h4>TerminalesViewModel</h4>
-<hr />
 
-<form asp-action="Create">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="row">
+<div class="wrapper wrapper-content">
+    <div class="container container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="float-e-margins">
+                    <form asp-action="Create" id="formCrear">
+                        @Html.AntiForgeryToken()
 
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label class="control-label">Departamentos</label>
-                <select asp-for="dept_ID" id="dept_ID" class="form-control" asp-items="ViewBag.dept_Id">
-                    <option value="0"> -- Seleccione un Departamento -- </option>
-                </select>
-                <h6  style="color:crimson">@Html.ValidationMessage("ValidacionDepartamento") </h6>
-            </div>
-        </div>
 
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label asp-for="muni_ID" class="control-label"></label>
-                @*<input asp-for="muni_ID" class="form-control" hidden="hidden"/>*@
+                        <div class="card border-5">
+                            <div class="card-header text-center" style="background-image: linear-gradient(to right, #A4F6FA,#9CB0D7 ,#4EBBC0 ) ">
+                                <div class="row">
+                                    <div class="col-4">
 
-                <select asp-for="muni_ID" class="form-control" asp-items="ViewBag.muni_ID">
-                    @*<option value=""> -- Seleccione un Municipio -- </option>*@
-                </select>
+                                    </div>
+                                    <div class="col-4" style="margin-top: 10px">
+                                        <h1 style="font-family: Cooper;" class="text-black">Nueva terminal</h1>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-end">
+                                            @*<img src="https://i.gifer.com/3sf.gif" style="border-radius:100px;border:3px solid black; width:50%">*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <h6 style="color:red">@Html.ValidationMessage("ValidacionMunicipio") </h6>
-                <h6 style="color:red" id="validar">Seleccione Un Departamento</h6>
-            </div>
-        </div>
+                                <div class="card">
 
-        <div class="col-sm-6">
 
-            <div class="form-group">
-                <label asp-for="term_Nombre" class="control-label"></label>
-                <input asp-for="term_Nombre" class="form-control" />
-                <span asp-validation-for="term_Nombre" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label asp-for="term_DireccionExacta" class="control-label"></label>
-                <input asp-for="term_DireccionExacta" class="form-control" />
-                <span asp-validation-for="term_DireccionExacta" class="text-danger"></span>
-            </div>
-        </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label asp-for="term_CantidadTransportes" class="control-label"></label>
-                    <input asp-for="term_CantidadTransportes" class="form-control" />
-                    <span asp-validation-for="term_CantidadTransportes" class="text-danger"></span>
+                                    <div class="card-body">
+
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <strong><label asp-for="dept_ID" class="control-label text-dark"></label></strong>
+                                                    <select asp-for="dept_ID" id="dept_ID" class="form-control form-select text-dark" asp-items="ViewBag.dept_Id" style="border-color: darkgray; border-width: 1px;">
+                                                        <option value="0"> -- Seleccione un departamento -- </option>
+                                                    </select>
+                                                    <strong><span class="text-danger">@Html.ValidationMessage("ValidacionDepartamento") </span></strong>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <strong><label asp-for="muni_ID" class="control-label text-dark"></label></strong>
+                                                    <select asp-for="muni_ID" class="form-control form-select text-dark" asp-items="ViewBag.muni_ID" style="border-color: darkgray; border-width: 1px;">
+                                                    </select>
+                                                    <strong>
+                                                        <span class="text-danger">@Html.ValidationMessage("ValidacionMunicipio") </span>
+                                                        <span class="text-danger" id="validar">Antes seleccione un departamento</span>
+                                                    </strong>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6 mt-3">
+                                                <div class="form-group">
+                                                    <strong><label asp-for="term_ID" class="control-label text-dark"></label></strong>
+                                                    <input asp-for="term_Nombre" class="form-control text-dark" style="border-color: darkgray; border-width: 1px;" />
+                                                    <strong><span asp-validation-for="term_Nombre" class="text-danger"></span></strong>                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mt-3">
+                                                <div class="form-group">
+                                                    <strong><label asp-for="term_DireccionExacta" class="control-label text-dark"></label></strong>                                                    
+                                                    <input asp-for="term_DireccionExacta" class="form-control text-dark" style="border-color: darkgray; border-width: 1px;"/>
+                                                    <strong><span asp-validation-for="term_DireccionExacta" class="text-danger"></span></strong>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mt-3">
+                                                <div class="form-group">
+                                                    <strong><label asp-for="term_CantidadTransportes" class="control-label text-dark"></label></strong>                                                    
+                                                    <input asp-for="term_CantidadTransportes" class="form-control text-dark" style="border-color: darkgray; border-width: 1px;" />
+                                                    <strong><span asp-validation-for="term_CantidadTransportes" class="text-danger"></span></strong>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div class="card-footer">
+                                            <div class="row">
+                                                <div class="col-9"></div>
+                                                <div class="col-3 text-center">
+                                                    <input type="submit" value="Guardar" class="btn btn-primary" /> |
+                                                    <a asp-action="Index" class="btn btn-danger">Cancelar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                    <div class="card-footer"></div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-     </div>
-    <div class="form-group">
-        <input type="submit" id="btn" value="Crear" class="btn btn-primary" />
-        <a class="btn btn-danger" asp-action="Index">Cancelar</a>
+        </div>
     </div>
-</form>
-    
+</div>
+
+@if (ViewBag.Script != null)
+{
+    <script>
+        $(document).ready(function () {
+            @Html.Raw(ViewBag.Script)
+        })
+    </script>
+
+    ViewBag.Script = null;
+}
+
 
 <script></script>
 <script>
     $(document).ready(function () {
 
-        console.log("si hay algo " + @ViewBag.dept_Id);
         // Toma los elementos del DOM
         var departamentoSelect = $('#dept_ID');
         var municipioSelect = $('#muni_ID');
@@ -103,7 +154,7 @@
                     // Agrega un valor predeterminado a la lista de opciones
                     municipioSelect.append($('<option>', {
                         value: '',
-                        text: '--Selecciona un municipio--'
+                        text: '-- Seleccione un municipio --'
                     }));
 
                     // Agrega las opciones de municipios
@@ -120,7 +171,7 @@
                         var muni_ddl = $("#muni_ID").val();
                         muni_ddl = "";
                         Validacion.show();
-                        
+
                         console.log("Entro");
 
                     } else {

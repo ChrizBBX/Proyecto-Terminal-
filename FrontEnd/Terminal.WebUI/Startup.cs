@@ -31,8 +31,9 @@ namespace Terminal.WebUI
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             var configuration = configurationBuilder.Build();
             services.AddHttpClient();
-
-
+            services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
+            services.AddSession(); // habilita el soporte de sesión
             // Registrar la configuración como un servicio inyectable
             services.AddSingleton(configuration);
         }
@@ -52,7 +53,7 @@ namespace Terminal.WebUI
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession(); // configura la aplicación para usar la sesión
             app.UseRouting();
 
             app.UseAuthorization();
@@ -61,7 +62,7 @@ namespace Terminal.WebUI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }

@@ -74,6 +74,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[acce].[VW_tbUsuarios]",
+         "ObjectType": 3
+      },
+      {
          "Name": "[gral].[VW_graficaSexo]",
          "ObjectType": 3
       },

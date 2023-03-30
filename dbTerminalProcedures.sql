@@ -24,8 +24,6 @@ ON cargo.carg_UsuarioCreador = usr1.usua_ID LEFT JOIN acce.tbUsuarios AS usr2
 ON cargo.carg_UsuarioModificador = usr2.usua_ID
 GO
 
-DECLARE @fff TIME = GETDATE()
-SELECT @fff
 GO
 
 -------->	READ
@@ -44,9 +42,23 @@ CREATE OR ALTER PROCEDURE term.UDP_tbCargos_Create
 AS
 BEGIN
 	BEGIN TRY
-		INSERT INTO term.tbCargos(carg_Nombre, carg_UsuarioCreador, carg_UsuarioModificador, carg_FechaModificacion)
-		VALUES (@carg_Nombre, @carg_UsuarioCreador, NULL, NULL)
-		SELECT 1
+	
+	IF NOT EXISTS(SELECT carg_Nombre FROM term.tbCargos WHERE carg_Nombre = @carg_Nombre)
+		BEGIN
+			INSERT INTO term.tbCargos(carg_Nombre, carg_UsuarioCreador, carg_UsuarioModificador, carg_FechaModificacion)
+			VALUES (@carg_Nombre, @carg_UsuarioCreador, NULL, NULL)
+			SELECT 'Registro agregado exitosamente'
+		END
+	ELSE IF EXISTS(SELECT carg_Nombre FROM term.tbCargos WHERE carg_Nombre = @carg_Nombre AND carg_Estado = 0)
+		BEGIN
+			UPDATE term.tbCargos
+			SET carg_Estado = 1
+			WHERE carg_Nombre = @carg_Nombre;
+			SELECT 'Registro agregado exitosamente'
+		END
+	ELSE
+		SELECT 'Ya existe un cargo con ese nombre'
+
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -60,8 +72,6 @@ CREATE OR ALTER PROCEDURE term.UDP_tbCargos_Find
 @carg_ID INT
 AS
 BEGIN
-
-
 	SELECT carg_ID, 
 		carg_Nombre, 
 		carg_Estado, 
@@ -86,15 +96,42 @@ CREATE OR ALTER PROCEDURE term.UDP_tbCargos_Update
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE term.tbCargos 
-		SET carg_Nombre = @carg_Nombre, 
-		carg_UsuarioModificador = @carg_UsuarioModificador, 
-		carg_FechaModificacion = GETDATE()
-		WHERE carg_ID = @carg_ID
-		SELECT 1
+		IF NOT EXISTS (SELECT carg_Id FROM term.tbCargos WHERE carg_Id = @carg_Id)
+			BEGIN 
+				SELECT 'El registro que intenta editar no existe'
+			END
+		ELSE
+			BEGIN
+				IF NOT EXISTS (SELECT carg_Nombre 
+					   FROM term.tbCargos 
+					   WHERE carg_Nombre = @carg_Nombre
+					   AND carg_Id != @carg_Id)
+					BEGIN
+						UPDATE term.tbCargos 
+						SET carg_Nombre = @carg_Nombre,
+							carg_UsuarioModificador = @carg_UsuarioModificador,
+							carg_FechaModificacion = GETDATE()
+						WHERE carg_Id = @carg_Id
+
+						SELECT 'El registro ha sido editado con éxito'
+					END
+				ELSE IF EXISTS (SELECT carg_Nombre 
+								FROM term.tbCargos
+								WHERE carg_Estado = 0
+								AND carg_Nombre = @carg_Nombre)
+					BEGIN
+						UPDATE term.tbCargos
+						SET carg_Estado = 1
+						WHERE carg_Nombre = @carg_Nombre
+
+						SELECT 'El registro ha sido editado con éxito'
+					END
+				ELSE
+					SELECT 'Ya existe un cargo con este nombre'
+			END
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH
 END
 GO
@@ -108,10 +145,10 @@ BEGIN
 		UPDATE term.tbCargos
 		SET carg_Estado = 0
 		WHERE carg_ID = @carg_ID
-		SELECT 1
+		SELECT 'Registro Eliminado con exito'
 	END TRY
 	BEGIN CATCH 
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH 
 END
 GO
@@ -166,14 +203,29 @@ CREATE OR ALTER PROCEDURE term.UDP_tbClientes_Create
 AS
 BEGIN
 	BEGIN TRY
+	IF NOT EXISTS (SELECT clie_DNI FROM term.tbClientes WHERE clie_DNI  = @clie_DNI)
+	BEGIN
 		INSERT INTO term.tbClientes(clie_Nombres ,clie_Apellidos,clie_DNI ,clie_Sexo, clie_Telefono, clie_Email, clie_UsuarioCreador, 
 									clie_UsuarioModificador, clie_FechaModificacion)
 		VALUES	(@clie_Nombres, @clie_Apellidos ,@clie_DNI, @clie_Sexo, @clie_Telefono, 
 				@clie_Email, @clie_UsuarioCreador, NULL, NULL)
-		SELECT 1
+		SELECT 'Registro agregado correctamente'
+		END
+		ELSE IF EXISTS (SELECT clie_DNI FROM term.tbClientes WHERE clie_DNI = @clie_DNI AND clie_Estado = 0) 
+		BEGIN
+		UPDATE term.tbClientes
+		SET clie_Estado = 1
+		WHERE clie_ID = @clie_DNI
+		SELECT 'Registro agregado correctamente'
+		END
+		ELSE IF EXISTS (SELECT clie_DNI FROM term.tbClientes WHERE clie_DNI  = @clie_DNI)
+		BEGIN
+		SELECT 'Ya existe un cliente con ese numero de Identidad'
+		END
+	
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH
 END
 GO
@@ -204,6 +256,12 @@ CREATE OR ALTER PROCEDURE term.UDP_tbClientes_Update
 AS
 BEGIN
 	BEGIN TRY
+	IF EXISTS (SELECT clie_DNI FROM term.tbClientes WHERE clie_DNI = @clie_DNI AND clie_ID != @clie_ID)
+	BEGIN 
+	SELECT 'Ya hay un cliente con ese numero de identidad'
+	END 
+	ELSE 
+	BEGIN
 		UPDATE	term.tbClientes 
 		SET		clie_Nombres = @clie_Nombres,
 				clie_Apellidos = @clie_Apellidos,
@@ -214,10 +272,11 @@ BEGIN
 				clie_UsuarioModificador = @clie_UsuarioModificador, 
 				clie_FechaModificacion = GETDATE()
 		WHERE	clie_ID = @clie_ID
-		SELECT 1
+		SELECT 'Registro editado exitosamente'
+		END
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH
 END
 GO
@@ -232,11 +291,11 @@ BEGIN
 		UPDATE	term.tbClientes
 		SET		clie_Estado  = 0
 		WHERE clie_ID = @clie_ID
-		SELECT 1
+		SELECT 'Registro eliminado correctamente'
 	END TRY
 
 	BEGIN CATCH 
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH
 END
 GO
@@ -250,15 +309,16 @@ GO
 CREATE OR ALTER VIEW term.VW_tbHorarios
 AS
 SELECT	hora_ID,
-		hora_FechaSalida,
-		hora_FechaLlegada,
+		hora_Salida,
+		hora_Llegada,
 		hora_Origen,
 		dept1.dept_Descripcion AS hora_Origen_DeptoNombre,
 		hora_Destino,
 		dept2.dept_Descripcion AS hora_Destino_DeptoNombre,
-		CONCAT(hora_FechaSalida, ' / ' , dept2.dept_Descripcion ) AS horario,
-		hora_CantidadPasajeros,
-		hora_Precio,
+		CONCAT(hora_Salida, ' / ' , dept2.dept_Descripcion ) AS horario,
+		hora_CantidadPasajerosMax,
+		hora_CantidadPasajerosActual,
+		hora.hora_Precio,
 		hora_Estado,
 		hora_UsuarioCreador,
 		usr1.usua_Usuario AS hora_UsuarioCreador_Nombre,
@@ -286,23 +346,24 @@ GO
 --------> CREATE
 CREATE OR ALTER PROCEDURE term.UDP_tbHorarios_Create
 	@hora_UsuarioCreador		INT,
-	@hora_FechaSalida			DATETIME,
-	@hora_FechaLlegada			DATETIME,
+	@hora_Salida			DATETIME,
+	@hora_Llegada			DATETIME,
 	@hora_Origen				CHAR(2),
 	@hora_Destino				CHAR(2),
 	@hora_Precio				DECIMAL(18,2),
-	@hora_CantidadPasajeros		INT
+	@hora_CantidadPasajerosMax	INT
 AS
 BEGIN
 	BEGIN TRY
 
-		INSERT INTO term.tbHorarios(hora_FechaSalida, hora_FechaLlegada, hora_Origen, hora_Destino, hora_Precio,hora_CantidadPasajeros, hora_UsuarioCreador, hora_UsuarioModificador, hora_FechaModificacion)
-		VALUES(@hora_FechaSalida, @hora_FechaLlegada, @hora_Origen, @hora_Destino, @hora_Precio ,@hora_CantidadPasajeros, @hora_UsuarioCreador, NULL, NULL)								
-		SELECT 1
+		INSERT INTO term.tbHorarios(hora_Salida, hora_Llegada, hora_Origen, hora_Destino, hora_Precio,hora_CantidadPasajerosMax, hora_UsuarioCreador, hora_UsuarioModificador, hora_FechaModificacion)
+		VALUES(@hora_Salida, @hora_Llegada, @hora_Origen, @hora_Destino, @hora_Precio ,@hora_CantidadPasajerosMax, @hora_UsuarioCreador, NULL, NULL)
+SELECT 'Registro agregado exitosamente'
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+SELECT 'A ocurrido un Error!!!'
 	END CATCH
+
 END
 GO
 
@@ -313,13 +374,13 @@ CREATE OR ALTER PROCEDURE term.UDP_VW_tbHorarios_Find
 AS
 BEGIN
 	SELECT hora_ID,
-		hora_FechaSalida,
-		hora_FechaLlegada,
+		hora_Salida,
+		hora_Llegada,
 		hora_Origen,
 		hora_Origen_DeptoNombre,
 		hora_Destino,
 		hora_Destino_DeptoNombre,
-		hora_CantidadPasajeros,
+		hora_CantidadPasajerosMax,
 		hora_Precio,
 		hora_Estado,
 		hora_UsuarioCreador,
@@ -337,24 +398,32 @@ GO
 CREATE OR ALTER PROCEDURE term.UDP_tbHorarios_Update
 	@hora_UsuarioModificador	INT,
 	@hora_ID					INT,
-	@hora_FechaSalida			DATETIME,
-	@hora_FechaLlegada			DATETIME,
+	@hora_Salida				DATETIME,
+	@hora_Llegada				DATETIME,
 	@hora_Origen				CHAR(2),
 	@hora_Destino				CHAR(2),
 	@hora_Precio				DECIMAL(18,2),
-	@hora_CantidadPasajeros		INT
+	@hora_CantidadPasajerosMax	INT
 AS
 BEGIN
-	UPDATE	term.tbHorarios 
-	SET		hora_FechaSalida = @hora_FechaSalida, 
-			hora_FechaLlegada = @hora_FechaLlegada, 
+BEGIN TRY	
+UPDATE	term.tbHorarios 
+	SET		hora_Salida = @hora_Salida, 
+			hora_Llegada = @hora_Llegada, 
 			hora_Origen = @hora_Origen, 
 			hora_Destino = @hora_Destino,
 			hora_Precio = @hora_Precio,
-			hora_CantidadPasajeros = @hora_CantidadPasajeros,
+			hora_CantidadPasajerosMax = @hora_CantidadPasajerosMax,
 			hora_UsuarioModificador = @hora_UsuarioModificador, 
 			hora_FechaModificacion = GETDATE()
 	WHERE	hora_ID = @hora_ID
+
+	SELECT 'Registro editado exitosamente'
+	END TRY
+	BEGIN CATCH
+SELECT 'A ocurrido un Error!!!'
+	END CATCH
+
 END
 GO
 
@@ -362,9 +431,16 @@ CREATE OR ALTER PROCEDURE term.UDP_tbHorarios_Delete
 	@hora_ID INT
 AS
 BEGIN
-	UPDATE term.tbHorarios
+BEGIN TRY	UPDATE term.tbHorarios
 	SET hora_Estado = 0
 	WHERE hora_ID = @hora_ID 
+
+	SELECT 'Registro eliminado exitosamente'
+	END TRY
+	BEGIN CATCH
+SELECT 'A ocurrido un Error!!!'
+	END CATCH
+
 END
 GO
 
@@ -433,10 +509,10 @@ BEGIN TRY
            ,@term_UsuarioCreador
            ,NULL
            ,NULL)
-SELECT 1
+SELECT 'Registro agregado exitosamente'
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+SELECT 'A ocurrido un Error!!!'
 	END CATCH
 
 END
@@ -448,6 +524,7 @@ CREATE OR ALTER PROCEDURE term.UDP_VW_tbTerminales_Find
 @term_ID INT
 AS
 BEGIN
+
 	SELECT	term_ID, 
 			muni_ID,
 			muni_Descripcion,
@@ -491,10 +568,10 @@ UPDATE [term].[tbTerminales]
       ,[term_FechaModificacion] = GETDATE()
  WHERE term_ID	= @term_ID	
 
- SELECT 1
+SELECT 'Registro actualizado exitosamente'
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+SELECT 'A ocurrido un Error!!!'
 	END CATCH
 
 END
@@ -513,14 +590,13 @@ UPDATE [term].[tbTerminales]
   WHERE term_ID	= @term_ID	
 
 
- SELECT 1
-	END TRY
+  SELECT 'Registro eliminado exitosamente'	
+  END TRY
 	BEGIN CATCH
-		SELECT 0
+  SELECT 'A ocurrido un Error!!!'
 	END CATCH
 END
 GO
-
 
 /*###############  tbBoletos  ###############*/
 
@@ -547,10 +623,10 @@ AS
 			CONCAT(clie_Nombres, ' ', clie_Apellidos) AS bole_clie_Nombre_Completo,
 			clie.clie_Sexo,
 			bole.hora_ID,
-			hora.hora_FechaSalida,
+			hora.hora_Salida,
 			hora.hora_Origen,
 			dept1.dept_Descripcion AS bole_hora_Origen_Nombre,
-			hora.hora_FechaLlegada,
+			hora.hora_Llegada,
 			hora.hora_Destino,
 			dept2.dept_Descripcion AS bole_hora_Destino_Nombre,
 			bole.pago_ID,
@@ -578,43 +654,11 @@ AS
 GO
 
 
-
-
-CREATE OR ALTER VIEW term.VW_tbBoletos2
-AS
-	SELECT	bole_ID, 
-			bole_Fecha,
- 			CONCAT(clie_Nombres, ' ', clie_Apellidos) AS bole_clie_Nombre_Completo,
- 			dept1.dept_Descripcion AS bole_hora_Origen_Nombre,
- 			dept2.dept_Descripcion AS bole_hora_Destino_Nombre,
-			comp_Nombre
- 
-	FROM term.tbBoletos AS bole INNER JOIN term.tbTerminales AS term
-	ON bole.term_ID = term.term_ID INNER JOIN term.tbCompania AS comp
-	ON bole.comp_ID = comp.comp_ID INNER JOIN term.tbEmpleados AS empl
-	ON bole.empl_ID = empl.empl_ID INNER JOIN term.tbClientes AS clie
-	ON bole.clie_ID = clie.clie_ID INNER JOIN term.tbHorarios AS hora
-	ON bole.hora_ID = hora.hora_ID INNER JOIN gral.tbMetodosPago AS pago
-	ON bole.pago_ID = pago.pago_ID INNER JOIN acce.tbUsuarios AS usr1
-	ON bole.bole_UsuarioCreador = usr1.usua_ID LEFT JOIN acce.tbUsuarios AS usr2
-	ON bole.bole_UsuarioModificador = usr2.usua_ID INNER JOIN gral.tbDepartamentos AS dept1
-	ON hora.hora_Origen = dept1.dept_ID LEFT JOIN gral.tbDepartamentos AS dept2
-	ON hora.hora_Destino = dept2.dept_ID
-GO
-
 --------> READ
 CREATE OR ALTER PROCEDURE term.UDP_VW_tbBoletos_VW
 AS
 BEGIN
 	SELECT * FROM term.VW_tbBoletos WHERE bole_Estado = 1
-END
-GO
-
- 
-CREATE OR ALTER PROCEDURE term.UDP_VW_VistaPrevia_VW
-AS
-BEGIN
-	select * from term.VW_tbBoletos2
 END
 GO
 
@@ -634,10 +678,13 @@ BEGIN
 					bole_UsuarioCreador, bole_UsuarioModificador, bole_FechaModificacion)
 		VALUES (@term_ID, @comp_ID, @empl_ID, @clie_ID, @hora_ID, @pago_ID,
 				@bole_UsuarioCreador, NULL, NULL)
-		SELECT 1
+		UPDATE term.tbHorarios
+		SET hora_CantidadPasajerosActual = hora_CantidadPasajerosActual+1
+		WHERE hora_ID = @hora_ID
+		SELECT 'Registro agregado exitosamente'
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH 
 END
 GO
@@ -668,10 +715,10 @@ BEGIN
 			bole_clie_Nombre_Completo,
 			clie_Sexo,
 			hora_ID,
-			hora_FechaSalida,
+			hora_Salida,
 			hora_Origen,
 			bole_hora_Origen_Nombre,
-			hora_FechaLlegada,
+			hora_Llegada,
 			hora_Destino,
 			bole_hora_Destino_Nombre,
 			pago_ID,
@@ -713,10 +760,10 @@ BEGIN
 		bole_UsuarioModificador = @bole_UsuarioModificador, 
 		bole_FechaModificacion = GETDATE()
 		WHERE bole_ID = @bole_ID
-		SELECT 1
+		SELECT 'Registro editado exitosamente'
 	END TRY 
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH
 END
 GO
@@ -732,10 +779,10 @@ BEGIN
 		UPDATE term.tbBoletos
 		SET bole_Estado = 0
 		WHERE bole_ID = @bole_ID
-		SELECT 1
+		SELECT 'Registro eliminado correctamente'
 	END TRY
 	BEGIN CATCH 
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH
 END
 GO
@@ -834,6 +881,7 @@ empl_FechaNacimiento,
 empl_Sexo, 
 empl_Telefono, 
 carg_ID, 
+role_ID,
 estciv_ID, 
 muni_ID, 
 empl_Estado, 
@@ -850,3 +898,238 @@ AS
 BEGIN
 SELECT * FROM term.VW_tbEmpleados WHERE empl_Estado = 1
 END
+GO
+
+/*--***********tbUsuarios*************--*/
+
+--------> VIEW
+CREATE OR ALTER VIEW acce.VW_tbUsuarios
+AS
+SELECT	usrs.usua_ID,
+		usrs.usua_Usuario,
+		usrs.usua_Clave,
+		usrs.usua_EsAdmin,
+		usrs.empl_ID,
+		empl.empl_PrimerNombre,
+		empl.empl_SegundoNombre,
+		empl.empl_PrimerApellido,
+		empl.empl_SegundoApellido,
+		CONCAT(empl_PrimerNombre, ' ', empl_SegundoNombre) AS usua_empl_Nombres,
+		CONCAT(empl_PrimerApellido, ' ', empl_SegundoApellido) AS usua_empl_Apellidos,
+		CONCAT(empl_PrimerNombre, ' ', empl_SegundoNombre, ' ',empl_PrimerApellido, ' ', empl_SegundoApellido) AS usua_empl_NombreCompleto,
+		empl.carg_ID,
+		carg.carg_Nombre,
+		empl.role_ID,
+		rol.role_Descripcion,
+		usr1.usua_Usuario AS usua_UsuarioCreador_Nombre,
+		usr2.usua_Usuario AS usua_UsuarioModificador_Nombre,
+		usrs.usua_Estado,
+		usrs.usua_UsuarioCreador,
+		usrs.usua_FechaCreacion,
+		usrs.usua_UsuarioModificador,
+		usrs.usua_FechaModificacion
+FROM acce.tbUsuarios AS usrs INNER JOIN term.tbEmpleados AS empl
+ON usrs.empl_ID = empl.empl_ID INNER JOIN acce.tbUsuarios AS usr1
+ON usrs.usua_UsuarioCreador = usr1.usua_ID LEFT JOIN acce.tbUsuarios AS usr2
+ON usrs.usua_UsuarioModificador = usr2.usua_ID INNER JOIN acce.tbRoles AS rol
+ON empl.role_ID = rol.role_ID INNER JOIN term.tbCargos AS carg
+ON empl.carg_ID = carg.carg_ID
+GO
+
+
+--------> READ	
+CREATE OR ALTER PROCEDURE acce.UDP_VW_tbUsuarios_VW
+AS
+BEGIN
+	SELECT * FROM acce.VW_tbUsuarios WHERE usua_Estado = 1
+END
+GO
+
+
+--------> CREATE	
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Create
+	@usua_UsuarioCreador	INT,
+	@usua_Usuario			NVARCHAR(100), 
+	@usua_Clave				VARCHAR(MAX),
+	@usua_EsAdmin			INT, 
+	@empl_ID				INT
+ AS
+ BEGIN
+	BEGIN TRY	
+		IF NOT EXISTS(SELECT usua_Usuario FROM acce.tbUsuarios WHERE usua_Usuario = @usua_Usuario)
+			BEGIN
+				DECLARE @PassEncrypt VARBINARY(MAX) = HASHBYTES('SHA2_512', @usua_Clave)
+				INSERT INTO acce.tbUsuarios(usua_Usuario, usua_Clave, usua_EsAdmin, empl_ID, usua_UsuarioCreador, usua_UsuarioModificador, usua_FechaModificacion)
+				VALUES(@usua_Usuario, @PassEncrypt, @usua_EsAdmin, @empl_ID, @usua_UsuarioCreador, NULL, NULL)
+				SELECT 'Registro agregado exitosamente'
+			END
+		ELSE IF EXISTS (SELECT usua_Usuario FROM acce.tbUsuarios WHERE usua_Usuario = @usua_Usuario AND usua_Estado = 0)
+			BEGIN
+				UPDATE acce.tbUsuarios
+				SET usua_Estado = 1
+				WHERE usua_Usuario = @usua_Usuario
+				SELECT 'Registro agregado exitosamente'
+			END
+		ELSE
+			SELECT 'Ya existe un usuario con ese nombre'
+	END TRY
+	BEGIN CATCH
+		SELECT 'Ha ocurrido un error'
+	END CATCH
+END
+GO
+
+--------> FIND
+CREATE OR ALTER PROCEDURE acce.UDP_VW_tbUsuarios_Find
+	@usua_ID INT
+AS
+BEGIN
+	SELECT usua_ID,
+		usua_Usuario,
+		usua_Clave,
+		usua_EsAdmin,
+		empl_ID,
+		empl_PrimerNombre,
+		empl_SegundoNombre,
+		empl_PrimerApellido,
+		empl_SegundoApellido,
+		usua_empl_Nombres,
+		usua_empl_Apellidos,
+		usua_empl_NombreCompleto,
+		carg_ID,
+		carg_Nombre,
+		role_ID,
+		role_Descripcion,
+		usua_UsuarioCreador_Nombre,
+		usua_UsuarioModificador_Nombre,
+		usua_Estado,
+		usua_UsuarioCreador,
+		usua_FechaCreacion,
+		usua_UsuarioModificador,
+		usua_FechaModificacion
+	FROM acce.VW_tbUsuarios WHERE usua_ID = @usua_ID
+END
+GO
+
+
+
+--------> UPDATE
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Update
+	@usua_UsuarioModificador	INT,
+	@usua_ID					INT,
+	@usua_Usuario				NVARCHAR(100),
+	@usua_EsAdmin				INT, 
+	@empl_ID					INT
+AS
+BEGIN
+	BEGIN TRY
+		IF NOT EXISTS (SELECT usua_Usuario FROM acce.tbUsuarios WHERE usua_Usuario = @usua_Usuario)
+			BEGIN
+				SELECT 'El registro que intenta editar no existe'
+			END
+		ELSE
+			BEGIN
+				IF NOT EXISTS (SELECT usua_Usuario FROM acce.tbUsuarios 
+								WHERE usua_Usuario = @usua_Usuario AND
+								usua_ID != @usua_ID)
+					BEGIN
+						UPDATE	acce.tbUsuarios
+						SET		usua_Usuario = @usua_Usuario,
+								usua_UsuarioModificador = @usua_UsuarioModificador,
+								usua_FechaModificacion = GETDATE(),
+								usua_EsAdmin = @usua_EsAdmin,
+								empl_ID = @empl_ID
+						WHERE	usua_ID = @usua_ID		
+						SELECT	'Registro editado exitosamente'
+					END
+				ELSE IF EXISTS (SELECT usua_Usuario FROM acce.tbUsuarios 
+								WHERE usua_Usuario = @usua_Usuario AND
+								usua_Estado = 0)
+					BEGIN
+						UPDATE acce.tbUsuarios
+						SET usua_Estado = 0
+						WHERE usua_ID = @usua_ID
+
+						SELECT 'Registro editado exitosamente'
+					END
+				ELSE
+					SELECT 'Registro ya existente'
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 'Ha ocurrido un error'
+	END CATCH 
+END
+GO
+
+
+--------> DELETE	
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Delete
+	@usua_ID INT
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE acce.tbUsuarios
+		SET usua_Estado = 0
+		WHERE usua_ID = @usua_ID
+		SELECT 'Registro eliminado con exito'
+	END TRY
+	BEGIN CATCH
+		SELECT 'Ha ocurrido un error'
+	END CATCH
+END
+GO
+
+
+
+ DECLARE @e VARCHAR(MAX) = 'HOLA'
+ DECLARE @f VARBINARY(MAX) = HASHBYTES('SHA2_512', @e)
+
+ SELECT @f
+ GO
+
+
+
+ -- LOGIN ----
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Login
+
+	@usua_Usuario  NVARCHAR(150),
+	@usua_Clave   VARCHAR(150)
+AS
+BEGIN
+	DECLARE @Pass VARBINARY(MAX) = CONVERT(VARBINARY(MAX), HASHBYTES('SHA2_512', @usua_Clave));
+
+	SELECT	*
+	  FROM  acce.VW_tbUsuarios
+	 WHERE  (usua_Usuario = @usua_Usuario AND usua_Clave = @Pass)
+	   AND  usua_Estado = 1
+END
+GO
+
+
+
+--CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_UserExists
+--    @usua_Usuario    NVARCHAR(20)
+--AS
+--BEGIN
+--    SELECT usua_ID  
+--	  FROM acce.[tbUsuarios] 
+--	 WHERE usua_Usuario = @usua_Usuario 
+--	   AND usua_Estado = 1
+--END
+--GO
+
+
+--CREATE PROCEDURE 'UDP_tbUsuarios_ActualizarContraseniausuario'
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_ChangePassword
+	@usua_Usuario NVARCHAR(150),
+	@usua_Clave   VARCHAR(150)
+AS
+BEGIN
+	DECLARE @Pass VARBINARY(MAX) = CONVERT(VARBINARY(MAX), HASHBYTES('SHA2_512', @usua_Clave));
+
+	UPDATE acce.tbUsuarios
+	   SET usua_Clave = @Pass
+	 WHERE usua_Usuario = @usua_Usuario
+END
+GO

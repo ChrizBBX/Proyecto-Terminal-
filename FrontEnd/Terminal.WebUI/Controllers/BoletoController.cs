@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,6 +36,11 @@ namespace Terminal.WebUI.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
+                    if (TempData["Script"] is string script)
+                    {
+                        TempData.Remove("Script");
+                        ViewBag.Script = script;
+                    }
                     var jsonResponse = await response.Content.ReadAsStringAsync();
                     listado = JsonConvert.DeserializeObject<List<BoletosViewModel>>(jsonResponse);
                 }
@@ -61,9 +67,34 @@ namespace Terminal.WebUI.Controllers
         }
 
 
+        public async Task<IActionResult> Details(int id)
+        {
+
+            List<BoletosViewModel> listado = new List<BoletosViewModel>();
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + "api/Boleto");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    if (TempData["Script"] is string script)
+                    {
+                        TempData.Remove("Script");
+                        ViewBag.Script = script;
+                    }
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    listado = JsonConvert.DeserializeObject<List<BoletosViewModel>>(jsonResponse);
+                }
+                return View(listado.Where(x => x.bole_ID == id));
+            }
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            #region Llenar ddl
             //Llenar ddl de terminal
             List<TerminalesViewModel> terminales = new List<TerminalesViewModel>();
 
@@ -73,6 +104,7 @@ namespace Terminal.WebUI.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
+
                     var jsonResponse = await response.Content.ReadAsStringAsync();
                     terminales = JsonConvert.DeserializeObject<List<TerminalesViewModel>>(jsonResponse);
                     ViewBag.term_Id = new SelectList(terminales, "term_ID", "term_Nombre"); 
@@ -146,6 +178,7 @@ namespace Terminal.WebUI.Controllers
          
             }
             //Fin llenar dll de horarios
+            #endregion
             return View();
         }
   
@@ -156,11 +189,28 @@ namespace Terminal.WebUI.Controllers
             {
                 using (var httpClient = new HttpClient())
                 {
-                    var content = new StringContent(JsonConvert.SerializeObject(boletosViewModel), Encoding.UTF8, "application/json");
+
+                    var json = JsonConvert.SerializeObject(boletosViewModel);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
                     var response = await httpClient.PostAsync(_baseurl + "api/Boleto/Insertar", content);
 
                     if (response.IsSuccessStatusCode)
                     {
+                        var jsonResponse = await response.Content.ReadAsStringAsync();
+                        JObject jsonObj = JObject.Parse(jsonResponse);
+                        ViewBag.message = jsonObj["message"];
+
+                        if (jsonObj["code"].ToString() == "200")
+                        {
+                            string script = "MostrarMensajeSuccess('" + ViewBag.message + "');  Swal.fire( 'Agregado!', 'Registro Agregado exitosamente!', 'success' );";
+                            TempData["script"] = script;
+                        }
+                        else
+                        {
+                            string script = "MostrarMensajeDanger('" + ViewBag.message + "');";
+                            TempData["script"] = script;
+                        }
+
                         return RedirectToAction("Index");
                     }
                     else
@@ -171,6 +221,7 @@ namespace Terminal.WebUI.Controllers
             }
             else
             {
+                #region Llenar ddl 
                 //Llenar ddl de terminal
                 List<TerminalesViewModel> terminales = new List<TerminalesViewModel>();
 
@@ -253,13 +304,15 @@ namespace Terminal.WebUI.Controllers
 
                 }
                 //Fin llenar dll de horarios
+                #endregion
                 return View(boletosViewModel);
             }
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+            #region Llenar ddl
             //Llenar ddl de terminal
             List<TerminalesViewModel> terminales = new List<TerminalesViewModel>();
 
@@ -342,6 +395,7 @@ namespace Terminal.WebUI.Controllers
 
             }
             //Fin llenar dll de horarios
+            #endregion 
             using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.GetAsync(_baseurl + $"api/Boleto/Boleto/Find/{id}");
@@ -378,18 +432,33 @@ namespace Terminal.WebUI.Controllers
             }
         }
 
-
-        public async Task<IActionResult> Update(BoletosViewModel boletos)
+        [HttpPost]
+        public async Task<IActionResult> Edit(BoletosViewModel boletos)
         {
             if (ModelState.IsValid)
             {
                 using (var httpClient = new HttpClient())
                 {
-                    var content = new StringContent(JsonConvert.SerializeObject(boletos), Encoding.UTF8, "application/json");
+                    var json = JsonConvert.SerializeObject(boletos);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
                     var response = await httpClient.PutAsync(_baseurl + $"api/Boleto/Boleto/Update/{boletos.bole_ID}", content);
 
                     if (response.IsSuccessStatusCode)
                     {
+                        var jsonResponse = await response.Content.ReadAsStringAsync();
+                        JObject jsonObj = JObject.Parse(jsonResponse);
+                        ViewBag.message = jsonObj["message"];
+
+                        if (jsonObj["code"].ToString() == "200")
+                        {
+                            string script = "MostrarMensajeSuccess('" + ViewBag.message + "');";
+                            TempData["script"] = script;
+                        }
+                        else
+                        {
+                            string script = "MostrarMensajeDanger('" + ViewBag.message + "');";
+                            TempData["script"] = script;
+                        }
                         return RedirectToAction("Index");
                     }
                     else
@@ -497,6 +566,22 @@ namespace Terminal.WebUI.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    JObject jsonObj = JObject.Parse(jsonResponse);
+
+                    ViewBag.message = jsonObj["message"];
+
+                    if (jsonObj["code"].ToString() == "200")
+                    {
+                        string script = "MostrarMensajeSuccess('" + ViewBag.message + "');";
+                        TempData["script"] = script;
+                    }
+                    else
+                    {
+                        string script = "MostrarMensajeDanger('" + ViewBag.message + "');";
+                        TempData["script"] = script;
+                    }
+
                     return RedirectToAction("Index");
                 }
                 else
@@ -531,7 +616,6 @@ namespace Terminal.WebUI.Controllers
 
         public async Task<IActionResult> GraficaSexo()
         {
-
             using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.GetAsync(_baseurl + $"api/Boleto/LoadSex");
@@ -546,10 +630,8 @@ namespace Terminal.WebUI.Controllers
                 else
                 {
                     return RedirectToAction("Index");
-
                 }
             }
-
         }
 
         

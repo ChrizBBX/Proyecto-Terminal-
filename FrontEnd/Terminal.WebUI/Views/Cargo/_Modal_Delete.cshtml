@@ -4,20 +4,23 @@
     <form method="post" asp-controller="Cargo" asp-action="Delete">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
+                <div class="modal-header" style="background-image: linear-gradient(to right, #A4F6FA, #9CB0D7 ,#4EBBC0 ) ">
+                    <div class="row">
+                        <div class="col-4"></div>
+                        <div class="col-4 text-center"><h3 class="modal-title text-black" id="exampleModalLongTitle" ><strong>Eliminar</strong></h3></div>
+                        <div class="col-4"></div>
 
-                <div class="modal-body">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="modal-title" id="exampleModalLongTitle">Eliminar</h3>
-                        </div>
-                        <div class="card-body">
-                            <input type="text" id="id" name="id" hidden />
-                            <span>¿Realmente desea eliminar este cargo?</span>
-                        </div>
-                        <div class="card-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
-                            <button type="submit" class="btn btn-success">Sí</button>
-                        </div>
+                    </div>
+                </div>
+                <div class="modal-body text-center">
+                    <input type="text" id="id" name="id" hidden />
+                    <h4 class="text-black">¿Realmente desea eliminar este registro?</h4>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-5"><button type="submit" class="btn btn-primary">Confirmar</button></div>
+                        <div class="col-4"><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button></div>
                     </div>
                 </div>
             </div>

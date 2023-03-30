@@ -24,6 +24,7 @@ namespace Terminal.Entities.Entities
         public string empl_Sexo { get; set; }
         public string empl_Telefono { get; set; }
         public int? carg_ID { get; set; }
+        public int? role_ID { get; set; }
         public int? estciv_ID { get; set; }
         public string muni_ID { get; set; }
         public int? empl_Estado { get; set; }
@@ -37,6 +38,7 @@ namespace Terminal.Entities.Entities
         public virtual tbUsuarios empl_UsuarioModificadorNavigation { get; set; }
         public virtual tbEstadosCiviles estciv { get; set; }
         public virtual tbMunicipios muni { get; set; }
+        public virtual tbRoles role { get; set; }
         public virtual ICollection<tbBoletos> tbBoletos { get; set; }
         public virtual ICollection<tbUsuarios> tbUsuarios { get; set; }
     }

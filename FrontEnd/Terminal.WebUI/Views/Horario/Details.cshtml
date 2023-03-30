@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Terminal.WebUI.Models.HorariosViewModel>
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card border-5">
+    <div class="card-header" style="background-image: linear-gradient(to right, #A4F6FA,#9CB0D7 ,#4EBBC0 ) ">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-3">
+                <h1 style="font-family: Cooper;" class="text-black">Detalles</h1>
+            </div>
+            <div class="col-4"></div>
+
+        </div>
+    </div>
+    <div class="card-body align-content-xl-center">
+        @foreach (var item in Model)
+        {
+            <div class="row mt-1">
+
+                <div class="col-1"></div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <h5>ID :</h5>
+                        <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_ID)</label>
+                    </div>
+                </div>
+
+                <div class="form-group col-3">
+                    <h5>Fecha/Hora salida :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_Salida)</label>
+                </div>
+
+                <div class="form-group col-4">
+                    <h5>Fecha/Hora llegada :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_Llegada)</label>
+                </div>
+            </div>
+            <div class="row mt-3">
+
+                <div class="col-1"></div>
+
+                <div class="form-group col-4">
+                    <h5>Origen :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_Origen_DeptoNombre)</label>
+                </div>
+
+                <div class="form-group col-3">
+                    <h5>Destino :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_Destino_DeptoNombre)</label>
+                </div>
+
+                <div class="form-group col-4">
+                    <h5>Maximo pasajeros :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_CantidadPasajerosMax)</label>
+                </div>
+            </div>
+            <div class="row mt-3">
+
+                <div class="col-1"></div>
+
+
+                <div class="form-group col-4">
+                    <h5>Precio :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.hora_Precio)</label>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-9 mt-3"></div>
+                <div class="form-group col-3 mt-3">
+                    <a asp-action="Edit" asp-route-id="@item.hora_ID" class="btn btn-primary">Editar</a> |
+                    <a asp-action="Index" class="btn btn-secondary ">Regresar</a>
+                </div>
+            </div>
+
+        }
+        <div style="height:20px"></div>
+        <div class="card">
+            <div class="card-header"><h2>Auditoría</h2></div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Acción</th>
+                        <th>Usuario</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><label>Creación</label></td>
+                            <td>@Html.DisplayFor(modelItem => item.hora_UsuarioCreador_Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.hora_FechaCreacion)</td>
+                        </tr>
+                        <tr>
+                            <td><label>Modificación</label></td>
+                            <td>@Html.DisplayFor(modelItem => item.hora_UsuarioModificador_Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.hora_FechaModificacion)</td>
+                        </tr>
+
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+
+

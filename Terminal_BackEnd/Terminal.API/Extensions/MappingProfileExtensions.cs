@@ -17,6 +17,7 @@ namespace Terminal.API.Extensions
             CreateMap<TerminalesViewModel, tbTerminales>().ReverseMap();
             CreateMap<HorariosViewModel, tbHorarios>().ReverseMap();
             CreateMap<BoletosViewModel, tbBoletos>().ReverseMap();
+            CreateMap<UsuariosViewModel, tbUsuarios>().ReverseMap();
         } 
     }
 }
