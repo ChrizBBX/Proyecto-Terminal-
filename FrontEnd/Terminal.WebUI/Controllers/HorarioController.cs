@@ -50,6 +50,30 @@ namespace Terminal.WebUI.Controllers
         }
 
 
+        public async Task<IActionResult> Details(int id)
+        {
+
+            List<HorariosViewModel> listado = new List<HorariosViewModel>();
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + "api/Horario");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    if (TempData["Script"] is string script)
+                    {
+                        TempData.Remove("Script");
+                        ViewBag.Script = script;
+                    }
+
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    listado = JsonConvert.DeserializeObject<List<HorariosViewModel>>(jsonResponse);
+                }
+                return View(listado.Where(x => x.hora_ID == id));
+            }
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> Create()

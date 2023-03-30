@@ -30,6 +30,8 @@ namespace Terminal.DataAccess.Repository
 
         public RequestStatus Insert(tbUsuarios item)
         {
+            RequestStatus result = new RequestStatus();
+
             using var db = new SqlConnection(TerminalContext.ConnectionString);
             var parametros = new DynamicParameters();
             parametros.Add("@usua_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
@@ -37,12 +39,17 @@ namespace Terminal.DataAccess.Repository
             parametros.Add("@usua_Clave", item.usua_Clave, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_EsAdmin", item.usua_EsAdmin, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@empl_ID", item.empl_ID, DbType.Int32, ParameterDirection.Input);
-            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Usuarios_Create, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.UDP_Usuarios_Create, parametros, commandType: CommandType.StoredProcedure);
+            
+            result.MessageStatus = answer;
 
+            return result;
         }
 
         public RequestStatus Update(tbUsuarios item)
         {
+            RequestStatus result = new RequestStatus();
+
             using var db = new SqlConnection(TerminalContext.ConnectionString);
             var parametros = new DynamicParameters();
             parametros.Add("@usua_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
@@ -51,15 +58,26 @@ namespace Terminal.DataAccess.Repository
             parametros.Add("@usua_Clave", item.usua_Clave, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_EsAdmin", item.usua_EsAdmin, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@empl_ID", item.empl_ID, DbType.Int32, ParameterDirection.Input);
-            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Usuarios_Update, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.UDP_Usuarios_Update, parametros, commandType: CommandType.StoredProcedure);
+
+            result.MessageStatus = answer;
+
+            return result;
+
         }
 
         public RequestStatus Delete(int id)
         {
+            RequestStatus result = new RequestStatus();
+
             using var db = new SqlConnection(TerminalContext.ConnectionString);
             var parametros = new DynamicParameters();
             parametros.Add("@usua_ID", id, DbType.Int32, ParameterDirection.Input);
-            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Usuarios_Delete, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.UDP_Usuarios_Delete, parametros, commandType: CommandType.StoredProcedure);
+
+            result.MessageStatus = answer;
+
+            return result;
         }
 
         public IEnumerable<VW_tbUsuarios> Login(string user,string contrasena)

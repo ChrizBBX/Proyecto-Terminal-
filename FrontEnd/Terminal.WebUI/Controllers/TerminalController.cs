@@ -52,19 +52,43 @@ namespace Terminal.WebUI.Controllers
         }
 
 
+        public async Task<IActionResult> Details(int id)
+        {
+
+            List<TerminalesViewModel> listado = new List<TerminalesViewModel>();
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + "api/Terminal");
+
+                if (response.IsSuccessStatusCode)
+                {
+
+                    if (TempData["Script"] is string script)
+                    {
+                        TempData.Remove("Script");
+                        ViewBag.Script = script;
+                    }
+
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+
+                    listado = JsonConvert.DeserializeObject<List<TerminalesViewModel>>(jsonResponse);
+                }
+                return View(listado.Where(x => x.term_ID == id));
+            }
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> CreateAsync()
         {
             using (var httpClient = new HttpClient())
             {
 
-
-
                 var depa = await httpClient.GetAsync(_baseurl + "api/Terminal/LoadDepartamento");
 
                 if (depa.IsSuccessStatusCode)
                 {
-
                     var content = await depa.Content.ReadAsStringAsync();
                     var departamentos = JsonConvert.DeserializeObject<List<DepartamentoViewModel>>(content);
                     ViewBag.dept_ID = new SelectList(departamentos, "dept_ID", "dept_Descripcion");
@@ -75,7 +99,6 @@ namespace Terminal.WebUI.Controllers
                     return View();
                 }
             }
-
         }
 
 
@@ -84,12 +107,9 @@ namespace Terminal.WebUI.Controllers
 
             if (string.IsNullOrEmpty(terminales.dept_ID) || terminales.dept_ID == "0" || string.IsNullOrEmpty(terminales.muni_ID))
             {
-
                 if (string.IsNullOrEmpty(terminales.dept_ID))
                 {
-
                     ModelState.AddModelError("ValidacionDepartamento", "Campo 'Departamento' requerido");
-
                 }
                 else
                 {
@@ -106,7 +126,6 @@ namespace Terminal.WebUI.Controllers
 
                 if (string.IsNullOrEmpty(terminales.muni_ID))
                     ModelState.AddModelError("ValidacionMunicipio", "Campo 'Municipio' requerido");
-
             }
 
 
@@ -311,39 +330,40 @@ namespace Terminal.WebUI.Controllers
             }
         }
 
-        [HttpGet("/Termianl/Delete/{id}")]
+        //[HttpGet("/Termianl/Delete/{id}")]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    using (var httpClient = new HttpClient())
+        //    {
+        //        var response = await httpClient.PostAsync(_baseurl + $"api/Terminal/Terminal/Delete/{id}", null);
+
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            var content = await response.Content.ReadAsStringAsync();
+        //            var cliente = JsonConvert.DeserializeObject<TerminalesViewModel>(content);
+        //            return PartialView("_TerminalView", cliente);
+        //        }
+        //        else
+        //        {
+        //            return RedirectToAction("Index");
+        //        }
+        //    }
+        //}
+
+
         public async Task<IActionResult> Delete(int id)
         {
             using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.PostAsync(_baseurl + $"api/Terminal/Terminal/DeleteTerminal/{id}", null);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var content = await response.Content.ReadAsStringAsync();
-                    var cliente = JsonConvert.DeserializeObject<TerminalesViewModel>(content);
-                    return PartialView("_TerminalView", cliente);
-                }
-                else
-                {
-                    return RedirectToAction("Index");
-                }
-            }
-        }
-
-        [HttpPost("Terminal/Delete")]
-        public async Task<IActionResult> DeleteConfirm(int term_ID)
-        {
-            using (var httpClient = new HttpClient())
-            {
-                var json = JsonConvert.SerializeObject(term_ID);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await httpClient.PostAsync(_baseurl + $"api/Terminal/Terminal/Delete/{term_ID}", null);
+                //var json = JsonConvert.SerializeObject(term_ID);
+                //var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync(_baseurl + $"api/Terminal/Terminal/Delete/{id}", null);
 
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonResponse = await response.Content.ReadAsStringAsync();
                     JObject jsonObj = JObject.Parse(jsonResponse);
+
                     ViewBag.message = jsonObj["message"];
 
                     if (jsonObj["code"].ToString() == "200")
@@ -351,11 +371,11 @@ namespace Terminal.WebUI.Controllers
                         string script = "MostrarMensajeSuccess('" + ViewBag.message + "');";
                         TempData["script"] = script;
                     }
-                    else if (jsonObj["code"].ToString() == "409")
-                    {
-                        string script = "MostrarMensajeWarning('" + ViewBag.message + "'); $('#New').click();";
-                        TempData["script"] = script;
-                    }
+                    //else if (jsonObj["code"].ToString() == "409")
+                    //{
+                    //    string script = "MostrarMensajeWarning('" + ViewBag.message + "'); $('#New').click();";
+                    //    TempData["script"] = script;
+                    //}
                     else
                     {
                         string script = "MostrarMensajeDanger('" + ViewBag.message + "');";

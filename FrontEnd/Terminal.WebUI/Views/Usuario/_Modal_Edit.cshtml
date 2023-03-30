@@ -4,8 +4,10 @@
     <div class="modal-dialog" role="document">
         <form method="post" asp-controller="Usuario" asp-action="Update" id="formEdit">
             <div class="modal-content">
-                <div class="modal-header">
-                    <div class="row"><h3 class="modal-title" id="exampleModalLongTitle" style=" color: black;"><strong>Editar Usuario</strong></h3>      </div>
+                <div class="modal-header" style="background-image: linear-gradient(to right, #A4F6FA, #9CB0D7 ,#4EBBC0 ) ">
+                    <div class="col-2"></div>
+                    <div class="col-6 text-center"><h3 class="modal-title text-black" id="exampleModalLongTitle">Editar usuario</h3></div>
+                    <div class="col-2"></div>
 
                 </div>
                 <div class="modal-body">
@@ -16,43 +18,41 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <strong><label asp-for="usua_Usuario" class="control-label text-dark"></label></strong>
-                                <input asp-for="usua_Usuario" id="usua_UsuarioEdit" class="form-control" style="font-weight: 500; color: black; border-color: #1C1F3B;" />
-                                <strong><label id="lblUsuarioEditError" class="control-label text-danger" hidden="hidden">Campo 'Usuario' requerido</label></strong>
+                                <input asp-for="usua_Usuario" id="usua_UsuarioEdit" class="form-control text-dark" style="border-color: darkgray; border-width: 1px;" />
+                                <strong><span id="lblUsuarioEditError" class="control-label text-danger" hidden="hidden">Campo 'Usuario' requerido</span></strong>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <strong><label asp-for="usua_Clave" class="control-label text-dark"></label></strong>
-                                <input asp-for="usua_Clave" id="usua_PassEdit" class="form-control" style="font-weight: 500; color: black; border-color: #1C1F3B;" />
-                                <strong><label id="lblPassEditError" class="control-label text-danger" hidden="hidden">Campo 'Contraseña' requerido</label></strong>
+                                <strong><label asp-for="usua_Pass" class="control-label text-dark"></label></strong>
+                                <input asp-for="usua_Pass" id="usua_PassEdit" class="form-control text-dark" style="border-color: darkgray; border-width: 1px;"  />
+                                <strong><span id="lblPassEditError" class="control-label text-danger" hidden="hidden">Campo 'Contraseña' requerido</span></strong>
                             </div>
                         </div>
-                        <div class="col-2"></div>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
                                 <strong><label asp-for="empl_ID" class="control-label text-dark"></label></strong>
-                                <select id="empl_IDEdit" asp-for="empl_ID" class="form-control" asp-items="ViewBag.empl_ID" style="border-color: #1C1F3B; color: black;">
-                                    <option value="">--Seleccione una opcion--</option>
+                                <select id="empl_IDEdit" asp-for="empl_ID" asp-items="ViewBag.empl_ID"class="form-control form-select text-dark" style="border-color: darkgray; border-width: 1px;" >
+                                    <option value="">-- Seleccione una opción --</option>
                                 </select>
-                                <strong><label id="lblEmpleadoEditError" class="control-label text-danger" hidden="hidden">Campo 'Empleado' requerido</label></strong>
+                                <strong><span id="lblEmpleadoEditError" class="control-label text-danger" hidden="hidden">Campo 'Empleado' requerido</span></strong>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <strong><label asp-for="usua_EsAdmin" class="control-label text-dark"></label></strong>
-                                <input type="checkbox" value="1" asp-for="usua_EsAdmin" id="usua_EsAdminEdit" style="font-weight: 500; color: black;" border-color: #1C1F3B; />
+                                <input type="checkbox" asp-for="usua_EsAdmin" id="usua_EsAdminEdit" style="border-color: darkgray; border-width: 1px;" />
                             </div>
                         </div>
-                        <div class="col-2"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col-2"></div>
-                        <div class="col-5"><button type="button" onclick="Editar()" class="btn btn-outline-success">Crear</button></div>
-                        <div class="col-4"><button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button></div>
+                        <div class="col-5"><button type="button" onclick="Editar()" class="btn btn-primary">Guardar</button></div>
+                        <div class="col-4"><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button></div>
                     </div>
                 </div>
             </div>

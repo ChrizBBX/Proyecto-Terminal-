@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Terminal.WebUI.Models.CargosViewModel>
-
+﻿@model IEnumerable<Terminal.WebUI.Models.TerminalesViewModel>
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 <div class="card border-5">
     <div class="card-header" style="background-image: linear-gradient(to right, #A4F6FA,#9CB0D7 ,#4EBBC0 ) ">
@@ -25,25 +25,48 @@
                 <div class="col-4">
                     <div class="form-group">
                         <h5>ID :</h5>
-                        <label class="text-dark">@Html.DisplayFor(modelItem => item.carg_ID)</label>
+                        <label class="text-dark">@Html.DisplayFor(modelItem => item.term_ID)</label>
                     </div>
                 </div>
 
                 <div class="form-group col-3">
-                    <h5>Descripción :</h5>
-                    <label class="text-dark">@Html.DisplayFor(modelItem => item.carg_Nombre)</label>
+                    <h5>Departamento :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.dept_Descripcion)</label>
                 </div>
 
+                <div class="form-group col-4">
+                    <h5>Municipio :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.muni_Descripcion)</label>
+                </div>
             </div>
+            <div class="row mt-3">
 
+                <div class="col-1"></div>
+
+                <div class="form-group col-4">
+                    <h5>Nombre :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.term_Nombre)</label>
+                </div>
+
+                <div class="form-group col-3">
+                    <h5>Dirección exacta :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.term_DireccionExacta)</label>
+                </div>
+
+                <div class="form-group col-4">
+                    <h5>Cantidad de transportes :</h5>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.term_CantidadTransportes)</label>
+                </div>
+            </div>
 
             <div class="row mt-3">
                 <div class="col-9 mt-3"></div>
                 <div class="form-group col-3 mt-3">
-                    <a asp-action="Edit" asp-route-id="@item.carg_ID" class="btn btn-primary">Editar</a> |
-                    <a asp-action="Index" class="btn btn-secondary">Regresar</a>
+                    <a asp-action="Edit" asp-route-id="@item.term_ID" class="btn btn-primary">Editar</a> |
+                    <a asp-action="Index" class="btn btn-secondary ">Regresar</a>
                 </div>
             </div>
+
         }
         <div style="height:20px"></div>
         <div class="card">
@@ -61,14 +84,15 @@
                     {
                         <tr>
                             <td><label>Creación</label></td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_UsuarioCreador_Nombre)</td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_FechaCreacion)</td>
+                            <td>@Html.DisplayFor(modelItem => item.term_UsuarioCreador_Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.term_FechaCreacion)</td>
                         </tr>
                         <tr>
                             <td><label>Modificación</label></td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_UsuarioModificador_Nombre)</td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_FechaModificacion)</td>
+                            <td>@Html.DisplayFor(modelItem => item.term_UsuarioModificador_Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.term_FechaModificacion)</td>
                         </tr>
+
                     }
                 </tbody>
                 <tfoot>
@@ -81,5 +105,6 @@
             </table>
         </div>
     </div>
-
 </div>
+
+

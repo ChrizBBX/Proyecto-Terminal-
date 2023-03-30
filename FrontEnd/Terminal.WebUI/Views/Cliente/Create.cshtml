@@ -13,29 +13,26 @@
                     <form asp-action="Create" id="formCrear">
                         @Html.AntiForgeryToken()
 
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row"><h1>Clientes</h1></div>
+                        <div class="card border-5">
+                            <div class="card-header text-center" style="background-image: linear-gradient(to right, #A4F6FA,#9CB0D7 ,#4EBBC0 ) ">
+                                <div class="row">
+                                    <div class="col-4">
+
+                                    </div>
+                                    <div class="col-4" style="margin-top: 10px">
+                                        <h1 style="font-family: Cooper;" class="text-black">Nuevo cliente</h1>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-end">
+                                            @*<img src="https://i.gifer.com/3sf.gif" style="border-radius:100px;border:3px solid black; width:50%">*@
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                                 <div class="card">
-                                    <div class="card-header text-center bg-teal-300">
-                                        <div class="row">
-                                            <div class="col-4">
-
-                                            </div>
-                                            <div class="col-4" style="margin-top: 10px">
-                                                <h1 style="font-family: Cooper; color: azure">Crear Registro</h1>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="text-end">
-                                                    @*<img src="https://i.gifer.com/3sf.gif" style="border-radius:100px;border:3px solid black; width:50%">*@
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <div class="card-body">
 
@@ -43,7 +40,7 @@
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <strong><label asp-for="clie_Nombres" class="control-label text-dark"></label></strong>
-                                                    <input asp-for="clie_Nombres" class="form-control" />
+                                                    <input asp-for="clie_Nombres" class="form-control text-dark" style="border-color: darkgray; border-width: 1px;"/>
                                                     <strong><span asp-validation-for="clie_Nombres" class="text-danger"></span></strong>
 
                                                 </div>
@@ -52,7 +49,7 @@
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <strong><label asp-for="clie_Apellidos" class="control-label text-dark"></label></strong>
-                                                    <input asp-for="clie_Apellidos" class="form-control" />
+                                                    <input asp-for="clie_Apellidos" class="form-control text-dark" style="border-color: darkgray; border-width: 1px;"/>
                                                     <strong><span asp-validation-for="clie_Apellidos" class="text-danger"></span></strong>
 
                                                 </div>
@@ -64,7 +61,7 @@
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <strong><label asp-for="clie_DNI" class="control-label text-dark"></label></strong>
-                                                    <input asp-for="clie_DNI" class="form-control" />
+                                                    <input asp-for="clie_DNI" class="form-control text-dark" style="border-color: darkgray; border-width: 1px;"/>
                                                     <strong><span asp-validation-for="clie_DNI" class="text-danger"></span></strong>
 
                                                 </div>
@@ -73,8 +70,8 @@
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <strong><label asp-for="clie_Sexo" class="control-label text-dark"></label></strong><br />
-                                                    <input type="radio" asp-for="clie_Sexo" value="M"/>    M
-                                                    <input type="radio" asp-for="clie_Sexo" value="F"/>    F
+                                                    <input type="radio" asp-for="clie_Sexo" value="M" class="form-check text-dark" style="border-color: darkgray; border-width: 1px;"/>    M
+                                                    <input type="radio" asp-for="clie_Sexo" value="F" class="form-check text-dark" style="border-color: darkgray; border-width: 1px;"/>    F
                                                     <strong><span asp-validation-for="clie_Sexo" class="text-danger"></span></strong>
                                                 </div>
                                             </div>
@@ -84,7 +81,7 @@
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <strong><label asp-for="clie_Telefono" class="control-label text-dark"></label></strong>
-                                                    <input asp-for="clie_Telefono" class="form-control" />
+                                                    <input asp-for="clie_Telefono" class="form-control text-dark" style="border-color: darkgray; border-width: 1px;"/>
                                                     <strong><span asp-validation-for="clie_Telefono" class="text-danger"></span></strong>
 
                                                 </div>
@@ -93,7 +90,7 @@
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <strong><label asp-for="clie_Email" class="control-label text-dark"></label></strong>
-                                                    <input asp-for="clie_Email" class="form-control" />
+                                                    <input asp-for="clie_Email" class="form-control text-dark" style="border-color: darkgray; border-width: 1px;"/>
                                                     <strong><span asp-validation-for="clie_Email" class="text-danger"></span></strong>
 
                                                 </div>
@@ -103,19 +100,15 @@
                                     </div>
                                     <div class="card-footer">
                                         <div class="row">
-                                            <div class="col-8"></div>
-                                            <div class="col-2">
-                                                <input type="submit" value="Confirmar Envio" class="btn btn-outline-success" />
-                                            </div>
-                                            <div class="col-2">
-                                                <a asp-action="Index" class="btn btn-outline-danger">Cancelar</a>
+                                            <div class="col-9"></div>
+                                            <div class="col-3 text-center">
+                                                <input type="submit" value="Guardar" class="btn btn-primary" /> |
+                                                <a asp-action="Index" class="btn btn-danger">Cancelar</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-footer">
-
-                                </div>
+                                <div class="card-footer"></div>
                             </div>
                         </div>
                     </form>

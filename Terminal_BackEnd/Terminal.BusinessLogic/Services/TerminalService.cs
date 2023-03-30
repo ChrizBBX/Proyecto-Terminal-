@@ -271,11 +271,20 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public RequestStatus BorrarTerminales(int id)
+        public ServiceResult BorrarTerminales(int id)
         {
+            var result = new ServiceResult();
             try
             {
-                return _terminalesRepository.Delete(id);
+                var delete = _terminalesRepository.Delete(id);
+                if (delete.MessageStatus == "Registro eliminado exitosamente")
+                {
+                    return result.Ok(delete.MessageStatus);
+                }
+                else
+                {
+                    return result.BadRequest(delete.MessageStatus);
+                }
             }
             catch (Exception e)
             {

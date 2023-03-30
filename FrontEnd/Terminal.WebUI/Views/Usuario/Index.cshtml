@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="card">
+<div class="card border-5">
     <div class="card-body">
         <div class="row">
             <div class="col-lg-12">
@@ -22,16 +22,16 @@
                             <div class="row">
                                 <div class="col-5"></div>
                                 <div class="col-4">
-                                    <a onclick="OpenCreate()" class="btn btn-outline-primary">Nuevo usuario</a>
+                                    <a onclick="OpenCreate()" class="btn bg-purple-700 text-light">Nuevo usuario</a>
                                 </div>
                                 <div class="col-3"></div>
                             </div>
                         </div>
                     </div>
                     <br />
-                    <div class="table-responsive">
+                    <div class="table-responsive-xxl">
                         <table class="table text-nowrap table-striped table-hover dataTables-example" id="DataTable">
-                            <thead class="bg-cyan-400">
+                            <thead class="">
                                 <tr class="text-dark">
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.usua_ID)</th>
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.usua_Usuario)</th>
@@ -49,14 +49,14 @@
                                         <td>@Html.DisplayFor(modelItem => item.usua_EsAdmin)</td>
                                         <td>@Html.DisplayFor(modelItem => item.usua_empl_NombreCompleto)</td>
                                         <td>
-
-                                            <a class="btn btn-outline-warning Editar" data-id="@item.usua_ID" data-nombre="@item.usua_Usuario,@item.empl_ID">Editar</a> |
-                                            <button class="btn btn-outline-danger" id="btnEliminar" onclick="eliminar('@item.usua_ID')">Eliminar</button>
+                                            <a class="btn btn-outline-primary btn-sm Editar" data-id="@item.usua_ID" data-nombre="@item.usua_Usuario,@item.empl_ID">Editar</a> |
+                                            <a asp-action="Details" asp-route-id="@item.usua_ID" class="btn btn-outline-secondary btn-sm">Detalle</a> |
+                                            <button class="btn btn-outline-danger btn-sm" id="btnEliminar" onclick="eliminar('@item.usua_ID')">Eliminar</button>
                                         </td>
                                     </tr>
                                 }
                             </tbody>
-                            <tfoot class="bg-cyan-400">
+                            <tfoot class="">
                                 <tr class="text-dark">
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.usua_ID)</th>
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.usua_Usuario)</th>
@@ -72,6 +72,17 @@
         </div>
     </div>
 </div>
+
+@if (ViewBag.Script != null)
+{
+    <script>
+        $(document).ready(function () {
+            @Html.Raw(ViewBag.Script)
+        })
+    </script>
+
+    ViewBag.Script = null;
+}
 
 @Html.Partial("_Modal_Create", new Terminal.WebUI.Models.UsuariosViewModel())
 @Html.Partial("_Modal_Edit", new Terminal.WebUI.Models.UsuariosViewModel())

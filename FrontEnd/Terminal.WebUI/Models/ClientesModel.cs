@@ -8,7 +8,7 @@ namespace Terminal.WebUI.Models
 {
     public class ClientesModel
     {
-        [Display(Name = "Cliente #")]
+        [Display(Name = "Cliente N°")]
         [Required(ErrorMessage = "Campo '{0}' requerido")]
         public int clie_ID { get; set; }
 
