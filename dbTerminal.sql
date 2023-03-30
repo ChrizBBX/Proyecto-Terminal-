@@ -97,6 +97,9 @@ GO
 CREATE TABLE acce.tbPantallas(
 	pant_ID						INT IDENTITY(1,1),
 	pant_Descripcion			VARCHAR (250),
+	pant_URL					NVARCHAR(300) NOT NULL,
+	pant_Menu					NVARCHAR(300) NOT NULL,
+	pant_HtmlID					NVARCHAR(300) NOT NULL,
 	pant_Estado					INT DEFAULT 1,
 	pant_UsuarioCreador			INT,
 	pant_FechaCreacion			DATETIME DEFAULT GETDATE(),
@@ -112,7 +115,6 @@ CREATE TABLE acce.tbRolesXPantallas(
 	roleXpant_ID				INT IDENTITY(1,1),
 	role_ID						INT,
 	pant_ID						INT,
-	usua_ID						INT,
 	roleXpant_Estado				INT DEFAULT 1,
 	roleXpant_UsuarioCreador		INT,
 	roleXpant_FechaCreacion			DATETIME DEFAULT GETDATE(),

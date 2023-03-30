@@ -385,12 +385,30 @@ VALUES ('Conductor(a)', 1, NULL, NULL)
 INSERT INTO term.tbTerminales(muni_ID, term_Nombre, term_DireccionExacta, term_CantidadTransportes, term_UsuarioCreador, term_UsuarioModificador, term_FechaModificacion)
 VALUES('0501', 'Terminal de San Pedro Sula', 'Salida a la Lima', 200, 1, NULL, NULL)
 
+INSERT INTO acce.tbPantallas(pant_Descripcion, pant_URL, pant_Menu, pant_HtmlID, pant_UsuarioCreador, pant_UsuarioModificador, pant_FechaModificacion)
+VALUES	('Estadisticas', '/Estadistica', 'Terminal', 'estadisticaItem', 1, NULL, NULL),
+		('Boletos', '/Boleto', 'Terminal', 'boletoItem', 1, NULL, NULL),
+		('Cargos', '/Cargo', 'Terminal', 'cargoItem', 1, NULL, NULL),
+		('Clientes', '/Cliente', 'Terminal', 'clienteItem', 1, NULL, NULL),
+		('Horarios', '/Horario', 'Terminal', 'horarioItem', 1, NULL, NULL),
+		('Terminales', '/Terminal', 'Terminal', 'terminalItem', 1, NULL, NULL),
+		('Usuarios', '/Usuario', 'Acceso', 'usuarioItem', 1, NULL, NULL),
+		('Roles', '/Rol', 'Acceso', 'rolItem', 1, NULL, NULL)
+GO
+
+
 
 INSERT INTO acce.tbRoles(role_Descripcion, role_UsuarioCreador, role_UsuarioModificador, role_FechaModificacion)
 VALUES	('Vendedor', 1, NULL, NULL),
 		('HHRR', 1, NULL, NULL),
 		('Seguridad', 1, NULL, NULL)
 GO
+
+
+
+
+
+
 
 --HHRR
 --Seguridad
@@ -415,6 +433,13 @@ VALUES('9:30','12:00', '05', '08', 100,0, 200,1, NULL, NULL)
 
 INSERT INTO term.tbBoletos(bole_Fecha, term_ID, comp_ID, empl_ID, clie_ID, hora_ID, pago_ID, bole_UsuarioCreador, bole_UsuarioModificador, bole_FechaModificacion)
 VALUES (GETDATE(), 1, 1, 1, 1, 1, 1, 1, NULL, NULL)
+
+
+
+INSERT INTO acce.tbRoles
+
+
+
 
 
 /********************** CONSTRAINTS ***********************/
