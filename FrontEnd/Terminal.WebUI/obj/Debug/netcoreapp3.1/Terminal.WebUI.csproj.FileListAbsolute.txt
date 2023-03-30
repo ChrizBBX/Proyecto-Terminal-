@@ -652,3 +652,5 @@ C:\Users\Chris\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\D
 C:\Users\Chris\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Usuario\_Modal_Create.cshtml.g.cs
 C:\Users\Chris\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Usuario\_Modal_Delete.cshtml.g.cs
 C:\Users\Chris\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Usuario\_Modal_Edit.cshtml.g.cs
+C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Boleto\Details.cshtml.g.cs
+C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Cargo\Details.cshtml.g.cs

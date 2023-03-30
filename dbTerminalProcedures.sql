@@ -1069,7 +1069,7 @@ GO
 
 
  -- LOGIN ----
-CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Login 'AWSD','AWSD'
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Login
 
 	@usua_Usuario  NVARCHAR(150),
 	@usua_Clave   VARCHAR(150)
