@@ -10,12 +10,10 @@ namespace Terminal.API.Models
     {
         public int usua_ID { get; set; }
         public string usua_Usuario { get; set; }
-
+        public byte[] usua_Clave { get; set; }
         [NotMapped]
         public string usua_Pass { get; set; }
-
-        public byte[] usua_Clave { get; set; }
-        public bool usua_EsAdmin { get; set; }
+        public bool? usua_EsAdmin { get; set; }
         public int? empl_ID { get; set; }
         public string empl_PrimerNombre { get; set; }
         public string empl_SegundoNombre { get; set; }
@@ -24,6 +22,10 @@ namespace Terminal.API.Models
         public string usua_empl_Nombres { get; set; }
         public string usua_empl_Apellidos { get; set; }
         public string usua_empl_NombreCompleto { get; set; }
+        public int? carg_ID { get; set; }
+        public string carg_Nombre { get; set; }
+        public int? role_ID { get; set; }
+        public string role_Descripcion { get; set; }
         public string usua_UsuarioCreador_Nombre { get; set; }
         public string usua_UsuarioModificador_Nombre { get; set; }
         public int? usua_Estado { get; set; }

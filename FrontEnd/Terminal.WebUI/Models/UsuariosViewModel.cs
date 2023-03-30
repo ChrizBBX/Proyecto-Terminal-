@@ -11,6 +11,8 @@ namespace Terminal.WebUI.Models
         public int usua_ID { get; set; }
         public string usua_Usuario { get; set; }
         public byte[] usua_Clave { get; set; }
+        [NotMapped]
+        public string usua_Pass { get; set; }
         public bool usua_EsAdmin { get; set; }
         public int empl_ID { get; set; }
         public string empl_PrimerNombre { get; set; }

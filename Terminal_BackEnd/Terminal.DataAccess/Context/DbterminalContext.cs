@@ -122,12 +122,16 @@ namespace Terminal.DataAccess.Context
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
+                entity.Property(e => e.hora_Llegada).HasColumnType("datetime");
+
                 entity.Property(e => e.hora_Origen)
                     .HasMaxLength(2)
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
                 entity.Property(e => e.hora_Precio).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.hora_Salida).HasColumnType("datetime");
 
                 entity.Property(e => e.pago_Descripcion).HasMaxLength(200);
 
@@ -263,6 +267,8 @@ namespace Terminal.DataAccess.Context
 
                 entity.Property(e => e.hora_FechaModificacion).HasColumnType("datetime");
 
+                entity.Property(e => e.hora_Llegada).HasColumnType("datetime");
+
                 entity.Property(e => e.hora_Origen)
                     .HasMaxLength(2)
                     .IsUnicode(false)
@@ -271,6 +277,8 @@ namespace Terminal.DataAccess.Context
                 entity.Property(e => e.hora_Origen_DeptoNombre).HasMaxLength(200);
 
                 entity.Property(e => e.hora_Precio).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.hora_Salida).HasColumnType("datetime");
 
                 entity.Property(e => e.hora_UsuarioCreador_Nombre).HasMaxLength(100);
 
@@ -324,6 +332,10 @@ namespace Terminal.DataAccess.Context
 
                 entity.ToView("VW_tbUsuarios", "acce");
 
+                entity.Property(e => e.carg_Nombre)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.empl_PrimerApellido).HasMaxLength(100);
 
                 entity.Property(e => e.empl_PrimerNombre).HasMaxLength(100);
@@ -331,6 +343,10 @@ namespace Terminal.DataAccess.Context
                 entity.Property(e => e.empl_SegundoApellido).HasMaxLength(100);
 
                 entity.Property(e => e.empl_SegundoNombre).HasMaxLength(100);
+
+                entity.Property(e => e.role_Descripcion)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.usua_FechaCreacion).HasColumnType("datetime");
 
@@ -639,6 +655,11 @@ namespace Terminal.DataAccess.Context
                     .WithMany(p => p.tbEmpleados)
                     .HasForeignKey(d => d.muni_ID)
                     .HasConstraintName("FK_term_tbEmpleados_gral_tbMunicipios_muni_ID");
+
+                entity.HasOne(d => d.role)
+                    .WithMany(p => p.tbEmpleados)
+                    .HasForeignKey(d => d.role_ID)
+                    .HasConstraintName("FK_term_tbEmpleados_acce_tbRoles_role_ID");
             });
 
             modelBuilder.Entity<tbEstadosCiviles>(entity =>
@@ -691,12 +712,16 @@ namespace Terminal.DataAccess.Context
 
                 entity.Property(e => e.hora_FechaModificacion).HasColumnType("datetime");
 
+                entity.Property(e => e.hora_Llegada).HasColumnType("datetime");
+
                 entity.Property(e => e.hora_Origen)
                     .HasMaxLength(2)
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
                 entity.Property(e => e.hora_Precio).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.hora_Salida).HasColumnType("datetime");
 
                 entity.HasOne(d => d.hora_DestinoNavigation)
                     .WithMany(p => p.tbHorarioshora_DestinoNavigation)
