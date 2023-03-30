@@ -52,7 +52,6 @@ namespace Terminal.DataAccess.Repository
             parametros.Add("@usua_EsAdmin", item.usua_EsAdmin, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@empl_ID", item.empl_ID, DbType.Int32, ParameterDirection.Input);
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Usuarios_Update, parametros, commandType: CommandType.StoredProcedure);
-
         }
 
         public RequestStatus Delete(int id)
@@ -61,9 +60,15 @@ namespace Terminal.DataAccess.Repository
             var parametros = new DynamicParameters();
             parametros.Add("@usua_ID", id, DbType.Int32, ParameterDirection.Input);
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Usuarios_Delete, parametros, commandType: CommandType.StoredProcedure);
-
         }
 
+        public RequestStatus Login(tbUsuarios item)
+        {
+            using var db = new SqlConnection(TerminalContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@usua_ID", id, DbType.Int32, ParameterDirection.Input);
+            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Usuarios_Delete, parametros, commandType: CommandType.StoredProcedure);
 
+        }
     }
 }
