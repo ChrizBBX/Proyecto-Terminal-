@@ -65,7 +65,7 @@ namespace Terminal.API.Controllers
         public IActionResult Delete(int id)
         {
             var listado = _accesoService.BorrarUsuarios(id);
-            return Ok();
+            return Ok(listado);
         }
     }
 }

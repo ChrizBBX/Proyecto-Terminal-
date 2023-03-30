@@ -62,8 +62,10 @@
                                             <div class="form-group col-6 mt-3">
                                                 <strong><label asp-for="hora_Destino" class="control-label text-dark"></label></strong>
                                                 <select class="form-control form-select  text-dark" asp-for="hora_Destino" asp-items="ViewBag.departamento" style="border-color: darkgray; border-width: 1px;">
-                                                    <option value="">--Seleccione una opcion--</option></select>
+                                                    <option value="">--Seleccione una opcion--</option>
+                                                </select>
                                                 <strong><span asp-validation-for="hora_Destino" class="text-danger"></span></strong>
+                                                <strong><span name="lbl_Viaje_CreateError" id="lbl_Viaje_CreateError" class="control-label text-danger" hidden>El Destino tiene que ser diferente al origen</span></strong>
                                             </div>
                                             <div class="form-group col-6 mt-3">
                                                 <strong><label asp-for="hora_CantidadPasajerosMax" class="control-label text-dark"></label></strong>
@@ -81,7 +83,7 @@
                                         <div class="row">
                                             <div class="col-9"></div>
                                             <div class="col-3 text-center">
-                                                <input type="submit" value="Guardar" class="btn btn-primary" /> |
+                                                <input onclick="Create()" value="Guardar" class="btn btn-primary" /> |
                                                 <a asp-action="Index" class="btn btn-danger">Cancelar</a>
                                             </div>
                                         </div>
@@ -107,3 +109,16 @@
 
     ViewBag.Script = null;
 }
+
+<script>
+    function Create() {
+        var hora_Origen = $("#hora_Origen").val();
+        var hora_Destino = $("#hora_Destino").val();
+        if (hora_Origen == hora_Destino) {
+            $("#lbl_Viaje_CreateError").attr('hidden', false);
+        } else {
+            $("#formCrear").submit();
+        }
+    }
+ 
+</script>

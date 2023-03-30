@@ -900,7 +900,7 @@ SELECT * FROM term.VW_tbEmpleados WHERE empl_Estado = 1
 END
 GO
 
-/*tb Usuarios*/
+/*--***********tbUsuarios*************--*/
 
 --------> VIEW
 CREATE OR ALTER VIEW acce.VW_tbUsuarios
@@ -1018,7 +1018,6 @@ CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Update
 	@usua_UsuarioModificador	INT,
 	@usua_ID					INT,
 	@usua_Usuario				NVARCHAR(100),
-	@usua_Clave					VARCHAR(MAX),
 	@usua_EsAdmin				INT, 
 	@empl_ID					INT
 AS

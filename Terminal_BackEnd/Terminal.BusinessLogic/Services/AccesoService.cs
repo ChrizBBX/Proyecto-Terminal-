@@ -67,11 +67,20 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public RequestStatus BorrarUsuarios(int id)
+        public ServiceResult BorrarUsuarios(int id)
         {
+            var result = new ServiceResult();
             try
             {
-                return _usuariosRepository.Delete(id);
+                var delete = _usuariosRepository.Delete(id);
+                if (delete.MessageStatus == "Registro eliminado con exito")
+                {
+                    return result.Ok(delete.MessageStatus);
+                }
+                else
+                {
+                    return result.BadRequest(delete.MessageStatus);
+                }
             }
             catch (Exception e)
             {
@@ -79,11 +88,24 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public RequestStatus UpdateUsuarios(tbUsuarios usuarios)
+        public ServiceResult UpdateUsuarios(tbUsuarios usuarios)
         {
+            var result = new ServiceResult();
             try
             {
-                return _usuariosRepository.Update(usuarios);
+                var edit = _usuariosRepository.Update(usuarios);
+                if (edit.MessageStatus == "Registro editado exitosamente")
+                {
+                    return result.Ok(edit.MessageStatus);
+                }
+                else if(edit.MessageStatus == "Registro ya existente")
+                {
+                    return result.Conflict(edit.MessageStatus);
+                }
+                else
+                {
+                    return result.BadRequest(edit.MessageStatus);
+                }
             }
             catch (Exception e)
             {

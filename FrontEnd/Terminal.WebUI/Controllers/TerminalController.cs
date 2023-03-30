@@ -172,7 +172,7 @@ namespace Terminal.WebUI.Controllers
 
                         if (jsonObj["code"].ToString() == "200")
                         {
-                            string script = "MostrarMensajeSuccess('" + ViewBag.message + "');";
+                            string script = "MostrarMensajeSuccess('" + ViewBag.message + "'); Swal.fire( 'Agregado!', 'Registro Agregado exitosamente!', 'success' );";
                             TempData["script"] = script;
                         }
                         else if (jsonObj["code"].ToString() == "409")

@@ -28,11 +28,6 @@ namespace Terminal.WebUI.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if (TempData["Script"] is string script)
-            {
-                TempData.Remove("Script");
-                ViewBag.Script = script;
-            }
             return View();
         }
 
@@ -69,8 +64,6 @@ namespace Terminal.WebUI.Controllers
                     }
                     else
                     {
-                        string script = "MostrarMensajeWarning('El usuario o la contraseñas son incorrectos');";
-                        TempData["script"] = script;
                         HttpContext.Session.SetInt32("usua_ID", 0);
                         return View("Index");
                     }

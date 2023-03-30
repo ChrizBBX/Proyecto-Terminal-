@@ -50,6 +50,11 @@ namespace Terminal.WebUI.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
+                    if (TempData["Script"] is string script)
+                    {
+                        TempData.Remove("Script");
+                        ViewBag.Script = script;
+                    }
                     var jsonResponse = await response.Content.ReadAsStringAsync();
                     listado = JsonConvert.DeserializeObject<List<UsuariosViewModel>>(jsonResponse);
                 }
@@ -77,7 +82,7 @@ namespace Terminal.WebUI.Controllers
         }
 
 
-
+        [HttpPost]
         public async Task<IActionResult> Create(UsuariosViewModel usuariosViewModel)
         {
             if (ModelState.IsValid)
@@ -96,7 +101,17 @@ namespace Terminal.WebUI.Controllers
 
                         if (jsonObj["code"].ToString() == "200")
                         {
-                            string script = "MostrarMensajeWarning('" + ViewBag.message + "'); Swal.fire( 'Agregado!, 'Registro agregado exitosamente!', 'success' )";
+                            string script = "MostrarMensajeSuccess('" + ViewBag.message + "'); Swal.fire( 'Agregado!', 'Registro Agregado exitosamente!', 'success' )";
+                            TempData["script"] = script;
+                        }
+                        else if (jsonObj["code"].ToString() == "409")
+                        {
+                            string script = "MostrarMensajeWarning('" + ViewBag.message + "'); $('#New').click();";
+                            TempData["script"] = script;
+                        }
+                        else
+                        {
+                            string script = "MostrarMensajeDanger('" + ViewBag.message + "'); $('#New').click();";
                             TempData["script"] = script;
                         }
 
@@ -104,7 +119,9 @@ namespace Terminal.WebUI.Controllers
                     }
                     else
                     {
-                        return View();
+                        string script = "MostrarMensajeWarning('Ha ocurrido un error');";
+                        TempData["script"] = script;
+                        return RedirectToAction("Index");
                     }
                 }
             }
@@ -140,11 +157,31 @@ namespace Terminal.WebUI.Controllers
             {
                 using (var httpClient = new HttpClient())
                 {
-                    var content = new StringContent(JsonConvert.SerializeObject(usuariosViewModel), Encoding.UTF8, "application/json");
+                    var json = JsonConvert.SerializeObject(usuariosViewModel);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
                     var response = await httpClient.PutAsync(_baseurl + $"api/Usuario/Usuario/Update/{usuariosViewModel.usua_ID}", content);
 
                     if (response.IsSuccessStatusCode)
                     {
+                        var jsonResponse = await response.Content.ReadAsStringAsync();
+                        JObject jsonObj = JObject.Parse(jsonResponse);
+                        ViewBag.message = jsonObj["message"];
+
+                        if (jsonObj["code"].ToString() == "200")
+                        {
+                            string script = "MostrarMensajeSuccess('" + ViewBag.message + "');";
+                            TempData["script"] = script;
+                        }
+                        else if (jsonObj["code"].ToString() == "409")
+                        {
+                            string script = "MostrarMensajeWarning('" + ViewBag.message + "'); $('#New').click();";
+                            TempData["script"] = script;
+                        }
+                        else
+                        {
+                            string script = "MostrarMensajeDanger('" + ViewBag.message + "');";
+                            TempData["script"] = script;
+                        }
                         return RedirectToAction("Index");
                     }
                     else
@@ -168,6 +205,22 @@ namespace Terminal.WebUI.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    JObject jsonObj = JObject.Parse(jsonResponse);
+
+                    ViewBag.message = jsonObj["message"];
+
+                    if (jsonObj["code"].ToString() == "200")
+                    {
+                        string script = "MostrarMensajeSuccess('" + ViewBag.message + "');";
+                        TempData["script"] = script;
+                    }
+                    else if (jsonObj["code"].ToString() == "400")
+                    {
+                        string script = "MostrarMensajeDanger('" + ViewBag.message + "');";
+                        TempData["script"] = script;
+                    }
+
                     return RedirectToAction("Index");
                 }
                 else

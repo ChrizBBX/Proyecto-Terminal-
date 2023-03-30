@@ -36,7 +36,7 @@ namespace Terminal.DataAccess.Repository
             var parametros = new DynamicParameters();
             parametros.Add("@usua_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_Usuario", item.usua_Usuario, DbType.String, ParameterDirection.Input);
-            parametros.Add("@usua_Clave", item.usua_Clave, DbType.String, ParameterDirection.Input);
+            parametros.Add("@usua_Clave", item.usua_Pass, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_EsAdmin", item.usua_EsAdmin, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@empl_ID", item.empl_ID, DbType.Int32, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.UDP_Usuarios_Create, parametros, commandType: CommandType.StoredProcedure);
@@ -52,10 +52,9 @@ namespace Terminal.DataAccess.Repository
 
             using var db = new SqlConnection(TerminalContext.ConnectionString);
             var parametros = new DynamicParameters();
-            parametros.Add("@usua_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificador", 1, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_ID", item.usua_ID, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_Usuario", item.usua_Usuario, DbType.String, ParameterDirection.Input);
-            parametros.Add("@usua_Clave", item.usua_Clave, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_EsAdmin", item.usua_EsAdmin, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@empl_ID", item.empl_ID, DbType.Int32, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.UDP_Usuarios_Update, parametros, commandType: CommandType.StoredProcedure);

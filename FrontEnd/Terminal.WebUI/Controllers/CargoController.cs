@@ -95,7 +95,7 @@ namespace Terminal.WebUI.Controllers
                         }
                         else if (jsonObj["code"].ToString() == "409")
                         {
-                            string script = "MostrarMensajeWarning('" + ViewBag.message + "'); Swal.fire( 'Registro Existente!', 'Ya existe un registro con ese nombre!', 'warning' )";
+                            string script = "MostrarMensajeWarning('" + ViewBag.message + "'); $('#New').click();";
                             TempData["script"] = script;
                         }
                         else
