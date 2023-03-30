@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,11 +26,7 @@ namespace Terminal.WebUI.Controllers
         public async Task<IActionResult> Index()
         {
             List<CargosViewModel> listado = new List<CargosViewModel>();
-            if (TempData["script"] is string script)
-            {
-                TempData.Remove("script");
-                ViewBag.Script = script;
-            }
+
             using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.GetAsync(_baseurl + "api/Cargos");
@@ -58,32 +53,11 @@ namespace Terminal.WebUI.Controllers
             {
                 using (var httpClient = new HttpClient())
                 {
-                    var json = JsonConvert.SerializeObject(cargos);
-                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    var content = new StringContent(JsonConvert.SerializeObject(cargos), Encoding.UTF8, "application/json");
                     var response = await httpClient.PostAsync(_baseurl + "api/Cargos/Insertar", content);
 
                     if (response.IsSuccessStatusCode)
                     {
-                        var jsonResponse = await response.Content.ReadAsStringAsync();
-                        JObject jsonObj = JObject.Parse(jsonResponse);
-                        ViewBag.message = jsonObj["message"];
-
-                        if (jsonObj["code"].ToString() == "200")
-                        {
-                            string script = "MostrarMensajeSuccess('" + ViewBag.message + "');";
-                            TempData["script"] = script;
-                        }
-                        else if (jsonObj["code"].ToString() == "409")
-                        {
-                            string script = "MostrarMensajeWarning('" + ViewBag.message + "'); $('#New').click();";
-                            TempData["script"] = script;
-                        }
-                        else
-                        {
-                            string script = "MostrarMensajeDanger('" + ViewBag.message + "');";
-                            TempData["script"] = script;
-                        }
-
                         return RedirectToAction("Index");
                     }
                     else

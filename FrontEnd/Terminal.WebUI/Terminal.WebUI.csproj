@@ -40,6 +40,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\js\app\gral\" />
+    <Folder Include="wwwroot\files\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

@@ -77,5 +77,12 @@ namespace Terminal.API.Controllers
             var listado = _terminalService.LoadSex();
             return Ok(listado);
         }
+
+        [HttpGet("VistaPrevia")]
+        public IActionResult VistaPrevia()
+        {
+            var listado = _terminalService.VistaPrevia();
+            return Ok(listado);
+        }
     }
 }

@@ -123,18 +123,17 @@ namespace Terminal.BusinessLogic.Services
             var result = new ServiceResult();
             try
             {
-                var insert = _cargosRepository.Insert(item);
-                if(insert.MessageStatus == "Registro agregado exitosamente")
-                {
-                    return result.Ok(insert.MessageStatus);
-                }else if (insert.MessageStatus == "Ya existe un cargo con ese nombre")
-                {
-                    return result.Conflict(insert.MessageStatus);
-                }
-                else
-                {
-                    return result.SetMessage("Ha ocurrido un error", ServiceResultType.Conflict);
-                }
+                var map = _cargosRepository.Insert(item);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
 
             }
             catch (Exception)
@@ -197,28 +196,26 @@ namespace Terminal.BusinessLogic.Services
         public ServiceResult InsertarTerminal(tbTerminales item)
         {
             var result = new ServiceResult();
-                try
-                {
-                    var insert =  _terminalesRepository.Insert(item);
-                    if (insert.MessageStatus == "Registro agregado exitosamente")
-                    {
-                        return result.Ok(insert.MessageStatus);
-                    }
-                    else if (insert.MessageStatus == "A ocurrido un Error!!!")
-                    {
-                        return result.Conflict(insert.MessageStatus);
-                    }
-                    else
-                    {
-                        return result.SetMessage("Ha ocurrido un error", ServiceResultType.Conflict);
-                    }
+            try
+            {
+                var map = _terminalesRepository.Insert(item);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
 
-                }
-                catch (Exception)
-                {
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
 
-                    throw;
-                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         public VW_tbTerminales BuscarTerminales(int id)
         {
@@ -232,26 +229,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult BorrarTerminales(int id)
+        public RequestStatus BorrarTerminales(int id)
         {
-
-            var result = new ServiceResult();
-
             try
             {
-                var delete =  _terminalesRepository.Delete(id);
-                if (delete.MessageStatus == "Registro agregado exitosamente")
-                {
-                    return result.Ok(delete.MessageStatus);
-                }
-                else if (delete.MessageStatus == "A ocurrido un Error!!!")
-                {
-                    return result.Conflict(delete.MessageStatus);
-                }
-                else
-                {
-                    return result.SetMessage("Ha ocurrido un error", ServiceResultType.Conflict);
-                }
+                return _terminalesRepository.Delete(id);
             }
             catch (Exception e)
             {
@@ -259,24 +241,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult UpdateTerminales(tbTerminales terminales)
+        public RequestStatus UpdateTerminales(tbTerminales terminales)
         {
-            var result = new ServiceResult();
             try
             {
-                var Update = _terminalesRepository.Update(terminales);
-                if (Update.MessageStatus == "Registro agregado exitosamente")
-                {
-                    return result.Ok(Update.MessageStatus);
-                }
-                else if (Update.MessageStatus == "A ocurrido un Error!!!")
-                {
-                    return result.Conflict(Update.MessageStatus);
-                }
-                else
-                {
-                    return result.SetMessage("Ha ocurrido un error", ServiceResultType.Conflict);
-                }
+                return _terminalesRepository.Update(terminales);
             }
             catch (Exception e)
             {
@@ -305,19 +274,16 @@ namespace Terminal.BusinessLogic.Services
             try
             {
                 var map = _horariosRepository.Insert(item);
-                 
-                 if (map.MessageStatus == "Registro agregado exitosamente")
-                {
-                    return result.Ok(map.MessageStatus);
-                }
-                else if (map.MessageStatus == "A ocurrido un Error!!!")
-                {
-                    return result.Conflict(map.MessageStatus);
-                }
-                else
-                {
-                    return result.SetMessage("Ha ocurrido un error", ServiceResultType.Conflict);
-                }
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
 
             }
             catch (Exception)
@@ -338,25 +304,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult BorrarHorarios(int id)
+        public RequestStatus BorrarHorarios(int id)
         {
-            var result = new ServiceResult();
-
             try
             {
-                var delete =  _horariosRepository.Delete(id);
-                 if (delete.MessageStatus == "Registro agregado exitosamente")
-                {
-                    return result.Ok(delete.MessageStatus);
-                }
-                else if (delete.MessageStatus == "A ocurrido un Error!!!")
-                {
-                    return result.Conflict(delete.MessageStatus);
-                }
-                else
-                {
-                    return result.SetMessage("Ha ocurrido un error", ServiceResultType.Conflict);
-                }
+                return _horariosRepository.Delete(id);
             }
             catch (Exception e)
             {
@@ -364,25 +316,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult UpdateHorarios(tbHorarios horarios)
+        public RequestStatus UpdateHorarios(tbHorarios horarios)
         {
-            var result = new ServiceResult();
-
             try
             {
-                var update = _horariosRepository.Update(horarios);
-                if (update.MessageStatus == "Registro agregado exitosamente")
-                {
-                    return result.Ok(update.MessageStatus);
-                }
-                else if (update.MessageStatus == "A ocurrido un Error!!!")
-                {
-                    return result.Conflict(update.MessageStatus);
-                }
-                else
-                {
-                    return result.SetMessage("Ha ocurrido un error", ServiceResultType.Conflict);
-                }
+                return _horariosRepository.Update(horarios);
             }
             catch (Exception e)
             {
@@ -391,7 +329,7 @@ namespace Terminal.BusinessLogic.Services
         }
         #endregion
 
-        #region Horarios
+        #region Boleto
 
         public IEnumerable<VW_tbBoletos> ListadoBoletos()
         {
@@ -406,24 +344,35 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
+        public IEnumerable<VW_tbBoletos2> VistaPrevia()
+        {
+            try
+            {
+                return _boletosRepository.VistaPrevia();
+            }
+            catch (Exception e)
+            {
+
+                return Enumerable.Empty<VW_tbBoletos2>();
+            }
+        }
+
         public ServiceResult InsertarBoletos(tbBoletos item)
         {
             var result = new ServiceResult();
             try
             {
                 var map = _boletosRepository.Insert(item);
-                if (map.MessageStatus == "Registro agregado exitosamente")
-                {
-                    return result.Ok(map.MessageStatus);
-                }
-                else if (map.MessageStatus == "A ocurrido un Error!!!")
-                {
-                    return result.Conflict(map.MessageStatus);
-                }
-                else
-                {
-                    return result.SetMessage("Ha ocurrido un error", ServiceResultType.Conflict);
-                }
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
 
             }
             catch (Exception)
@@ -445,25 +394,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult BorrarBoletos(int id)
+        public RequestStatus BorrarBoletos(int id)
         {
-            var result = new ServiceResult();
-
             try
             {
-                var delete = _boletosRepository.Delete(id);
-                if (delete.MessageStatus == "Registro agregado exitosamente")
-                {
-                    return result.Ok(delete.MessageStatus);
-                }
-                else if (delete.MessageStatus == "A ocurrido un Error!!!")
-                {
-                    return result.Conflict(delete.MessageStatus);
-                }
-                else
-                {
-                    return result.SetMessage("Ha ocurrido un error", ServiceResultType.Conflict);
-                }
+                return _boletosRepository.Delete(id);
             }
             catch (Exception e)
             {
@@ -471,26 +406,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult UpdateBoletos(tbBoletos boletos)
+        public RequestStatus UpdateBoletos(tbBoletos boletos)
         {
-            var result = new ServiceResult();
-
             try
             {
-                var update = _boletosRepository.Update(boletos);
-
-                if (update.MessageStatus == "Registro agregado exitosamente")
-                {
-                    return result.Ok(update.MessageStatus);
-                }
-                else if (update.MessageStatus == "A ocurrido un Error!!!")
-                {
-                    return result.Conflict(update.MessageStatus);
-                }
-                else
-                {
-                    return result.SetMessage("Ha ocurrido un error", ServiceResultType.Conflict);
-                }
+                return _boletosRepository.Update(boletos);
             }
             catch (Exception e)
             {

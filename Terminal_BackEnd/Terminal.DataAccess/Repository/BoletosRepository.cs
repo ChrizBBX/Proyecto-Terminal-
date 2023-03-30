@@ -28,10 +28,19 @@ namespace Terminal.DataAccess.Repository
 
         }
 
+
+        public IEnumerable<VW_tbBoletos2> VistaPrevia()
+        {
+            using var db = new SqlConnection(TerminalContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            return db.Query<VW_tbBoletos2>(ScriptsDataBase.UDP_VW_VistaPrevia_VW, null, commandType: CommandType.StoredProcedure);
+
+        }
+
+
         public RequestStatus Insert(tbBoletos item)
         {
             using var db = new SqlConnection(TerminalContext.ConnectionString);
-            RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@bole_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@term_ID", item.term_ID, DbType.String, ParameterDirection.Input);
@@ -40,11 +49,8 @@ namespace Terminal.DataAccess.Repository
             parametros.Add("@clie_ID", item.clie_ID, DbType.String, ParameterDirection.Input);
             parametros.Add("@hora_ID", item.hora_ID, DbType.String, ParameterDirection.Input);
             parametros.Add("@pago_ID", item.pago_ID, DbType.String, ParameterDirection.Input);
-            var answer = db.QueryFirst<string>(ScriptsDataBase.UDP_Boletos_Insert, parametros, commandType: CommandType.StoredProcedure);
+            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Boletos_Insert, parametros, commandType: CommandType.StoredProcedure);
 
-            result.MessageStatus = answer;
-
-            return result;
         }
 
         public RequestStatus Update(tbBoletos item)

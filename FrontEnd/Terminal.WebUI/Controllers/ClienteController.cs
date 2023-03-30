@@ -75,7 +75,7 @@ namespace Terminal.WebUI.Controllers
             }
         }
 
-        [HttpGet]
+
         public async Task<IActionResult> Edit(int id)
         {
             using (var httpClient = new HttpClient())
@@ -95,8 +95,8 @@ namespace Terminal.WebUI.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(ClientesModel cliente)
+
+        public async Task<IActionResult> Update(ClientesModel cliente)
         {
             if (ModelState.IsValid)
             {
@@ -117,7 +117,7 @@ namespace Terminal.WebUI.Controllers
             }
             else
             {
-                return View(cliente);
+                return View();
             }
         }
 

@@ -15,7 +15,6 @@ namespace Terminal.DataAccess.Repository
 
         #endregion
 
-
         #region Cargos
             public static string UDP_Cargos_Select = "term.UDP_VW_tbCargos_VW";
             public static string UDP_Cargos_Insert = "term.UDP_tbCargos_Create";
@@ -25,7 +24,6 @@ namespace Terminal.DataAccess.Repository
 
         #endregion
 
-
         #region Terminales
             public static string UDP_Terminales_Select = "term.UDP_VW_tbTerminales_VW";
             public static string UDP_Terminales_Insert = "term.UDP_tbTerminales_Create";
@@ -33,7 +31,6 @@ namespace Terminal.DataAccess.Repository
             public static string UDP_Terminales_Update = "term.UDP_tbTerminales_Update";
             public static string UDP_Terminales_Delete = "term.UDP_tbTerminales_Delete";
         #endregion
-
 
         #region Horarios
             public static string UDP_Horarios_Select = "term.UDP_VW_tbHorarios_VW";
@@ -43,10 +40,10 @@ namespace Terminal.DataAccess.Repository
             public static string UDP_Horarios_Delete = "term.UDP_tbHorarios_Delete";
         #endregion
 
-
         #region Boletos
             public static string UDP_Boletos_Select = "term.UDP_VW_tbBoletos_VW";
-            public static string UDP_Boletos_Insert = "term.UDP_tbBoletos_Create";
+            public static string UDP_VW_VistaPrevia_VW = "term.UDP_VW_VistaPrevia_VW";
+        public static string UDP_Boletos_Insert = "term.UDP_tbBoletos_Create";
             public static string UDP_Boletos_Find = "term.UDP_VW_tbBoletos_Find";
             public static string UDP_Boletos_Update = "term.UDP_tbBoletos_Update";
             public static string UDP_Boletos_Delete = "term.UDP_tbBoletos_Delete";

@@ -69,17 +69,6 @@
     </div>
 </div>
 
-@if (ViewBag.Script != null)
-{
-    <script>
-        $(document).ready(function () {
-            @Html.Raw(ViewBag.Script)
-        })
-    </script>
-
-    ViewBag.Script = null;
-}
-
 <script>
     $("#btnDelete").click(function () {
         console.log("le dio clic");

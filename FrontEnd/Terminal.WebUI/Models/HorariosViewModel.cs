@@ -8,7 +8,6 @@ namespace Terminal.WebUI.Models
 {
     public class HorariosViewModel
     {
-
         [Display(Name = "Horario N°")]
         public int hora_ID { get; set; }
 
@@ -16,16 +15,16 @@ namespace Terminal.WebUI.Models
         [Display(Name = "Fecha/Hora salida")]
         [Required(ErrorMessage = "Campo '{0}' requerido")]
         [DataType(DataType.DateTime)]
-        public DateTime? hora_Salida { get; set; }
+        public DateTime? hora_FechaSalida { get; set; }
 
 
         [Display(Name = "Fecha/Hora llegada")]
         [Required(ErrorMessage = "Campo '{0}' requerido")]
         [DataType(DataType.DateTime)]
-        public DateTime? hora_Llegada { get; set; }
+        public DateTime? hora_FechaLlegada { get; set; }
 
         [Display(Name = "Viaje")]
-
+        [Required(ErrorMessage = "Campo '{0}' requerido")]
         public string horario { get; set; }
         [Display(Name = "Orígen")]
         [Required(ErrorMessage = "Campo '{0}' requerido")]
@@ -48,11 +47,12 @@ namespace Terminal.WebUI.Models
         [Display(Name = "Pasajeros")]
         [Required(ErrorMessage = "Campo '{0}' requerido")]
         [RegularExpression("([0-9]+)", ErrorMessage = "Solo se aceptan numeros")]
-        public int? hora_CantidadPasajerosMax { get; set; }
+        public int? hora_CantidadPasajeros { get; set; }
 
 
         [Display(Name = "Precio")]
         [Required(ErrorMessage = "Campo '{0}' requerido")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "Solo se aceptan numeros")]
         public decimal? hora_Precio { get; set; }
 
 

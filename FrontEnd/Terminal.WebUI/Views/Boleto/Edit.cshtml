@@ -39,39 +39,57 @@
                                     </div>
 
                                     <div class="card-body">
+
                                         <div class="row">
-                                                <div class="form-group col-6">
+                                            <div class="col-6">
+                                                <div class="form-group">
                                                     <strong><label asp-for="term_ID" class="control-label text-dark"></label></strong>
                                                     <select asp-for="term_ID" class="form-control" asp-items="ViewBag.term_Id"><option value="">--Seleccione una opcion--</option></select>
                                                     <strong><span asp-validation-for="term_ID" class="text-danger"></span></strong>
 
                                                 </div>
-                                                <div class="form-group col-6">
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
                                                     <strong><label asp-for="comp_ID" class="control-label text-dark"></label></strong>
                                                     <select asp-for="comp_ID" class="form-control" asp-items="ViewBag.comp_ID"><option value="">--Seleccione una opcion--</option></select>
                                                     <strong><span asp-validation-for="comp_ID" class="text-danger"></span></strong>
 
                                                 </div>
-                                                <div class="form-group col-6 mt-3">
+                                            </div>
+                                        </div>
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
                                                     <strong><label asp-for="empl_ID" class="control-label text-dark"></label></strong>
                                                     <select asp-for="empl_ID" class="form-control" asp-items="ViewBag.empl_ID"><option value="">--Seleccione una opcion--</option></select>
                                                     <strong><span asp-validation-for="empl_ID" class="text-danger"></span></strong>
                                                 </div>
-                                
+                                            </div>
 
-                                                <div class="form-group col-6 mt-3">
+                                            <div class="col-6">
+                                                <div class="form-group">
                                                     <strong><label asp-for="clie_ID" class="control-label text-dark"></label></strong>
                                                     <select asp-for="clie_ID" class="form-control" asp-items="ViewBag.clie_ID"><option value="">--Seleccione una opcion--</option></select>
                                                     <strong><span asp-validation-for="clie_ID" class="text-danger"></span></strong>
 
-                                                </div>                       
-                                                <div class="form-group col-6 mt-3">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
                                                     <strong><label asp-for="hora_ID" class="control-label text-dark"></label></strong>
                                                     <select asp-for="hora_ID" class="form-control" asp-items="ViewBag.hora_ID"><option value="">--Seleccione una opcion--</option></select>
                                                     <strong><span asp-validation-for="hora_ID" class="text-danger"></span></strong>
                                                 </div>
-                        
+                                            </div>
 
+                                            <div class="col-6">
                                                 <div class="form-group">
                                                     <strong><label asp-for="pago_ID" class="control-label text-dark"></label></strong>
                                                     <select asp-for="pago_ID" class="form-control">
@@ -80,8 +98,12 @@
                                                         <option value="2">Credito</option>
                                                         <option value="3">Debito</option>
                                                     </select>
+
                                                     <strong><span asp-validation-for="pago_ID" class="text-danger"></span></strong>
-                                                </div>             
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="card-footer">
                                         <div class="row">

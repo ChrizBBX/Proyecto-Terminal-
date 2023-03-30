@@ -44,25 +44,10 @@ CREATE OR ALTER PROCEDURE term.UDP_tbCargos_Create
 AS
 BEGIN
 	BEGIN TRY
-	
-	IF NOT EXISTS(SELECT carg_Nombre FROM term.tbCargos WHERE carg_Nombre = @carg_Nombre)
-	BEGIN
 		INSERT INTO term.tbCargos(carg_Nombre, carg_UsuarioCreador, carg_UsuarioModificador, carg_FechaModificacion)
 		VALUES (@carg_Nombre, @carg_UsuarioCreador, NULL, NULL)
-		SELECT 'Registro agregado exitosamente'
-		END
-		ELSE IF EXISTS(SELECT carg_Nombre FROM term.tbCargos WHERE carg_Nombre = @carg_Nombre AND carg_Estado = 0)
-		BEGIN
-		UPDATE term.tbCargos
-		SET carg_Estado = 1
-		WHERE carg_Nombre = @carg_Nombre;
-	SELECT 'Registro agregado exitosamente'
-		END
-		ELSE
-		SELECT 'Ya existe un cargo con ese nombre'
-
+		SELECT 1
 	END TRY
-
 	BEGIN CATCH
 		SELECT 0
 	END CATCH
@@ -265,16 +250,15 @@ GO
 CREATE OR ALTER VIEW term.VW_tbHorarios
 AS
 SELECT	hora_ID,
-		hora_Salida,
-		hora_Llegada,
+		hora_FechaSalida,
+		hora_FechaLlegada,
 		hora_Origen,
 		dept1.dept_Descripcion AS hora_Origen_DeptoNombre,
 		hora_Destino,
 		dept2.dept_Descripcion AS hora_Destino_DeptoNombre,
-		CONCAT(hora_Salida, ' / ' , dept2.dept_Descripcion ) AS horario,
-		hora_CantidadPasajerosMax,
-		hora_CantidadPasajerosActual,
-		hora.hora_Precio,
+		CONCAT(hora_FechaSalida, ' / ' , dept2.dept_Descripcion ) AS horario,
+		hora_CantidadPasajeros,
+		hora_Precio,
 		hora_Estado,
 		hora_UsuarioCreador,
 		usr1.usua_Usuario AS hora_UsuarioCreador_Nombre,
@@ -302,24 +286,23 @@ GO
 --------> CREATE
 CREATE OR ALTER PROCEDURE term.UDP_tbHorarios_Create
 	@hora_UsuarioCreador		INT,
-	@hora_Salida			DATETIME,
-	@hora_Llegada			DATETIME,
+	@hora_FechaSalida			DATETIME,
+	@hora_FechaLlegada			DATETIME,
 	@hora_Origen				CHAR(2),
 	@hora_Destino				CHAR(2),
 	@hora_Precio				DECIMAL(18,2),
-	@hora_CantidadPasajerosMax	INT
+	@hora_CantidadPasajeros		INT
 AS
 BEGIN
 	BEGIN TRY
 
-		INSERT INTO term.tbHorarios(hora_Salida, hora_Llegada, hora_Origen, hora_Destino, hora_Precio,hora_CantidadPasajerosMax, hora_UsuarioCreador, hora_UsuarioModificador, hora_FechaModificacion)
-		VALUES(@hora_Salida, @hora_Llegada, @hora_Origen, @hora_Destino, @hora_Precio ,@hora_CantidadPasajerosMax, @hora_UsuarioCreador, NULL, NULL)
-SELECT 'Registro agregado exitosamente'
+		INSERT INTO term.tbHorarios(hora_FechaSalida, hora_FechaLlegada, hora_Origen, hora_Destino, hora_Precio,hora_CantidadPasajeros, hora_UsuarioCreador, hora_UsuarioModificador, hora_FechaModificacion)
+		VALUES(@hora_FechaSalida, @hora_FechaLlegada, @hora_Origen, @hora_Destino, @hora_Precio ,@hora_CantidadPasajeros, @hora_UsuarioCreador, NULL, NULL)								
+		SELECT 1
 	END TRY
 	BEGIN CATCH
-SELECT 'A ocurrido un Error!!!'
+		SELECT 0
 	END CATCH
-
 END
 GO
 
@@ -330,13 +313,13 @@ CREATE OR ALTER PROCEDURE term.UDP_VW_tbHorarios_Find
 AS
 BEGIN
 	SELECT hora_ID,
-		hora_Salida,
-		hora_Llegada,
+		hora_FechaSalida,
+		hora_FechaLlegada,
 		hora_Origen,
 		hora_Origen_DeptoNombre,
 		hora_Destino,
 		hora_Destino_DeptoNombre,
-		hora_CantidadPasajerosMax,
+		hora_CantidadPasajeros,
 		hora_Precio,
 		hora_Estado,
 		hora_UsuarioCreador,
@@ -354,34 +337,24 @@ GO
 CREATE OR ALTER PROCEDURE term.UDP_tbHorarios_Update
 	@hora_UsuarioModificador	INT,
 	@hora_ID					INT,
-	@hora_Salida				DATETIME,
-	@hora_Llegada				DATETIME,
+	@hora_FechaSalida			DATETIME,
+	@hora_FechaLlegada			DATETIME,
 	@hora_Origen				CHAR(2),
 	@hora_Destino				CHAR(2),
 	@hora_Precio				DECIMAL(18,2),
-	@hora_CantidadPasajerosMax	INT
+	@hora_CantidadPasajeros		INT
 AS
 BEGIN
-BEGIN TRY	
-
-
-UPDATE	term.tbHorarios 
-	SET		hora_Salida = @hora_Salida, 
-			hora_Llegada = @hora_Llegada, 
+	UPDATE	term.tbHorarios 
+	SET		hora_FechaSalida = @hora_FechaSalida, 
+			hora_FechaLlegada = @hora_FechaLlegada, 
 			hora_Origen = @hora_Origen, 
 			hora_Destino = @hora_Destino,
 			hora_Precio = @hora_Precio,
-			hora_CantidadPasajerosMax = @hora_CantidadPasajerosMax,
+			hora_CantidadPasajeros = @hora_CantidadPasajeros,
 			hora_UsuarioModificador = @hora_UsuarioModificador, 
 			hora_FechaModificacion = GETDATE()
 	WHERE	hora_ID = @hora_ID
-
-	SELECT 'Registro agregado exitosamente'
-	END TRY
-	BEGIN CATCH
-SELECT 'A ocurrido un Error!!!'
-	END CATCH
-
 END
 GO
 
@@ -389,16 +362,9 @@ CREATE OR ALTER PROCEDURE term.UDP_tbHorarios_Delete
 	@hora_ID INT
 AS
 BEGIN
-BEGIN TRY	UPDATE term.tbHorarios
+	UPDATE term.tbHorarios
 	SET hora_Estado = 0
 	WHERE hora_ID = @hora_ID 
-
-	SELECT 'Registro agregado exitosamente'
-	END TRY
-	BEGIN CATCH
-SELECT 'A ocurrido un Error!!!'
-	END CATCH
-
 END
 GO
 
@@ -467,10 +433,10 @@ BEGIN TRY
            ,@term_UsuarioCreador
            ,NULL
            ,NULL)
-SELECT 'Registro agregado exitosamente'
+SELECT 1
 	END TRY
 	BEGIN CATCH
-SELECT 'A ocurrido un Error!!!'
+		SELECT 0
 	END CATCH
 
 END
@@ -482,7 +448,6 @@ CREATE OR ALTER PROCEDURE term.UDP_VW_tbTerminales_Find
 @term_ID INT
 AS
 BEGIN
-
 	SELECT	term_ID, 
 			muni_ID,
 			muni_Descripcion,
@@ -526,10 +491,10 @@ UPDATE [term].[tbTerminales]
       ,[term_FechaModificacion] = GETDATE()
  WHERE term_ID	= @term_ID	
 
-SELECT 'Registro actualizado exitosamente'
+ SELECT 1
 	END TRY
 	BEGIN CATCH
-SELECT 'A ocurrido un Error!!!'
+		SELECT 0
 	END CATCH
 
 END
@@ -548,12 +513,14 @@ UPDATE [term].[tbTerminales]
   WHERE term_ID	= @term_ID	
 
 
-  SELECT 'Registro eliminado exitosamente'	END TRY
+ SELECT 1
+	END TRY
 	BEGIN CATCH
-  SELECT 'A ocurrido un Error!!!'
+		SELECT 0
 	END CATCH
 END
 GO
+
 
 /*###############  tbBoletos  ###############*/
 
@@ -580,10 +547,10 @@ AS
 			CONCAT(clie_Nombres, ' ', clie_Apellidos) AS bole_clie_Nombre_Completo,
 			clie.clie_Sexo,
 			bole.hora_ID,
-			hora.hora_Salida,
+			hora.hora_FechaSalida,
 			hora.hora_Origen,
 			dept1.dept_Descripcion AS bole_hora_Origen_Nombre,
-			hora.hora_Llegada,
+			hora.hora_FechaLlegada,
 			hora.hora_Destino,
 			dept2.dept_Descripcion AS bole_hora_Destino_Nombre,
 			bole.pago_ID,
@@ -611,11 +578,43 @@ AS
 GO
 
 
+
+
+CREATE OR ALTER VIEW term.VW_tbBoletos2
+AS
+	SELECT	bole_ID, 
+			bole_Fecha,
+ 			CONCAT(clie_Nombres, ' ', clie_Apellidos) AS bole_clie_Nombre_Completo,
+ 			dept1.dept_Descripcion AS bole_hora_Origen_Nombre,
+ 			dept2.dept_Descripcion AS bole_hora_Destino_Nombre,
+			comp_Nombre
+ 
+	FROM term.tbBoletos AS bole INNER JOIN term.tbTerminales AS term
+	ON bole.term_ID = term.term_ID INNER JOIN term.tbCompania AS comp
+	ON bole.comp_ID = comp.comp_ID INNER JOIN term.tbEmpleados AS empl
+	ON bole.empl_ID = empl.empl_ID INNER JOIN term.tbClientes AS clie
+	ON bole.clie_ID = clie.clie_ID INNER JOIN term.tbHorarios AS hora
+	ON bole.hora_ID = hora.hora_ID INNER JOIN gral.tbMetodosPago AS pago
+	ON bole.pago_ID = pago.pago_ID INNER JOIN acce.tbUsuarios AS usr1
+	ON bole.bole_UsuarioCreador = usr1.usua_ID LEFT JOIN acce.tbUsuarios AS usr2
+	ON bole.bole_UsuarioModificador = usr2.usua_ID INNER JOIN gral.tbDepartamentos AS dept1
+	ON hora.hora_Origen = dept1.dept_ID LEFT JOIN gral.tbDepartamentos AS dept2
+	ON hora.hora_Destino = dept2.dept_ID
+GO
+
 --------> READ
 CREATE OR ALTER PROCEDURE term.UDP_VW_tbBoletos_VW
 AS
 BEGIN
 	SELECT * FROM term.VW_tbBoletos WHERE bole_Estado = 1
+END
+GO
+
+ 
+CREATE OR ALTER PROCEDURE term.UDP_VW_VistaPrevia_VW
+AS
+BEGIN
+	select * from term.VW_tbBoletos2
 END
 GO
 
@@ -635,13 +634,10 @@ BEGIN
 					bole_UsuarioCreador, bole_UsuarioModificador, bole_FechaModificacion)
 		VALUES (@term_ID, @comp_ID, @empl_ID, @clie_ID, @hora_ID, @pago_ID,
 				@bole_UsuarioCreador, NULL, NULL)
-		UPDATE term.tbHorarios
-		SET hora_CantidadPasajerosActual = hora_CantidadPasajerosActual+1
-		WHERE hora_ID = @hora_ID
-		SELECT 'Registro agregado exitosamente'
+		SELECT 1
 	END TRY
 	BEGIN CATCH
-		SELECT 'Ha ocurrido un error'
+		SELECT 0
 	END CATCH 
 END
 GO
@@ -672,10 +668,10 @@ BEGIN
 			bole_clie_Nombre_Completo,
 			clie_Sexo,
 			hora_ID,
-			hora_Salida,
+			hora_FechaSalida,
 			hora_Origen,
 			bole_hora_Origen_Nombre,
-			hora_Llegada,
+			hora_FechaLlegada,
 			hora_Destino,
 			bole_hora_Destino_Nombre,
 			pago_ID,

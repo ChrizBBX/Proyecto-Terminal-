@@ -1,8 +1,8 @@
 ﻿@model Terminal.WebUI.Models.CargosViewModel
 <!-- Modal -->
-<div class="modal fade" id="_Modal_Create" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog" role="document">
-        <form method="post" asp-controller="Cargo" asp-action="Create" id="formCreate">
+    <div class="modal fade" id="_Modal_Create" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"  data-backdrop="static">
+        <div class="modal-dialog" role="document">
+<form method="post" asp-controller="Cargo" asp-action="Create" id="formCreate">
             <div class="modal-content">
                 <div class="modal-header">
 
@@ -40,20 +40,10 @@
 
                 </div>
             </div>
-        </form>
+</form>
+        </div>
     </div>
-</div>
 
-@if (ViewBag.Script != null)
-{
-    <script>
-        $(document).ready(function () {
-            @Html.Raw(ViewBag.Script)
-        })
-    </script>
-
-    ViewBag.Script = null;
-}
 
 <script>
     //Limitar Inputs
