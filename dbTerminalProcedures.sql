@@ -44,23 +44,22 @@ BEGIN
 	BEGIN TRY
 	
 	IF NOT EXISTS(SELECT carg_Nombre FROM term.tbCargos WHERE carg_Nombre = @carg_Nombre)
-	BEGIN
-		INSERT INTO term.tbCargos(carg_Nombre, carg_UsuarioCreador, carg_UsuarioModificador, carg_FechaModificacion)
-		VALUES (@carg_Nombre, @carg_UsuarioCreador, NULL, NULL)
-		SELECT 'Registro agregado exitosamente'
-		END
-		ELSE IF EXISTS(SELECT carg_Nombre FROM term.tbCargos WHERE carg_Nombre = @carg_Nombre AND carg_Estado = 0)
 		BEGIN
-		UPDATE term.tbCargos
-		SET carg_Estado = 1
-		WHERE carg_Nombre = @carg_Nombre;
-	SELECT 'Registro agregado exitosamente'
+			INSERT INTO term.tbCargos(carg_Nombre, carg_UsuarioCreador, carg_UsuarioModificador, carg_FechaModificacion)
+			VALUES (@carg_Nombre, @carg_UsuarioCreador, NULL, NULL)
+			SELECT 'Registro agregado exitosamente'
 		END
-		ELSE
+	ELSE IF EXISTS(SELECT carg_Nombre FROM term.tbCargos WHERE carg_Nombre = @carg_Nombre AND carg_Estado = 0)
+		BEGIN
+			UPDATE term.tbCargos
+			SET carg_Estado = 1
+			WHERE carg_Nombre = @carg_Nombre;
+			SELECT 'Registro agregado exitosamente'
+		END
+	ELSE
 		SELECT 'Ya existe un cargo con ese nombre'
 
 	END TRY
-
 	BEGIN CATCH
 		SELECT 0
 	END CATCH
@@ -591,7 +590,8 @@ UPDATE [term].[tbTerminales]
   WHERE term_ID	= @term_ID	
 
 
-  SELECT 'Registro eliminado exitosamente'	END TRY
+  SELECT 'Registro eliminado exitosamente'	
+  END TRY
 	BEGIN CATCH
   SELECT 'A ocurrido un Error!!!'
 	END CATCH
@@ -955,14 +955,26 @@ CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Create
 	@empl_ID				INT
  AS
  BEGIN
-	BEGIN TRY
-		DECLARE @PassEncrypt VARBINARY(MAX) = HASHBYTES('SHA2_512', @usua_Clave)
-		INSERT INTO acce.tbUsuarios(usua_Usuario, usua_Clave, usua_EsAdmin, empl_ID, usua_UsuarioCreador, usua_UsuarioModificador, usua_FechaModificacion)
-		VALUES(@usua_Usuario, @PassEncrypt, @usua_EsAdmin, @empl_ID, @usua_UsuarioCreador, NULL, NULL)
-		SELECT 1
+	BEGIN TRY	
+		IF NOT EXISTS(SELECT usua_Usuario FROM acce.tbUsuarios WHERE usua_Usuario = @usua_Usuario)
+			BEGIN
+				DECLARE @PassEncrypt VARBINARY(MAX) = HASHBYTES('SHA2_512', @usua_Clave)
+				INSERT INTO acce.tbUsuarios(usua_Usuario, usua_Clave, usua_EsAdmin, empl_ID, usua_UsuarioCreador, usua_UsuarioModificador, usua_FechaModificacion)
+				VALUES(@usua_Usuario, @PassEncrypt, @usua_EsAdmin, @empl_ID, @usua_UsuarioCreador, NULL, NULL)
+				SELECT 'Registro agregado exitosamente'
+			END
+		ELSE IF EXISTS (SELECT usua_Usuario FROM acce.tbUsuarios WHERE usua_Usuario = @usua_Usuario AND usua_Estado = 0)
+			BEGIN
+				UPDATE acce.tbUsuarios
+				SET usua_Estado = 1
+				WHERE usua_Usuario = @usua_Usuario
+				SELECT 'Registro agregado exitosamente'
+			END
+		ELSE
+			SELECT 'Ya existe un usuario con ese nombre'
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH
 END
 GO
@@ -1014,16 +1026,41 @@ CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Update
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE acce.tbUsuarios
-		SET usua_Usuario = @usua_Usuario,
-			usua_UsuarioModificador = @usua_UsuarioModificador,
-			usua_EsAdmin = @usua_EsAdmin,
-			empl_ID = @empl_ID
-		WHERE usua_ID = @usua_ID		
-		SELECT 1
+		IF NOT EXISTS (SELECT usua_Usuario FROM acce.tbUsuarios WHERE usua_Usuario = @usua_Usuario)
+			BEGIN
+				SELECT 'El registro que intenta editar no existe'
+			END
+		ELSE
+			BEGIN
+				IF NOT EXISTS (SELECT usua_Usuario FROM acce.tbUsuarios 
+								WHERE usua_Usuario = @usua_Usuario AND
+								usua_ID != @usua_ID)
+					BEGIN
+						UPDATE	acce.tbUsuarios
+						SET		usua_Usuario = @usua_Usuario,
+								usua_UsuarioModificador = @usua_UsuarioModificador,
+								usua_FechaModificacion = GETDATE(),
+								usua_EsAdmin = @usua_EsAdmin,
+								empl_ID = @empl_ID
+						WHERE	usua_ID = @usua_ID		
+						SELECT	'Registro editado exitosamente'
+					END
+				ELSE IF EXISTS (SELECT usua_Usuario FROM acce.tbUsuarios 
+								WHERE usua_Usuario = @usua_Usuario AND
+								usua_Estado = 0)
+					BEGIN
+						UPDATE acce.tbUsuarios
+						SET usua_Estado = 0
+						WHERE usua_ID = @usua_ID
+
+						SELECT 'Registro editado exitosamente'
+					END
+				ELSE
+					SELECT 'Registro ya existente'
+			END
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH 
 END
 GO
@@ -1038,10 +1075,10 @@ BEGIN
 		UPDATE acce.tbUsuarios
 		SET usua_Estado = 0
 		WHERE usua_ID = @usua_ID
-		SELECT 1
+		SELECT 'Registro eliminado con exito'
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Ha ocurrido un error'
 	END CATCH
 END
 GO
@@ -1054,20 +1091,6 @@ GO
  SELECT @f
  GO
 
- --CREATE OR ALTER VIEW acce.VW_tbUsuarios_EmpleadosDDl
- --AS
- --SELECT * FROM term.tbEmpleados WHERE empl_ID NOT IN ()
-
- --SELECT usr.empl_ID FROM term.tbEmpleados AS empl INNER JOIN acce.tbUsuarios AS usr
- --ON empl.empl_ID = usr.empl_ID
- --GO
-
- --CREATE OR ALTER PROCEDURE acce.UDP_VW_-tbUsuarios_EmpleadosDDL
- --AS
- --BEGIN
-	--SELECT * FROM acce.VW_tbUsuarios WHERE 
- --END
- --GO
 
 
  -- LOGIN ----

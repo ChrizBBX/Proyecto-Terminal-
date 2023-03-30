@@ -6,11 +6,11 @@
 
 
 <div class="card border-5">
-    <div class="card-header">
+    <div class="card-header" style="background-image: linear-gradient(to right, #A4F6FA,#9CB0D7 ,#4EBBC0 ) ">
         <div class="row">
             <div class="col-5"></div>
             <div class="col-3">
-                <h1>Detalles</h1>
+                <h1 style="font-family: Cooper;" class="text-black">Detalles</h1>
             </div>
             <div class="col-4"></div>
 
@@ -61,11 +61,9 @@
 
             <div class="row mt-3">
                 <div class="col-9 mt-3"></div>
-                <div class="form-group col-1 mt-3">
-                    <a asp-action="Edit" asp-route-id="@item.term_ID" class="btn btn-warning btn-sm">Editar</a>
-                </div>
-                <div class="form-group col-1 mt-3">
-                    <a asp-action="Index" class="btn btn-dark btn-sm">Regresar</a>
+                <div class="form-group col-3 mt-3">
+                    <a asp-action="Edit" asp-route-id="@item.term_ID" class="btn btn-primary">Editar</a> |
+                    <a asp-action="Index" class="btn btn-secondary ">Regresar</a>
                 </div>
             </div>
 

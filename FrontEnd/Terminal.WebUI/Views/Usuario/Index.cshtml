@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <br />
-                    <div class="table-responsive">
+                    <div class="table-responsive-xxl">
                         <table class="table text-nowrap table-striped table-hover dataTables-example" id="DataTable">
                             <thead class="">
                                 <tr class="text-dark">
@@ -72,6 +72,17 @@
         </div>
     </div>
 </div>
+
+@if (ViewBag.Script != null)
+{
+    <script>
+        $(document).ready(function () {
+            @Html.Raw(ViewBag.Script)
+        })
+    </script>
+
+    ViewBag.Script = null;
+}
 
 @Html.Partial("_Modal_Create", new Terminal.WebUI.Models.UsuariosViewModel())
 @Html.Partial("_Modal_Edit", new Terminal.WebUI.Models.UsuariosViewModel())

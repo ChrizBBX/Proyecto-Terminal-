@@ -35,23 +35,23 @@ namespace Terminal.BusinessLogic.Services
             var result = new ServiceResult();
             try
             {
-                var map = _usuariosRepository.Insert(item);
-                return result.Ok(map);
-                //if (map.CodeStatus > 0)
-                //{
-
-                //}
-                //else
-                //{ 
-                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
-                //    return result.Error(map);
-                //}
-
+                var insert = _usuariosRepository.Insert(item);
+                if (insert.MessageStatus == "Registro agregado exitosamente")
+                {
+                    return result.Ok(insert.MessageStatus);
+                }
+                else if (insert.MessageStatus == "Ya existe un usuario con ese nombre")
+                {
+                    return result.Conflict(insert.MessageStatus);
+                }
+                else
+                {
+                    return result.BadRequest(insert.MessageStatus);
+                }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                return null;
             }
         }
 

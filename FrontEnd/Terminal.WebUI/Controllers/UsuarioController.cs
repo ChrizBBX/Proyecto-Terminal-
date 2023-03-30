@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -55,9 +56,26 @@ namespace Terminal.WebUI.Controllers
                 return View(listado);
             }
 
-
-
         }
+
+
+        public async Task<IActionResult> Details(int id)
+        {
+
+            List<UsuariosViewModel> listado = new List<UsuariosViewModel>();
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + "api/Usuario");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    listado = JsonConvert.DeserializeObject<List<UsuariosViewModel>>(jsonResponse);
+                }
+                return View(listado.Where(x => x.usua_ID == id));
+            }
+        }
+
 
 
         public async Task<IActionResult> Create(UsuariosViewModel usuariosViewModel)
@@ -66,11 +84,22 @@ namespace Terminal.WebUI.Controllers
             {
                 using (var httpClient = new HttpClient())
                 {
-                    var content = new StringContent(JsonConvert.SerializeObject(usuariosViewModel), Encoding.UTF8, "application/json");
+                    var json = JsonConvert.SerializeObject(usuariosViewModel);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
                     var response = await httpClient.PostAsync(_baseurl + "api/Usuario/Insertar", content);
 
                     if (response.IsSuccessStatusCode)
                     {
+                        var jsonResponse = await response.Content.ReadAsStringAsync();
+                        JObject jsonObj = JObject.Parse(jsonResponse);
+                        ViewBag.message = jsonObj["message"];
+
+                        if (jsonObj["code"].ToString() == "200")
+                        {
+                            string script = "MostrarMensajeWarning('" + ViewBag.message + "'); Swal.fire( 'Agregado!, 'Registro agregado exitosamente!', 'success' )";
+                            TempData["script"] = script;
+                        }
+
                         return RedirectToAction("Index");
                     }
                     else

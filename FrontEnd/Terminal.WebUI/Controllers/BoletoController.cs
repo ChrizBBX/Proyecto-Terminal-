@@ -598,7 +598,6 @@ namespace Terminal.WebUI.Controllers
 
         public async Task<IActionResult> GraficaSexo()
         {
-
             using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.GetAsync(_baseurl + $"api/Boleto/LoadSex");
@@ -613,10 +612,8 @@ namespace Terminal.WebUI.Controllers
                 else
                 {
                     return RedirectToAction("Index");
-
                 }
             }
-
         }
     }
 }
