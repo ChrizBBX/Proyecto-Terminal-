@@ -66,11 +66,11 @@
 </head>
 <body class="jumping">
     @using Microsoft.AspNetCore.Http
-           @{ var session = Context.RequestServices.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
-               int usua_ID = ViewBag.usua_ID = session?.GetInt32("usua_ID");
-               if (usua_ID == 0)
-               {
-                   <script>window.location.href = '/Login/Index';</script>
+    @{ var session = Context.RequestServices.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+        int usua_ID = ViewBag.usua_ID = session?.GetInt32("usua_ID");
+        if (usua_ID == 0)
+        {
+            <script>window.location.href = '/Login/Index';</script>
         } }
 
     <!-- PAGE CONTAINER -->
@@ -548,70 +548,66 @@
                     </div>
                     <!-- End - Profile widget -->
                     <!-- Navigation Category -->
+                    <!--Hola-->
                     <div class="mainnav__categoriy py-3">
                         <h6 class="mainnav__caption mt-0 px-3 fw-bold" style="color:white">Navigation</h6>
                         <ul class="mainnav__menu nav flex-column" id="menu">
-                            
                             <li class="nav-item has-sub">
-                                <a href="#" class="mininav-toggle nav-link">Prueba</a>
+                                <a href="#" class="mininav-toggle nav-link collapsed">
+                                    Prueba
+                                </a>
+                                <!-- Layouts submenu list -->
                                 <ul class="mininav-content nav collapse">
                                     <li class="nav-item">
-                                        <a href="./index.html" class="nav-link active">Dashboard 1</a>
+                                        <a href="./layouts-mini-navigation.html" class="nav-link">Mini Navigation</a>
                                     </li>
                                 </ul>
+                                <!-- END : Layouts submenu list -->
                             </li>
-                            <!-- Link with submenu -->
-                            @*<li class="nav-item">
-                                <a href="./widgets.html" class="nav-link mininav-toggle">
-                                    <i class="demo-pli-bar-chart fs-5 me-2"></i>
-
-                                    <span class="nav-label mininav-content ms-1">Estadisticas</span>
-                                </a>
-                            </li>*@
                             <!-- END : Link with submenu -->
                             <!-- Link with submenu -->
                             @*<li class="nav-item">
-                                <a asp-controller="Boleto" asp-action="Index" class="nav-link mininav-toggle">
-                                    <i class="demo-pli-split-vertical-2 fs-5 me-2"></i>
+                                    <a asp-controller="Boleto" asp-action="Index" class="nav-link mininav-toggle">
+                                        <i class="demo-pli-split-vertical-2 fs-5 me-2"></i>
 
-                                    <span class="nav-label mininav-content ms-1">Boletos</span>
-                                </a>
-                            </li>*@
+                                        <span class="nav-label mininav-content ms-1">Boletos</span>
+                                    </a>
+                                </li>*@
                             @*<li class="nav-item">
-                                <a asp-controller="Cargo" asp-action="Index" class="nav-link mininav-toggle">
-                                    <i class="demo-pli-split-vertical-2 fs-5 me-2"></i>
+                                    <a asp-controller="Cargo" asp-action="Index" class="nav-link mininav-toggle">
+                                        <i class="demo-pli-split-vertical-2 fs-5 me-2"></i>
 
-                                    <span class="nav-label mininav-content ms-1">Cargos</span>
-                                </a>
-                            </li>*@
+                                        <span class="nav-label mininav-content ms-1">Cargos</span>
+                                    </a>
+                                </li>*@
                             @*<li class="nav-item">
-                                <a asp-controller="Cliente" asp-action="Index" class="nav-link mininav-toggle">
-                                    <i class="demo-pli-split-vertical-2 fs-5 me-2"></i>
+                                    <a asp-controller="Cliente" asp-action="Index" class="nav-link mininav-toggle">
+                                        <i class="demo-pli-split-vertical-2 fs-5 me-2"></i>
 
-                                    <span class="nav-label mininav-content ms-1">Cliente</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a asp-controller="Horario" asp-action="Index" class="nav-link mininav-toggle">
-                                    <i class="demo-pli-split-vertical-2 fs-5 me-2"></i>
+                                        <span class="nav-label mininav-content ms-1">Cliente</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Horario" asp-action="Index" class="nav-link mininav-toggle">
+                                        <i class="demo-pli-split-vertical-2 fs-5 me-2"></i>
 
-                                    <span class="nav-label mininav-content ms-1">Horarios</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a asp-controller="Terminal" asp-action="Index" class="nav-link mininav-toggle">
-                                    <i class="demo-pli-split-vertical-2 fs-5 me-2"></i>
+                                        <span class="nav-label mininav-content ms-1">Horarios</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Terminal" asp-action="Index" class="nav-link mininav-toggle">
+                                        <i class="demo-pli-split-vertical-2 fs-5 me-2"></i>
 
-                                    <span class="nav-label mininav-content ms-1">Terminales</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a asp-controller="Usuario" asp-action="Index" class="nav-link mininav-toggle">
-                                    <i class="demo-pli-split-vertical-2 fs-5 me-2"></i>
+                                        <span class="nav-label mininav-content ms-1">Terminales</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Usuario" asp-action="Index" class="nav-link mininav-toggle">
+                                        <i class="demo-pli-split-vertical-2 fs-5 me-2"></i>
 
-                                    <span class="nav-label mininav-content ms-1">Usuario</span>
-                                </a>
-                            </li>*@
+                                        <span class="nav-label mininav-content ms-1">Usuario</span>
+                                    </a>
+                                </li>*@
                             <!-- END : Link with submenu -->
 
                         </ul>
@@ -907,72 +903,104 @@
 
     <script src="/js/toastr/toastr.js"></script>
     <script src="/js/toastr/toastr.min.js"></script>
-
+    <!--Dibujado-->
     <script>
-            $(document).ready(function () {
-                $.getJSON('/Home/PantallasMenu', {})
-                    .done(function (pantallas) {
-                        console.log(pantallas);
-                        var LicenciaIterador = 1;
-                        var AccesoIterador = 1;
-                        var ReporteIterador = 1;
-                        var menu = $("#menu");
-;                        $.each(pantallas, function (index, item) {
+        $(document).ready(function () {
+            $.getJSON('/Home/PantallasMenu', {}).done(function (pantallas) {
+                var menu = $("#menu");
+                var menuItems = {
+                    "Terminal": [],
+                    "Maquillaje": [],
+                    "Acceso": [],
+                    "Reportes": []
+                };
 
-                                if (item.pant_Menu == "Terminal") {
-                                    $(menu).append($('<li>', {
-                                    class: 'nav-item',
-                                }).append($('<a>', {
-                                    href: item.pant_Url,
-                                    class: 'nav-link',
-                                    text: item.pant_Nombre,
-                                    id: item.pant_HtmlId
-                                })));
-
-                                $("#menuGeneral").prop('hidden', false);
-                                $("#subMenuGeneral").prop('hidden', false);
-                            }
-
-                            if (item.pant_Menu == "Maquillaje") {
-                                $("#subMenuMaquillaje").append($('<li>', {
-                                    class: 'nav-item',
-                                }).append($('<a>', {
-                                    href: item.pant_Url,
-                                    class: 'nav-link',
-                                    text: item.pant_Nombre,
-                                    id: item.pant_HtmlId
-                                })));
-
-                                $("#menuMaquillaje").prop('hidden', false);
-                                $("#subMenuMaquillaje").prop('hidden', false);
-                            }
-
-                            if (item.pant_Menu == "Seguridad") {
-                                $("#subMenuAcceso").append($('<li>', {
-                                    class: 'nav-item',
-                                }).append($('<a>', {
-                                    href: item.pant_Url,
-                                    class: 'nav-link',
-                                    text: item.pant_Nombre,
-                                    id: item.pant_HtmlId
-                                })));
-
-                                $("#menuAcceso").prop('hidden', false);
-                                $("#subMenuAcceso").prop('hidden', false);
-                            }
-                        })          
-                    })
-                    .fail(function (jqXHR, textStatus, errorThrown) {
-                        console.error('Error al cargar los municipios: ' + textStatus + ', ' + errorThrown);
-                    });
-
-                $('input').keypress(function (e) {
-                    if (e.which == 39 || e.which == 44) { // Código ASCII para ' " y ,
-                        return false; // Bloquear la entrada del caracter
+                $.each(pantallas, function (index, item) {
+                    if (item.pant_Menu == "Terminal") {
+                        menuItems["Terminal"].push($('<li>', {
+                            class: 'nav-item'
+                        }).append($('<a>', {
+                            class: "nav-link",
+                            href: item.pant_URL,
+                            text: item.pant_Descripcion
+                        })));
+                    } else if (item.pant_Menu == "Maquillaje") {
+                        menuItems["Maquillaje"].push($('<li>', {
+                            class: 'nav-item',
+                        }).append($('<a>', {
+                            href: item.pant_Url,
+                            class: 'nav-link',
+                            text: item.pant_Nombre,
+                            id: item.pant_HtmlId
+                        })));
+                    } else if (item.pant_Menu == "Acceso") {
+                        menuItems["Acceso"].push($('<li>', {
+                            class: 'nav-item',
+                        }).append($('<a>', {
+                            href: item.pant_URL,
+                            class: 'nav-link',
+                            text: item.pant_Descripcion,
+                            id: item.pant_HtmlID
+                        })));
+                    } else if (item.pant_Menu == "Reportes") {
+                        menuItems["Reportes"].push($('<li>', {
+                            class: 'nav-item',
+                        }).append($('<a>', {
+                            href: item.pant_Url,
+                            class: 'nav-link',
+                            text: item.pant_Nombre,
+                            id: item.pant_HtmlId
+                        })));
                     }
                 });
+
+                $.each(menuItems, function (section, items) {
+                    if (items.length > 0) {
+                        var sectionElement = $('<li>', {
+                            class: 'nav-item has-sub'
+                        }).append($('<a>', {
+                            class: 'mininav-toggle nav-link collapsed',
+                            href: '#',
+                            text: section,
+                            id: 'menu' + section
+                        })).append($('<ul>', {
+                            class: 'mininav-content nav collapse',
+                            id: 'SubMenu' + section
+                        }).append(items));
+                        menu.append(sectionElement);
+                    }
+                });
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.error('Error al cargar los municipios: ' + textStatus + ', ' + errorThrown);
             });
-        </script>
+
+            $('input').keypress(function (e) {
+                if (e.which == 39 || e.which == 44) { // Código ASCII para ' " y ,
+                    return false; // Bloquear la entrada del caracter
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#menuTerminal").addClass('show');
+            $("#SubMenuTerminal").addClass('active');
+        });
+
+        $(document).on('click', '.mininav-toggle', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+
+            if (!$this.parent().hasClass('open')) {
+                $this.closest('.nav').find('.nav-item.open .nav-link').trigger('click');
+            }
+
+            $this.parent().toggleClass('open');
+            $this.next().toggleClass('show');
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
     <script>
         $('#DataTable').DataTable({
