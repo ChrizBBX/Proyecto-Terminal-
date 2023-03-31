@@ -3,127 +3,73 @@
     Layout = null;
 }
 
-<!DOCTYPE html>
+
+<!-- Toastr -->
+<!--<link rel="stylesheet" href="~/css/toastr/toastr.min.css">-->
+<!-- Toastr -->
+<!--<script src="/js/toastr/toastr.js"></script>
+<script src="/js/toastr/toastr.min.js"></script>-->
+
+<!doctype html>
 <html lang="en">
 <head>
-    <title>Login</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="/img/icons/favicon.ico" />
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="/vendors/bootstrap/bootstrapLogin.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="/vendors/animate/animate.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="/vendors/css-hamburgers/hamburgers.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="/vendors/animsition/css/animsition.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="/vendors/select2/select2.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="/vendors/daterangepicker/daterangepicker.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="/css/util.css">
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
-    <!--===============================================================================================-->
-    <!-- Toastr -->
-    <link rel="stylesheet" href="~/css/toastr/toastr.min.css">
-    <!-- Toastr -->
-    <script src="/js/toastr/toastr.js"></script>
-    <script src="/js/toastr/toastr.min.js"></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS [ REQUIRED ] --><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+
+    <title>Gran Central | Login</title>
 </head>
 <body>
-    <div class="limiter">
-        <div class="container-login100">
-            <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
-                <form class="login100-form validate-form flex-sb flex-w" asp-controller="Login" asp-action="Login">
-                    <span class="login100-form-title p-b-53">
-                        Iniciar Sesión
-                    </span>
 
-                    <a href="#" class="btn-face m-b-20">
-                        <i class="fa fa-facebook-official"></i>
-                        Facebook
-                    </a>
+    <section class="min-vh-100" style="background-image: linear-gradient(to left top, #3cd4c8, #00c6da, #00b5ea, #00a1f3, #0089ef, #4479e4, #6267d6, #7854c4, #8b49b2, #973fa0, #9f378d, #a2307b);">
+        <div class="container py-5 h-50">
+            <div class="row d-flex justify-content-center align-items-center h-50">
+                <div class="col col-xl-10">
+                    <div class="card border-5" style="border-radius: 1rem;">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              
 
-                    <a href="#" class="btn-google m-b-20">
-                        <img src="/img/icons/icon-google.png" alt="GOOGLE">
-                        Google
-                    </a>
+                                <img class="border-5" style="border-radius:15px;" src="~/login/images/blueCity.gif" alt="MyGIF" height="800" width="400">
 
-                    <div class="p-t-31 p-b-9">
-                        <span class="txt1">
-                            Username
-                        </span>
+
+                            </div>
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5 text-black">
+
+                                    <form asp-controller="Login" asp-action="Login">
+
+                                        <div class="d-flex align-items-center mb-3 pb-1">
+                                            <img src="~/login/images/RegañadaLogo.png" alt="GranCentral LOGO" height="125" width="450"/>
+                                        </div>
+
+                                        
+                                        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;"><strong>Inicia sesión con tu cuenta!</strong></h5>
+
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="form2Example17">Usuario :</label>
+                                            <input type="text" id="form2Example17" name="user" class="form-control form-control-lg" />
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="form2Example27">Contraseña :</label>
+                                            <input type="password" id="form2Example27" name="contrasena" class="form-control form-control-lg" />
+                                        </div>
+
+                                        <div class="align-items-center pt-1 mb-4">
+                                            <button class="btn btn-outline-dark btn-lg btn-block"style="font-family: Arial, Helvetica, sans-serif" type="submit">Iniciar sesión</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="wrap-input100 validate-input" data-validate="Username is required">
-                        <input class="input100" type="text" name="user">
-                        <span class="focus-input100"></span>
-                    </div>
-
-                    <div class="p-t-13 p-b-9">
-                        <span class="txt1">
-                            Password
-                        </span>
-
-                        <a href="#" class="txt2 bo1 m-l-5">
-                            Forgot?
-                        </a>
-                    </div>
-                    <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="contrasena">
-                        <span class="focus-input100"></span>
-                    </div>
-
-                    <div class="container-login100-form-btn m-t-17">
-                        <button class="login100-form-btn">
-                            Sign In
-                        </button>
-                    </div>
-
-                    <div class="w-full text-center p-t-55">
-                        <span class="txt2">
-                            Not a member?
-                        </span>
-
-                        <a href="#" class="txt2 bo1">
-                            Sign up now
-                        </a>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-
-
-    <div id="dropDownSelect1"></div>
-
-    <!--===============================================================================================-->
-    <script src="/vendors/jquery/jquery-3.2.1.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="/vendors/animsition/js/animsition.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="/vendors/bootstrap/js/popper.js"></script>
-    <script src="/vendors/bootstrap/js/bootstrap.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="/vendors/select2/select2.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="/vendors/daterangepicker/moment.min.js"></script>
-    <script src="/vendors/daterangepicker/daterangepicker.js"></script>
-    <!--===============================================================================================-->
-    <script src="/vendors/countdowntime/countdowntime.js"></script>
-    <!--===============================================================================================-->
-    <script src="/js/main.js"></script>
+    </section> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 </body>
 </html>
-<script>
-    if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-    }
-</script>
-
