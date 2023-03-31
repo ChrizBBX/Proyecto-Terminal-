@@ -55,12 +55,19 @@ namespace Terminal.API.Controllers
         }
 
 
+        [HttpGet("Terminal/DeleteTerminal/{id}")]
+        public IActionResult DeleteT(int id)
+        {
+            var listado = _terminalService.BuscarTerminales(id);
+            return Ok(listado);
+        }
+
 
         [HttpPost("Terminal/Delete/{id}")]
         public IActionResult Delete(int id)
         {
             var listado = _terminalService.BorrarTerminales(id);
-            return Ok(listado);
+            return Ok();
         }
 
         [HttpGet("LoadDepartamento")]

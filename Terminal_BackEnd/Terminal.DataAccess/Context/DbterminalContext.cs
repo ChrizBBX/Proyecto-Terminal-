@@ -19,15 +19,17 @@ namespace Terminal.DataAccess.Context
         {
         }
 
+        public virtual DbSet<VW_RolXPantalla_VW> VW_RolXPantalla_VW { get; set; }
+        public virtual DbSet<VW_Roles_VW> VW_Roles_VW { get; set; }
         public virtual DbSet<VW_graficaSexo> VW_graficaSexo { get; set; }
         public virtual DbSet<VW_graficaViaje> VW_graficaViaje { get; set; }
         public virtual DbSet<VW_tbBoletos> VW_tbBoletos { get; set; }
+        public virtual DbSet<VW_tbBoletos2> VW_tbBoletos2 { get; set; }
         public virtual DbSet<VW_tbCargos> VW_tbCargos { get; set; }
         public virtual DbSet<VW_tbClientes> VW_tbClientes { get; set; }
         public virtual DbSet<VW_tbEmpleados> VW_tbEmpleados { get; set; }
         public virtual DbSet<VW_tbHorarios> VW_tbHorarios { get; set; }
         public virtual DbSet<VW_tbTerminales> VW_tbTerminales { get; set; }
-        public virtual DbSet<VW_tbUsuarios> VW_tbUsuarios { get; set; }
         public virtual DbSet<tbBoletos> tbBoletos { get; set; }
         public virtual DbSet<tbCargos> tbCargos { get; set; }
         public virtual DbSet<tbClientes> tbClientes { get; set; }
@@ -46,7 +48,43 @@ namespace Terminal.DataAccess.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<VW_RolXPantalla_VW>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VW_RolXPantalla_VW");
+
+                entity.Property(e => e.pant_Descripcion)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.roleXpant_FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.roleXpant_FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.role_Descripcion)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<VW_Roles_VW>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VW_Roles_VW");
+
+                entity.Property(e => e.role_Descripcion)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.role_FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.role_FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.role_ID).ValueGeneratedOnAdd();
+            });
 
             modelBuilder.Entity<VW_graficaSexo>(entity =>
             {
@@ -141,6 +179,27 @@ namespace Terminal.DataAccess.Context
 
                 entity.Property(e => e.term_Nombre)
                     .HasMaxLength(300)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<VW_tbBoletos2>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VW_tbBoletos2", "term");
+
+                entity.Property(e => e.bole_Fecha).HasColumnType("datetime");
+
+                entity.Property(e => e.bole_clie_Nombre_Completo)
+                    .IsRequired()
+                    .HasMaxLength(401);
+
+                entity.Property(e => e.bole_hora_Destino_Nombre).HasMaxLength(200);
+
+                entity.Property(e => e.bole_hora_Origen_Nombre).HasMaxLength(200);
+
+                entity.Property(e => e.comp_Nombre)
+                    .HasMaxLength(200)
                     .IsUnicode(false);
             });
 
@@ -326,51 +385,6 @@ namespace Terminal.DataAccess.Context
                 entity.Property(e => e.term_UsuarioModificador_Nombre).HasMaxLength(100);
             });
 
-            modelBuilder.Entity<VW_tbUsuarios>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("VW_tbUsuarios", "acce");
-
-                entity.Property(e => e.carg_Nombre)
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.empl_PrimerApellido).HasMaxLength(100);
-
-                entity.Property(e => e.empl_PrimerNombre).HasMaxLength(100);
-
-                entity.Property(e => e.empl_SegundoApellido).HasMaxLength(100);
-
-                entity.Property(e => e.empl_SegundoNombre).HasMaxLength(100);
-
-                entity.Property(e => e.role_Descripcion)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.usua_FechaCreacion).HasColumnType("datetime");
-
-                entity.Property(e => e.usua_FechaModificacion).HasColumnType("datetime");
-
-                entity.Property(e => e.usua_Usuario).HasMaxLength(100);
-
-                entity.Property(e => e.usua_UsuarioCreador_Nombre).HasMaxLength(100);
-
-                entity.Property(e => e.usua_UsuarioModificador_Nombre).HasMaxLength(100);
-
-                entity.Property(e => e.usua_empl_Apellidos)
-                    .IsRequired()
-                    .HasMaxLength(201);
-
-                entity.Property(e => e.usua_empl_NombreCompleto)
-                    .IsRequired()
-                    .HasMaxLength(403);
-
-                entity.Property(e => e.usua_empl_Nombres)
-                    .IsRequired()
-                    .HasMaxLength(201);
-            });
-
             modelBuilder.Entity<tbBoletos>(entity =>
             {
                 entity.HasKey(e => e.bole_ID)
@@ -449,6 +463,16 @@ namespace Terminal.DataAccess.Context
                 entity.Property(e => e.carg_Nombre)
                     .HasMaxLength(200)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.carg_UsuarioCreadorNavigation)
+                    .WithMany(p => p.tbCargoscarg_UsuarioCreadorNavigation)
+                    .HasForeignKey(d => d.carg_UsuarioCreador)
+                    .HasConstraintName("FK_term_tbCargos_carg_UsuarioCreador_acce_tbUsuarios_usua_ID");
+
+                entity.HasOne(d => d.carg_UsuarioModificadorNavigation)
+                    .WithMany(p => p.tbCargoscarg_UsuarioModificadorNavigation)
+                    .HasForeignKey(d => d.carg_UsuarioModificador)
+                    .HasConstraintName("FK_term_tbCargos_carg_UsuarioModificador_acce_tbUsuarios_usua_ID");
             });
 
             modelBuilder.Entity<tbClientes>(entity =>
@@ -528,6 +552,16 @@ namespace Terminal.DataAccess.Context
                     .HasMaxLength(4)
                     .IsUnicode(false)
                     .IsFixedLength(true);
+
+                entity.HasOne(d => d.comp_UsuarioCreadorNavigation)
+                    .WithMany(p => p.tbCompaniacomp_UsuarioCreadorNavigation)
+                    .HasForeignKey(d => d.comp_UsuarioCreador)
+                    .HasConstraintName("FK_term_tbCompania_comp_UsuarioCreador_acce_tbUsuarios_usua_ID");
+
+                entity.HasOne(d => d.comp_UsuarioModificadorNavigation)
+                    .WithMany(p => p.tbCompaniacomp_UsuarioModificadorNavigation)
+                    .HasForeignKey(d => d.comp_UsuarioModificador)
+                    .HasConstraintName("FK_term_tbCompania_comp_UsuarioModificador_acce_tbUsuarios_usua_ID");
             });
 
             modelBuilder.Entity<tbDepartamentos>(entity =>
@@ -635,11 +669,6 @@ namespace Terminal.DataAccess.Context
                     .WithMany(p => p.tbEmpleados)
                     .HasForeignKey(d => d.muni_ID)
                     .HasConstraintName("FK_term_tbEmpleados_gral_tbMunicipios_muni_ID");
-
-                entity.HasOne(d => d.role)
-                    .WithMany(p => p.tbEmpleados)
-                    .HasForeignKey(d => d.role_ID)
-                    .HasConstraintName("FK_term_tbEmpleados_acce_tbRoles_role_ID");
             });
 
             modelBuilder.Entity<tbEstadosCiviles>(entity =>
@@ -660,6 +689,16 @@ namespace Terminal.DataAccess.Context
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.estciv_FechaModificacion).HasColumnType("datetime");
+
+                entity.HasOne(d => d.estciv_UsuarioCreadorNavigation)
+                    .WithMany(p => p.tbEstadosCivilesestciv_UsuarioCreadorNavigation)
+                    .HasForeignKey(d => d.estciv_UsuarioCreador)
+                    .HasConstraintName("FK_gral_tbEstadosCiviles_estciv_UsuarioCreador_acce_tbUsuarios_usua_ID");
+
+                entity.HasOne(d => d.estciv_UsuarioModificadorNavigation)
+                    .WithMany(p => p.tbEstadosCivilesestciv_UsuarioModificadorNavigation)
+                    .HasForeignKey(d => d.estciv_UsuarioModificador)
+                    .HasConstraintName("FK_gral_tbEstadosCiviles_estciv_UsuarioModificador_acce_tbUsuarios_usua_ID");
             });
 
             modelBuilder.Entity<tbHorarios>(entity =>
@@ -730,6 +769,16 @@ namespace Terminal.DataAccess.Context
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.pago_FechaModificacion).HasColumnType("datetime");
+
+                entity.HasOne(d => d.pago_UsuarioCreadorNavigation)
+                    .WithMany(p => p.tbMetodosPagopago_UsuarioCreadorNavigation)
+                    .HasForeignKey(d => d.pago_UsuarioCreador)
+                    .HasConstraintName("FK_gral_tbMetodosPago_pago_UsuarioCreador_acce_tbUsuarios_usua_ID");
+
+                entity.HasOne(d => d.pago_UsuarioModificadorNavigation)
+                    .WithMany(p => p.tbMetodosPagopago_UsuarioModificadorNavigation)
+                    .HasForeignKey(d => d.pago_UsuarioModificador)
+                    .HasConstraintName("FK_gral_tbMetodosPago_pago_UsuarioModificador_acce_tbUsuarios_usua_ID");
             });
 
             modelBuilder.Entity<tbMunicipios>(entity =>
@@ -794,17 +843,15 @@ namespace Terminal.DataAccess.Context
 
                 entity.Property(e => e.pant_FechaModificacion).HasColumnType("datetime");
 
-                entity.Property(e => e.pant_HtmlID)
-                    .IsRequired()
-                    .HasMaxLength(300);
+                entity.HasOne(d => d.pant_UsuarioCreadorNavigation)
+                    .WithMany(p => p.tbPantallaspant_UsuarioCreadorNavigation)
+                    .HasForeignKey(d => d.pant_UsuarioCreador)
+                    .HasConstraintName("FK_acce_tbPantallas_pant_UsuarioCreador_tbUsuarios_usua_ID");
 
-                entity.Property(e => e.pant_Menu)
-                    .IsRequired()
-                    .HasMaxLength(300);
-
-                entity.Property(e => e.pant_URL)
-                    .IsRequired()
-                    .HasMaxLength(300);
+                entity.HasOne(d => d.pant_UsuarioModificadorNavigation)
+                    .WithMany(p => p.tbPantallaspant_UsuarioModificadorNavigation)
+                    .HasForeignKey(d => d.pant_UsuarioModificador)
+                    .HasConstraintName("FK_acce_tbPantallas_pant_UsuarioModificador_tbUsuarios_usua_ID");
             });
 
             modelBuilder.Entity<tbRoles>(entity =>
@@ -825,6 +872,16 @@ namespace Terminal.DataAccess.Context
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.role_FechaModificacion).HasColumnType("datetime");
+
+                entity.HasOne(d => d.role_UsuarioCreadorNavigation)
+                    .WithMany(p => p.tbRolesrole_UsuarioCreadorNavigation)
+                    .HasForeignKey(d => d.role_UsuarioCreador)
+                    .HasConstraintName("FK_acce_tbRoles_role_UsuarioCreador_tbUsuarios_usua_ID");
+
+                entity.HasOne(d => d.role_UsuarioModificadorNavigation)
+                    .WithMany(p => p.tbRolesrole_UsuarioModificadorNavigation)
+                    .HasForeignKey(d => d.role_UsuarioModificador)
+                    .HasConstraintName("FK_acce_tbRoles_role_UsuarioModificador_tbUsuarios_usua_ID");
             });
 
             modelBuilder.Entity<tbRolesXPantallas>(entity =>
@@ -847,10 +904,25 @@ namespace Terminal.DataAccess.Context
                     .HasForeignKey(d => d.pant_ID)
                     .HasConstraintName("FK_acce_tbRolesXPantallas_tbPantallas_pant_ID");
 
+                entity.HasOne(d => d.roleXpant_UsuarioCreadorNavigation)
+                    .WithMany(p => p.tbRolesXPantallasroleXpant_UsuarioCreadorNavigation)
+                    .HasForeignKey(d => d.roleXpant_UsuarioCreador)
+                    .HasConstraintName("FK_acce_tbRolesXPantallas_roleXpant_UsuarioCreador_tbUsuarios_usua_ID");
+
+                entity.HasOne(d => d.roleXpant_UsuarioModificadorNavigation)
+                    .WithMany(p => p.tbRolesXPantallasroleXpant_UsuarioModificadorNavigation)
+                    .HasForeignKey(d => d.roleXpant_UsuarioModificador)
+                    .HasConstraintName("FK_acce_tbRolesXPantallas_roleXpant_UsuarioModificador_tbUsuarios_usua_ID");
+
                 entity.HasOne(d => d.role)
                     .WithMany(p => p.tbRolesXPantallas)
                     .HasForeignKey(d => d.role_ID)
                     .HasConstraintName("FK_acce_tbRolesXPantallas_tbRoles_role_ID");
+
+                entity.HasOne(d => d.usua)
+                    .WithMany(p => p.tbRolesXPantallasusua)
+                    .HasForeignKey(d => d.usua_ID)
+                    .HasConstraintName("FK_acce_tbRolesXPantallas_tbUsuarios_usua_ID");
             });
 
             modelBuilder.Entity<tbTerminales>(entity =>
@@ -885,6 +957,16 @@ namespace Terminal.DataAccess.Context
                     .WithMany(p => p.tbTerminales)
                     .HasForeignKey(d => d.muni_ID)
                     .HasConstraintName("FK_term_tbTerminales_gral_tbMunicipios_muni_ID");
+
+                entity.HasOne(d => d.term_UsuarioCreadorNavigation)
+                    .WithMany(p => p.tbTerminalesterm_UsuarioCreadorNavigation)
+                    .HasForeignKey(d => d.term_UsuarioCreador)
+                    .HasConstraintName("FK_term_tbTerminales_term_UsuarioCreador_acce_tbUsuarios_usua_ID");
+
+                entity.HasOne(d => d.term_UsuarioModificadorNavigation)
+                    .WithMany(p => p.tbTerminalesterm_UsuarioModificadorNavigation)
+                    .HasForeignKey(d => d.term_UsuarioModificador)
+                    .HasConstraintName("FK_term_tbTerminales_term_UsuarioModificador_acce_tbUsuarios_usua_ID");
             });
 
             modelBuilder.Entity<tbUsuarios>(entity =>

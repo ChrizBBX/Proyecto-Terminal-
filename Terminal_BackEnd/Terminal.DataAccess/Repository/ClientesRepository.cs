@@ -30,53 +30,39 @@ namespace Terminal.DataAccess.Repository
         public RequestStatus Insert(tbClientes item)
         {
             using var db = new SqlConnection(TerminalContext.ConnectionString);
-            RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@clie_UsuarioCreador", item.clie_UsuarioCreador, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@clie_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@clie_Nombres", item.clie_Nombres, DbType.String, ParameterDirection.Input);
             parametros.Add("@clie_Apellidos", item.clie_Apellidos, DbType.String, ParameterDirection.Input);
             parametros.Add("@clie_DNI", item.clie_DNI, DbType.String, ParameterDirection.Input);
             parametros.Add("@clie_Sexo", item.clie_Sexo, DbType.String, ParameterDirection.Input);
             parametros.Add("@clie_Telefono", item.clie_Telefono, DbType.String, ParameterDirection.Input);
             parametros.Add("@clie_Email", item.clie_Email, DbType.String, ParameterDirection.Input);
-            var answer = db.QueryFirstOrDefault<string>(ScriptsDataBase.UDP_Clientes_Insert, parametros, commandType: CommandType.StoredProcedure);
-
-            result.MessageStatus = answer;
-
-            return result;
+            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Clientes_Insert, parametros, commandType: CommandType.StoredProcedure);
         }
 
         public RequestStatus Update(tbClientes item)
         {
             using var db = new SqlConnection(TerminalContext.ConnectionString);
-            RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@clie_UsuarioModificador", item.clie_UsuarioModificador, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@clie_UsuarioModificador", 1, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@clie_ID", item.clie_ID, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@clie_Nombres", item.clie_Nombres, DbType.String, ParameterDirection.Input);
             parametros.Add("@clie_Apellidos", item.clie_Apellidos, DbType.String, ParameterDirection.Input);
             parametros.Add("@clie_DNI", item.clie_DNI, DbType.String, ParameterDirection.Input);
             parametros.Add("@clie_Sexo", item.clie_Sexo, DbType.String, ParameterDirection.Input);
             parametros.Add("@clie_Telefono", item.clie_Telefono, DbType.String, ParameterDirection.Input);
-            parametros.Add("@clie_Email", item.clie_Email, DbType.String, ParameterDirection.Input);
-            var answer =  db.QueryFirstOrDefault<string>(ScriptsDataBase.UDP_Clientes_Update, parametros, commandType: CommandType.StoredProcedure);
-            
-            result.MessageStatus = answer;
-
-            return result;
+            parametros.Add("@clie_Email", item.clie_Telefono, DbType.String, ParameterDirection.Input);
+            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Clientes_Update, parametros, commandType: CommandType.StoredProcedure);
         }
 
 
         public RequestStatus Delete(int id)
         {
             using var db = new SqlConnection(TerminalContext.ConnectionString);
-            RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@clie_ID", id, DbType.Int32, ParameterDirection.Input);
-            var answer =  db.QueryFirst<string>(ScriptsDataBase.UDP_Clientes_Delete, parametros, commandType: CommandType.StoredProcedure);
-            result.MessageStatus = answer;
-
-            return result;
+            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Clientes_Delete, parametros, commandType: CommandType.StoredProcedure);
         }
     }
 }

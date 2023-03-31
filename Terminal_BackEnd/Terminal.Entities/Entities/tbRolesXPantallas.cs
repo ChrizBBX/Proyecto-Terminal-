@@ -11,6 +11,7 @@ namespace Terminal.Entities.Entities
         public int roleXpant_ID { get; set; }
         public int? role_ID { get; set; }
         public int? pant_ID { get; set; }
+        public int? usua_ID { get; set; }
         public int? roleXpant_Estado { get; set; }
         public int? roleXpant_UsuarioCreador { get; set; }
         public DateTime? roleXpant_FechaCreacion { get; set; }
@@ -19,5 +20,8 @@ namespace Terminal.Entities.Entities
 
         public virtual tbPantallas pant { get; set; }
         public virtual tbRoles role { get; set; }
+        public virtual tbUsuarios roleXpant_UsuarioCreadorNavigation { get; set; }
+        public virtual tbUsuarios roleXpant_UsuarioModificadorNavigation { get; set; }
+        public virtual tbUsuarios usua { get; set; }
     }
 }

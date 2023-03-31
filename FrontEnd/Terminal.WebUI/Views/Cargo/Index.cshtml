@@ -4,41 +4,31 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<a onclick="AbrirModalCreate()" class="btn btn-outline-primary">Nuevo</a>
 
-
-
-<div class="card border-5">
+<div class="card">
     <div class="card-body">
-
+        <h1>Cargos</h1>
         <div class="row">
             <div class="col-lg-12">
                 <div class="float-e-margins">
                     <div class="ibox-title">
-                        <div class="ibox-tools align-items-center">
+                        <div class="ibox-tools">
                             <div class="row">
-                                <div class="col-5"></div>
-                                <div class="col-4">
-                                    <strong><span style="font-family: Cooper; color: indigo; font-size: xx-large;">Cargos</span></strong>
+                                <div class="col-3">
+                                    <p><a onclick="AbrirModalCreate()" class="btn btn-outline-info">Nuevo Registro</a></p>
                                 </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-5"></div>
-                                <div class="col-4">
-                                    <a onclick="AbrirModalCreate()" id="New" class="btn bg-purple-700 text-light">Nuevo cargo</a>
-                                </div>
-                                <div class="col-3"></div>
                             </div>
                         </div>
                     </div>
                     <br />
-                    <div class="table-responsive-xxl">
+                    <div class="table-responsive">
                         <table class="table text-nowrap table-striped table-hover dataTables-example" id="DataTable">
-                            <thead class="">
+                            <thead class="bg-teal-400">
                                 <tr class="text-dark">
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.carg_ID)</th>
-                                    <th class="text-dark">@Html.DisplayNameFor(model => model.carg_Nombre)</th>
-                                    <th class="text-dark">Acciones</th>
+                                    <th>@Html.DisplayNameFor(model => model.carg_ID)</th>
+                                    <th>@Html.DisplayNameFor(model => model.carg_Nombre)</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,14 +38,14 @@
                                         <td>@Html.DisplayFor(modelItem => item.carg_ID)</td>
                                         <td>@Html.DisplayFor(modelItem => item.carg_Nombre)</td>
                                         <td>
-                                            <a class="btn btn-outline-primary btn-sm Editar" data-id="@item.carg_ID" data-nombre="@item.carg_Nombre">Editar</a> |
-                                            <a asp-action="Details" asp-route-id="@item.carg_ID" class="btn btn-outline-secondary btn-sm">Detalle</a> |
-                                            <button class="btn btn-outline-danger btn-sm" id="btnEliminar" onclick="eliminar('@item.carg_ID')">Eliminar</button>
+                                            <a asp-action="Details" asp-route-id="@item.carg_ID" class="btn btn-outline-dark">Detalle</a> |                                            
+                                            <a class="btn btn-outline-warning Editar" data-id="@item.carg_ID" data-nombre="@item.carg_Nombre">Editar</a> |
+                                            <button class="btn btn-outline-danger" id="btnEliminar" onclick="eliminar('@item.carg_ID')">Eliminar</button>
                                         </td>
                                     </tr>
                                 }
                             </tbody>
-                            <tfoot class="">
+                            <tfoot class="bg-teal-400">
                                 <tr class="text-dark">
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.carg_ID)</th>
                                     <th class="text-dark">@Html.DisplayNameFor(model => model.carg_Nombre)</th>
@@ -70,18 +60,6 @@
     </div>
 </div>
 
-
-@if (ViewBag.Script != null)
-{
-    <script>
-        $(document).ready(function () {
-            @Html.Raw(ViewBag.Script)
-        })
-    </script>
-
-    ViewBag.Script = null;
-}
 @Html.Partial("_Modal_Create", new Terminal.WebUI.Models.CargosViewModel())
 @Html.Partial("_Modal_Edit", new Terminal.WebUI.Models.CargosViewModel())
 @Html.Partial("_Modal_Delete", new Terminal.WebUI.Models.CargosViewModel())
-

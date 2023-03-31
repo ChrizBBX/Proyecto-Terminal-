@@ -4,7 +4,7 @@
 
     const $grafica = document.querySelector("#graficapai");
     // Las etiquetas son las porciones de la gráfica
-    const etiquetas = ["Mujer", "Hombre" ]
+    const etiquetas = ["Mujerfsgfdg", "Hombresfgsfg" ]
     // Podemos tener varios conjuntos de datos. Comencemos con uno
     const datosIngresos = {
         data: [1500, 400 ], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas

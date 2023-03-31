@@ -97,9 +97,6 @@ GO
 CREATE TABLE acce.tbPantallas(
 	pant_ID						INT IDENTITY(1,1),
 	pant_Descripcion			VARCHAR (250),
-	pant_URL					NVARCHAR(300) NOT NULL,
-	pant_Menu					NVARCHAR(300) NOT NULL,
-	pant_HtmlID					NVARCHAR(300) NOT NULL,
 	pant_Estado					INT DEFAULT 1,
 	pant_UsuarioCreador			INT,
 	pant_FechaCreacion			DATETIME DEFAULT GETDATE(),
@@ -115,6 +112,7 @@ CREATE TABLE acce.tbRolesXPantallas(
 	roleXpant_ID				INT IDENTITY(1,1),
 	role_ID						INT,
 	pant_ID						INT,
+	usua_ID						INT,
 	roleXpant_Estado				INT DEFAULT 1,
 	roleXpant_UsuarioCreador		INT,
 	roleXpant_FechaCreacion			DATETIME DEFAULT GETDATE(),
@@ -133,7 +131,7 @@ CREATE TABLE acce.tbUsuarios(
 	usua_ID						INT IDENTITY(1,1), 
 	usua_Usuario				NVARCHAR(100), 
 	usua_Clave					VARBINARY(MAX),
-	usua_EsAdmin				BIT,
+	usua_EsAdmin				INT,
 	empl_ID						INT,
 	usua_Estado					INT DEFAULT 1,
 	usua_UsuarioCreador			INT,
@@ -145,6 +143,8 @@ CREATE TABLE acce.tbUsuarios(
 	CONSTRAINT UQ_acce_tbUsuarios_usua_Usuario UNIQUE (usua_Usuario),
 )
 GO
+
+
 
 
 
@@ -176,7 +176,6 @@ CREATE TABLE term.tbEmpleados(
 	empl_Sexo					CHAR(1),
 	empl_Telefono				CHAR(8),
 	carg_ID						INT,
-	role_ID						INT,
 	estciv_ID					INT,
 	muni_ID						CHAR(4),
 	empl_Estado					INT DEFAULT 1,
@@ -190,8 +189,7 @@ CREATE TABLE term.tbEmpleados(
 	CONSTRAINT UQ_term_tbEmpleados_empl_DNI UNIQUE (empl_DNI),
 	CONSTRAINT FK_term_tbEmpleados_gral_tbEstadosCiviles_estciv_ID FOREIGN KEY (estciv_ID) REFERENCES gral.tbEstadosCiviles (estciv_ID),
 	CONSTRAINT FK_term_tbEmpleados_gral_tbMunicipios_muni_ID FOREIGN KEY (muni_ID) REFERENCES gral.tbMunicipios (muni_ID),
-	CONSTRAINT FK_term_tbEmpleados_tbCargos_carg_ID	FOREIGN KEY (carg_ID) REFERENCES term.tbCargos (carg_ID),
-	CONSTRAINT FK_term_tbEmpleados_acce_tbRoles_role_ID FOREIGN KEY (role_ID) REFERENCES acce.tbRoles (role_ID)
+	CONSTRAINT FK_term_tbEmpleados_tbCargos_carg_ID	FOREIGN KEY (carg_ID) REFERENCES term.tbCargos (carg_ID) 
 )
 GO
 
@@ -255,19 +253,18 @@ GO
 
 -- CREACION DE TABLA tbHorarios
 CREATE TABLE term.tbHorarios(
-	hora_ID						           INT IDENTITY(1,1),
-	hora_Salida							   DATETIME,
-	hora_Llegada						   DATETIME,
-	hora_Origen					           CHAR(2),
-	hora_Destino				           CHAR(2),
-	hora_CantidadPasajerosMax              INT,
-	hora_CantidadPasajerosActual		   INT,
-	hora_Precio					           DECIMAL(18,2),
-	hora_Estado					           INT DEFAULT 1,
-	hora_UsuarioCreador			           INT,
-	hora_FechaCreacion			           DATETIME DEFAULT GETDATE(),
-	hora_UsuarioModificador		           INT,
-	hora_FechaModificacion		           DATETIME,
+	hora_ID						INT IDENTITY(1,1),
+	hora_FechaSalida			DATETIME,
+	hora_FechaLlegada			DATETIME,
+	hora_Origen					CHAR(2),
+	hora_Destino				CHAR(2),
+	hora_CantidadPasajeros		INT,
+	hora_Precio					DECIMAL(18,2),
+	hora_Estado					INT DEFAULT 1,
+	hora_UsuarioCreador			INT,
+	hora_FechaCreacion			DATETIME DEFAULT GETDATE(),
+	hora_UsuarioModificador		INT,
+	hora_FechaModificacion		DATETIME,
 
 	CONSTRAINT PK_term_tbHorarios_hora_ID PRIMARY KEY (hora_ID),
 	CONSTRAINT FK_term_tbHorarios_hora_Origen_gral_tbDepartamentos_dept_ID FOREIGN KEY (hora_Origen) REFERENCES gral.tbDepartamentos (dept_ID),

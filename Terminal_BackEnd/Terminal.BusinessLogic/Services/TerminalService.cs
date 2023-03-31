@@ -16,9 +16,11 @@ namespace Terminal.BusinessLogic.Services
         private readonly BoletosRepository _boletosRepository;
         private readonly CompañiaRepository _compañiaRepository;
         private readonly EmpleadoRepository _empleadoRepository;
+        private readonly RolesRepository _rolesRepository;
 
         public TerminalService(ClientesRepository clientesRepository, CargosRepository cargosRepository, TerminalesRepository terminalesRepository, 
-            HorariosRepository horariosRepository, BoletosRepository boletosRepository, CompañiaRepository compañiaRepository, EmpleadoRepository empleadoRepository)
+            HorariosRepository horariosRepository, BoletosRepository boletosRepository, CompañiaRepository compañiaRepository, EmpleadoRepository empleadoRepository,
+            RolesRepository rolesRepository)
         {
             _clientesRepository = clientesRepository;
             _cargosRepository = cargosRepository;
@@ -27,6 +29,7 @@ namespace Terminal.BusinessLogic.Services
             _boletosRepository = boletosRepository;
             _compañiaRepository = compañiaRepository;
             _empleadoRepository = empleadoRepository;
+            _rolesRepository = rolesRepository;
         }
 
         #region Clientes
@@ -47,21 +50,20 @@ namespace Terminal.BusinessLogic.Services
             var result = new ServiceResult();
             try
             {
-                var insertar = _clientesRepository.Insert(item);
-                if (insertar.MessageStatus == "Registro agregado correctamente")
-                {
-                    return result.Ok(insertar.MessageStatus);
-                }else if(insertar.MessageStatus == "Ya existe un cliente con ese numero de Identidad")
-                {
-                    return result.Conflict(insertar.MessageStatus);
-                }
-                else
-                {
-                    return result.BadRequest(insertar.MessageStatus);
-                }
-              
+                var map = _clientesRepository.Insert(item);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
+
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
                 throw;
@@ -79,20 +81,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult BorrarCliente(int id)
+        public RequestStatus BorrarCliente(int id)
         {
-            var result = new ServiceResult();
             try
             {
-                var delete = _clientesRepository.Delete(id);
-                if (delete.MessageStatus == "Registro eliminado correctamente")
-                {
-                    return result.Ok(delete.MessageStatus);
-                }
-                else
-                {
-                    return result.BadRequest(delete.MessageStatus);
-                }
+                return _clientesRepository.Delete(id);
             }
             catch (Exception e)
             {
@@ -100,24 +93,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult UpdateCliente(tbClientes clientes)
+        public RequestStatus UpdateCliente(tbClientes clientes)
         {
-            var result = new ServiceResult();
             try
             {
-                var edit = _clientesRepository.Update(clientes);
-                if (edit.MessageStatus == "Registro editado exitosamente")
-                {
-                    return result.Ok(edit.MessageStatus);
-                }
-                else if (edit.MessageStatus == "Ya hay un cliente con ese numero de identidad") 
-                {
-                    return result.Conflict(edit.MessageStatus);
-                }
-                else
-                {
-                    return result.BadRequest(edit.MessageStatus);
-                }
+                return _clientesRepository.Update(clientes);
             }
             catch (Exception e)
             {
@@ -146,18 +126,17 @@ namespace Terminal.BusinessLogic.Services
             var result = new ServiceResult();
             try
             {
-                var insert = _cargosRepository.Insert(item);
-                if(insert.MessageStatus == "Registro agregado exitosamente")
-                {
-                    return result.Ok(insert.MessageStatus);
-                }else if (insert.MessageStatus == "Ya existe un cargo con ese nombre")
-                {
-                    return result.Conflict(insert.MessageStatus);
-                }
-                else
-                {
-                    return result.SetMessage("Ha ocurrido un error", ServiceResultType.Conflict);
-                }
+                var map = _cargosRepository.Insert(item);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
 
             }
             catch (Exception)
@@ -178,20 +157,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult BorrarCargo(int id)
+        public RequestStatus BorrarCargo(int id)
         {
-            var result = new ServiceResult();
             try
             {
-                var delete = _cargosRepository.Delete(id);
-                if(delete.MessageStatus == "Registro Eliminado con exito")
-                {
-                    return result.Ok(delete.MessageStatus);
-                }
-                else
-                {
-                    return result.BadRequest(delete.MessageStatus);
-                }
+                return _cargosRepository.Delete(id);
             }
             catch (Exception e)
             {
@@ -199,20 +169,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult UpdateCargos(tbCargos cargos)
+        public RequestStatus UpdateCargos(tbCargos cargos)
         {
-            var result = new ServiceResult();
             try
             {
-              var update = _cargosRepository.Update(cargos);
-                if (update.MessageStatus == "El registro ha sido editado con éxito")
-                    return result.SetMessage(update.MessageStatus, ServiceResultType.Success);
-                else if (update.MessageStatus == "El registro que intenta editar no existe")
-                    return result.Conflict(update.MessageStatus);
-                else if (update.MessageStatus == "Ya existe un cargo con este nombre")
-                    return result.Conflict(update.MessageStatus);
-                else
-                    return result.SetMessage("Por favor llene todos los campos", ServiceResultType.Conflict);
+                return _cargosRepository.Update(cargos);
             }
             catch (Exception e)
             {
@@ -271,20 +232,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult BorrarTerminales(int id)
+        public RequestStatus BorrarTerminales(int id)
         {
-            var result = new ServiceResult();
             try
             {
-                var delete = _terminalesRepository.Delete(id);
-                if (delete.MessageStatus == "Registro eliminado exitosamente")
-                {
-                    return result.Ok(delete.MessageStatus);
-                }
-                else
-                {
-                    return result.BadRequest(delete.MessageStatus);
-                }
+                return _terminalesRepository.Delete(id);
             }
             catch (Exception e)
             {
@@ -292,20 +244,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult UpdateTerminales(tbTerminales terminales)
+        public RequestStatus UpdateTerminales(tbTerminales terminales)
         {
-            var result = new ServiceResult();
             try
             {
-                 var edit = _terminalesRepository.Update(terminales);
-                if(edit.MessageStatus == "Registro actualizado exitosamente")
-                {
-                   return result.Ok(edit.MessageStatus);
-                }
-                else
-                {
-                   return result.BadRequest(edit.MessageStatus);
-                }
+                return _terminalesRepository.Update(terminales);
             }
             catch (Exception e)
             {
@@ -333,15 +276,17 @@ namespace Terminal.BusinessLogic.Services
             var result = new ServiceResult();
             try
             {
-                var insert = _horariosRepository.Insert(item);
-                if(insert.MessageStatus == "Registro agregado exitosamente")
-                {
-                    return result.Ok(insert.MessageStatus);
-                }
-                else
-                {
-                    return result.BadRequest(insert.MessageStatus);
-                }
+                var map = _horariosRepository.Insert(item);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
 
             }
             catch (Exception)
@@ -362,20 +307,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult BorrarHorarios(int id)
+        public RequestStatus BorrarHorarios(int id)
         {
-            var result = new ServiceResult();
             try
             {
-               var delete =  _horariosRepository.Delete(id);
-                if(delete.MessageStatus == "Registro eliminado exitosamente")
-                {
-                    return result.Ok(delete.MessageStatus);
-                }
-                else
-                {
-                    return result.BadRequest(delete.MessageStatus);
-                }
+                return _horariosRepository.Delete(id);
             }
             catch (Exception e)
             {
@@ -383,20 +319,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult UpdateHorarios(tbHorarios horarios)
+        public RequestStatus UpdateHorarios(tbHorarios horarios)
         {
-            var result = new ServiceResult();
             try
             {
-                var edit = _horariosRepository.Update(horarios);
-                if (edit.MessageStatus == "Registro editado exitosamente")
-                {
-                    return result.Ok(edit.MessageStatus);
-                }
-                else
-                {
-                    return result.BadRequest(edit.MessageStatus);
-                }
+                return _horariosRepository.Update(horarios);
             }
             catch (Exception e)
             {
@@ -405,7 +332,7 @@ namespace Terminal.BusinessLogic.Services
         }
         #endregion
 
-        #region boletos
+        #region Boleto
 
         public IEnumerable<VW_tbBoletos> ListadoBoletos()
         {
@@ -420,20 +347,36 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
+        public IEnumerable<VW_tbBoletos2> VistaPrevia()
+        {
+            try
+            {
+                return _boletosRepository.VistaPrevia();
+            }
+            catch (Exception e)
+            {
+
+                return Enumerable.Empty<VW_tbBoletos2>();
+            }
+        }
+
         public ServiceResult InsertarBoletos(tbBoletos item)
         {
             var result = new ServiceResult();
             try
             {
-                var insert = _boletosRepository.Insert(item);
-                if(insert.MessageStatus == "Registro agregado exitosamente")
-                {
-                    return result.Ok(insert.MessageStatus);
-                }
-                else
-                {
-                    return result.BadRequest(insert.MessageStatus);
-                }
+                var map = _boletosRepository.Insert(item);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
+
             }
             catch (Exception)
             {
@@ -454,20 +397,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult BorrarBoletos(int id)
+        public RequestStatus BorrarBoletos(int id)
         {
-            var result = new ServiceResult();
             try
             {
-               var delete = _boletosRepository.Delete(id);
-                if (delete.MessageStatus == "Registro eliminado correctamente")
-                {
-                    return result.Ok(delete.MessageStatus);
-                }
-                else
-                {
-                    return result.BadRequest(delete.MessageStatus);
-                }
+                return _boletosRepository.Delete(id);
             }
             catch (Exception e)
             {
@@ -475,20 +409,11 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
-        public ServiceResult UpdateBoletos(tbBoletos boletos)
+        public RequestStatus UpdateBoletos(tbBoletos boletos)
         {
-            var result = new ServiceResult();
             try
             {
-                var edit = _boletosRepository.Update(boletos);
-                if (edit.MessageStatus == "Registro editado exitosamente")
-                {
-                    return result.Ok(edit.MessageStatus);
-                }
-                else
-                {
-                    return result.BadRequest(edit.MessageStatus);
-                }
+                return _boletosRepository.Update(boletos);
             }
             catch (Exception e)
             {
@@ -578,6 +503,185 @@ namespace Terminal.BusinessLogic.Services
             {
 
                 return Enumerable.Empty<VW_tbEmpleados>();
+            }
+        }
+        #endregion
+
+        #region Roles
+
+        public IEnumerable<VW_Roles_VW> ListadoRoles()
+        {
+            try
+            {
+                return _rolesRepository.List();
+            }
+            catch (Exception e)
+            {
+
+                return Enumerable.Empty<VW_Roles_VW>();
+            }
+        }
+        public ServiceResult InsertarRoles(string roles)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _rolesRepository.Insert(roles);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public ServiceResult ActualizarRoles(tbRoles roles)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _rolesRepository.Update(roles);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public ServiceResult DeleterRoles(int id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _rolesRepository.Delete(id);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public VW_Roles_VW BuscarRoles(int id)
+        {
+            try
+            {
+                return _rolesRepository.Find(id);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region Xpantalla
+        public IEnumerable<VW_RolXPantalla_VW> ListadoRolesX()
+        {
+            try
+            {
+                return _rolesRepository.ListXpantalla();
+            }
+            catch (Exception e)
+            {
+
+                return Enumerable.Empty<VW_RolXPantalla_VW>();
+            }
+        }
+        public ServiceResult InsertarRolesX(tbRolesXPantallas roles)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _rolesRepository.InsertXpantalla(roles);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public ServiceResult ActualizarRolesX(tbRolesXPantallas roles)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _rolesRepository.UpdateXpantalla(roles);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+         
+        public VW_RolXPantalla_VW BuscarRolesX(int id)
+        {
+            try
+            {
+                return _rolesRepository.FindXpantalla(id);
+            }
+            catch (Exception e)
+            {
+                return null;
             }
         }
         #endregion

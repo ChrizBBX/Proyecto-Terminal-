@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\selvin almendarez\\Documents\\GitHub\\Proyecto-Terminal-\\FrontEnd\\Terminal.WebUI\\Terminal.WebUI.csproj": {}
+    "C:\\Users\\selvin almendarez\\Desktop\\adsfadfad\\Proyecto-Terminal--Selvin\\FrontEnd\\Terminal.WebUI\\Terminal.WebUI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\selvin almendarez\\Documents\\GitHub\\Proyecto-Terminal-\\FrontEnd\\Terminal.WebUI\\Terminal.WebUI.csproj": {
+    "C:\\Users\\selvin almendarez\\Desktop\\adsfadfad\\Proyecto-Terminal--Selvin\\FrontEnd\\Terminal.WebUI\\Terminal.WebUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\selvin almendarez\\Documents\\GitHub\\Proyecto-Terminal-\\FrontEnd\\Terminal.WebUI\\Terminal.WebUI.csproj",
+        "projectUniqueName": "C:\\Users\\selvin almendarez\\Desktop\\adsfadfad\\Proyecto-Terminal--Selvin\\FrontEnd\\Terminal.WebUI\\Terminal.WebUI.csproj",
         "projectName": "Terminal.WebUI",
-        "projectPath": "C:\\Users\\selvin almendarez\\Documents\\GitHub\\Proyecto-Terminal-\\FrontEnd\\Terminal.WebUI\\Terminal.WebUI.csproj",
+        "projectPath": "C:\\Users\\selvin almendarez\\Desktop\\adsfadfad\\Proyecto-Terminal--Selvin\\FrontEnd\\Terminal.WebUI\\Terminal.WebUI.csproj",
         "packagesPath": "C:\\Users\\selvin almendarez\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\selvin almendarez\\Documents\\GitHub\\Proyecto-Terminal-\\FrontEnd\\Terminal.WebUI\\obj\\",
+        "outputPath": "C:\\Users\\selvin almendarez\\Desktop\\adsfadfad\\Proyecto-Terminal--Selvin\\FrontEnd\\Terminal.WebUI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

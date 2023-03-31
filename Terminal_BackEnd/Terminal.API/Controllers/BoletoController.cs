@@ -60,7 +60,7 @@ namespace Terminal.API.Controllers
         public IActionResult Delete(int id)
         {
             var listado = _terminalService.BorrarBoletos(id);
-            return Ok(listado);
+            return Ok();
         }
 
 
@@ -75,6 +75,13 @@ namespace Terminal.API.Controllers
         public IActionResult CargarSexo()
         {
             var listado = _terminalService.LoadSex();
+            return Ok(listado);
+        }
+
+        [HttpGet("VistaPrevia")]
+        public IActionResult VistaPrevia()
+        {
+            var listado = _terminalService.VistaPrevia();
             return Ok(listado);
         }
     }

@@ -14,46 +14,45 @@
                     <form asp-action="Create" id="formCrear">
                         @Html.AntiForgeryToken()
 
-
-                        <div class="card border-5">
-                            <div class="card-header text-center" style="background-image: linear-gradient(to right, #A4F6FA,#9CB0D7 ,#4EBBC0 ) ">
-                                <div class="row">
-                                    <div class="col-4">
-
-                                    </div>
-                                    <div class="col-4" style="margin-top: 10px">
-                                        <h1 style="font-family: Cooper;" class="text-black">Nuevo boleto</h1>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="text-end">
-                                            @*<img src="https://i.gifer.com/3sf.gif" style="border-radius:100px;border:3px solid black; width:50%">*@
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row"><h1>Boletos</h1></div>
                             </div>
                             <div class="card-body">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                                 <div class="card">
+                                    <div class="card-header text-center bg-teal-300">
+                                        <div class="row">
+                                            <div class="col-4">
 
+                                            </div>
+                                            <div class="col-4" style="margin-top: 10px">
+                                                <h1 style="font-family: Cooper; color: azure">Crear Registro</h1>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="text-end">
+                                                    @*<img src="https://i.gifer.com/3sf.gif" style="border-radius:100px;border:3px solid black; width:50%">*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="card-body">
 
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <strong><label asp-for="term_ID" class="control-label text-dark"></label></strong>
-                                                    <select asp-for="term_ID" class="form-control form-select text-dark" asp-items="ViewBag.term_Id" style="border-color: darkgray; border-width: 1px;">
-                                                        <option value="">--Seleccione una opción--</option></select>
+                                                    <strong><label asp-for="term_ID" class="control-label text-dark"></label></strong>                                                    
+                                                   <select asp-for="term_ID" class="form-control" asp-items="ViewBag.term_Id"><option value="">--Seleccione una opcion--</option></select>
                                                     <strong><span asp-validation-for="term_ID" class="text-danger"></span></strong>
-
+                                                    
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <strong><label asp-for="comp_ID" class="control-label text-dark"></label></strong>
-                                                    <select asp-for="comp_ID" class="form-control form-select  text-dark" asp-items="ViewBag.comp_ID" style="border-color: darkgray; border-width: 1px;">
-                                                        <option value="">--Seleccione una opción--</option></select>
+                                                    <select asp-for="comp_ID" class="form-control" asp-items="ViewBag.comp_ID"><option value="">--Seleccione una opcion--</option></select>
                                                     <strong><span asp-validation-for="comp_ID" class="text-danger"></span></strong>
 
                                                 </div>
@@ -64,20 +63,18 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <strong><label asp-for="empl_ID" class="control-label text-dark"></label></strong>
-                                                    <select asp-for="empl_ID" class="form-control  form-select text-dark" asp-items="ViewBag.empl_ID" style="border-color: darkgray; border-width: 1px;">
-                                                        <option value="">--Seleccione una opción--</option></select>
-                                                    <strong><span asp-validation-for="empl_ID" class="text-danger"></span></strong>
+                                                    <strong><label asp-for="empl_ID" class="control-label text-dark"></label></strong>                                                    
+                                                    <select asp-for="empl_ID" class="form-control" asp-items="ViewBag.empl_ID"><option value="">--Seleccione una opcion--</option></select>
+                                                    <strong><span asp-validation-for="empl_ID" class="text-danger"></span></strong>                                                    
                                                 </div>
                                             </div>
 
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <strong><label asp-for="clie_ID" class="control-label text-dark"></label></strong>
-                                                    <select asp-for="clie_ID" class="form-control form-select  text-dark" asp-items="ViewBag.clie_ID" style="border-color: darkgray; border-width: 1px;">
-                                                        <option value="">--Seleccione una opción--</option></select>
+                                                    <strong><label asp-for="clie_ID" class="control-label text-dark"></label></strong>                                                    
+                                                    <select asp-for="clie_ID" class="form-control" asp-items="ViewBag.clie_ID"><option value="">--Seleccione una opcion--</option></select>
                                                     <strong><span asp-validation-for="clie_ID" class="text-danger"></span></strong>
-
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -86,24 +83,23 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <strong><label asp-for="hora_ID" class="control-label text-dark"></label></strong>
-                                                    <select asp-for="hora_ID" class="form-control form-select text-dark" asp-items="ViewBag.hora_ID" style="border-color: darkgray; border-width: 1px;">
-                                                        <option value="">--Seleccione una opción--</option></select>
-                                                    <strong><span asp-validation-for="hora_ID" class="text-danger"></span></strong>
+                                                    <strong><label asp-for="hora_ID" class="control-label text-dark"></label></strong>                                                    
+                                                    <select asp-for="hora_ID" class="form-control" asp-items="ViewBag.hora_ID"><option value="">--Seleccione una opcion--</option></select>
+                                                    <strong><span asp-validation-for="hora_ID" class="text-danger"></span></strong>                                                    
                                                 </div>
                                             </div>
 
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <strong><label asp-for="pago_ID" class="control-label text-dark"></label></strong>
-                                                    <select asp-for="pago_ID" class="form-control form-select text-dark" style="border-color: darkgray; border-width: 1px;">
-                                                        <option value="">--Seleccione una opción--</option>
+                                                    <strong><label asp-for="pago_ID" class="control-label text-dark"></label></strong>                                                    
+                                                    <select asp-for="pago_ID" class="form-control">
+                                                        <option value="">--Seleccione una opcion--</option>
                                                         <option value="1">Efectivo</option>
-                                                        <option value="2">Crédito</option>
-                                                        <option value="3">Débito</option>
+                                                        <option value="2">Credito</option>
+                                                        <option value="3">Debito</option>
                                                     </select>
 
-                                                    <strong><span asp-validation-for="pago_ID" class="text-danger"></span></strong>
+                                                    <strong><span asp-validation-for="pago_ID" class="text-danger"></span></strong>                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -111,15 +107,19 @@
                                     </div>
                                     <div class="card-footer">
                                         <div class="row">
-                                            <div class="col-9"></div>
-                                            <div class="col-3 text-center">
-                                                <input type="submit" value="Guardar" class="btn btn-primary"/> |
-                                                <a asp-action="Index" class="btn btn-danger">Cancelar</a>
+                                            <div class="col-8"></div>
+                                            <div class="col-2">
+                                                <input type="submit" value="Confirmar Envio" class="btn btn-outline-success" />
+                                            </div>
+                                            <div class="col-2">
+                                                <a asp-action="Index" class="btn btn-outline-danger">Cancelar</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-footer"></div>
+                                <div class="card-footer">
+
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -129,16 +129,6 @@
     </div>
 </div>
 
-@if (ViewBag.Script != null)
-{
-    <script>
-        $(document).ready(function () {
-            @Html.Raw(ViewBag.Script)
-        });
-    </script>
-
-    ViewBag.Script = null;
-}
 
 <script>
     $(document).ready(function () {

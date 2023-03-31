@@ -125,7 +125,7 @@ VALUES	('01','0101','La Ceiba', '1', NULL, GETDATE(), NULL, GETDATE()),
 
 		('06',	'0601','Choluteca', '1', NULL, GETDATE(), NULL, GETDATE()),
 		('06',	'0602','Apacilagua', '1', NULL, GETDATE(), NULL, GETDATE()),
-		('06',	'0603','Concepci�n de María', '1', NULL, GETDATE(), NULL, GETDATE()),
+		('06',	'0603','Concepci�n de Mar�a', '1', NULL, GETDATE(), NULL, GETDATE()),
 		('06',	'0604','Duyure', '1', NULL, GETDATE(), NULL, GETDATE()),
 		('06',	'0605','El Corpus', '1', NULL, GETDATE(), NULL, GETDATE()),
 		('06',	'0606','El Triunfo', '1', NULL, GETDATE(), NULL, GETDATE()),
@@ -376,69 +376,36 @@ GO
 
 INSERT INTO	term.tbCompania(comp_Nombre, muni_ID, comp_Direccion, comp_UsuarioCreador, comp_UsuarioModificador, comp_FechaModificacion)
 VALUES('Mazapan', '0501', 'Por la casa de Selvin XD', 1, NULL, NULL)
-GO
+
 
 INSERT INTO term.tbCargos(carg_Nombre, carg_UsuarioCreador, carg_UsuarioModificador, carg_FechaModificacion)
 VALUES ('Conductor(a)', 1, NULL, NULL)
-GO
+
 
 INSERT INTO term.tbTerminales(muni_ID, term_Nombre, term_DireccionExacta, term_CantidadTransportes, term_UsuarioCreador, term_UsuarioModificador, term_FechaModificacion)
 VALUES('0501', 'Terminal de San Pedro Sula', 'Salida a la Lima', 200, 1, NULL, NULL)
-GO
 
 
-INSERT INTO acce.tbPantallas(pant_Descripcion, pant_URL, pant_Menu, pant_HtmlID, pant_UsuarioCreador, pant_UsuarioModificador, pant_FechaModificacion)
-VALUES	('Estadisticas', '/Estadistica', 'Terminal', 'estadisticaItem', 1, NULL, NULL),
-		('Boletos', '/Boleto', 'Terminal', 'boletoItem', 1, NULL, NULL),
-		('Cargos', '/Cargo', 'Terminal', 'cargoItem', 1, NULL, NULL),
-		('Clientes', '/Cliente', 'Terminal', 'clienteItem', 1, NULL, NULL),
-		('Horarios', '/Horario', 'Terminal', 'horarioItem', 1, NULL, NULL),
-		('Terminales', '/Terminal', 'Terminal', 'terminalItem', 1, NULL, NULL),
-		('Usuarios', '/Usuario', 'Acceso', 'usuarioItem', 1, NULL, NULL),
-		('Roles', '/Rol', 'Acceso', 'rolItem', 1, NULL, NULL)
-GO
-
-
-
-INSERT INTO acce.tbRoles(role_Descripcion, role_UsuarioCreador, role_UsuarioModificador, role_FechaModificacion)
-VALUES	('Vendedor', 1, NULL, NULL),
-		('HHRR', 1, NULL, NULL),
-		('Seguridad', 1, NULL, NULL)
-GO
-
-
-
-INSERT INTO term.tbEmpleados(empl_PrimerNombre, empl_SegundoNombre, empl_PrimerApellido, empl_SegundoApellido, empl_DNI, empl_FechaNacimiento, empl_Sexo, empl_Telefono, carg_ID, role_ID, estciv_ID, muni_ID, empl_UsuarioCreador, empl_UsuarioModificador, empl_FechaModificacion)
-VALUES	('Maria', 'Jose','Antonieta', 'De las nieves', '1234567891234', GETDATE(), 'F', '00000000', 1, 1 ,1, '0501', 1, NULL, NULL),
-		('Edwin', 'Josue','Rodriguez', 'Ortíz', '3333333333333', GETDATE(), 'M', '00000000', 1, 2 ,1,'0501', 1, NULL, NULL),
-		('Josue', 'Obed','Sarmiento', 'Elvir', '1111111111111', GETDATE(), 'M', '00000000', 1, 3 ,1, '0501', 1, NULL, NULL)
-GO
+INSERT INTO term.tbEmpleados(empl_PrimerNombre, empl_SegundoNombre, empl_PrimerApellido, empl_SegundoApellido, empl_DNI, empl_FechaNacimiento, empl_Sexo, empl_Telefono, carg_ID, estciv_ID, muni_ID, empl_UsuarioCreador, empl_UsuarioModificador, empl_FechaModificacion)
+VALUES ('Maria', 'Jose','Antonieta', 'De las nieves', '1234567891234', GETDATE(), 'F', '00000000', 1, 1, '0501', 1, NULL, NULL)
 
 DECLARE @PassEncrypt VARBINARY(MAX) = HASHBYTES('SHA2_512', 'AWSD')
 INSERT INTO acce.tbUsuarios(usua_Usuario, usua_Clave, usua_EsAdmin, empl_ID, usua_UsuarioCreador, usua_UsuarioModificador, usua_FechaModificacion)
 VALUES('AWSD', @PassEncrypt, 1, 1, 1, NULL, NULL)
-GO
-
 
 INSERT INTO term.tbClientes(clie_Nombres, clie_Apellidos, clie_DNI, clie_Sexo, clie_Telefono, 
 							clie_Email, clie_UsuarioCreador, clie_UsuarioModificador, clie_FechaModificacion)
 VALUES ('Calidonio', 'Panchame', '457214798', 'M', '00000000', 'panchame@gmail.com', 1, NULL, NULL),
 		('Sr.obama', 'Obama', '546795214', 'F', '45877454', 'Sr.obama@gmail.com', 1, NULL, NULL)
-GO
 
-INSERT INTO term.tbHorarios(hora_Salida, hora_Llegada, hora_Origen, hora_Destino, hora_CantidadPasajerosMax, hora_CantidadPasajerosActual, hora_Precio, hora_Estado, hora_UsuarioCreador, hora_FechaCreacion)
-VALUES('9:30','12:00', '05', '08', 100,0, 200,1, NULL, NULL)
-GO
+INSERT INTO term.tbHorarios(hora_FechaSalida, hora_FechaLlegada, hora_Origen, hora_Destino, hora_CantidadPasajeros, hora_Precio ,hora_UsuarioCreador, hora_UsuarioModificador, hora_FechaModificacion)
+VALUES(GETDATE(), GETDATE(), '06', '08', 100,  200,1, NULL, NULL)
+
 
 INSERT INTO term.tbBoletos(bole_Fecha, term_ID, comp_ID, empl_ID, clie_ID, hora_ID, pago_ID, bole_UsuarioCreador, bole_UsuarioModificador, bole_FechaModificacion)
 VALUES (GETDATE(), 1, 1, 1, 1, 1, 1, 1, NULL, NULL)
-GO
-
-
-
-
-
-
+INSERT INTO term.tbHorarios(hora_FechaSalida, hora_FechaLlegada, hora_Origen, hora_Destino, hora_CantidadPasajeros, hora_UsuarioCreador, hora_UsuarioModificador, hora_FechaModificacion)
+VALUES(GETDATE(), GETDATE(), '05', '09', 100, 1, NULL, NULL)
 
 /********************** CONSTRAINTS ***********************/
 
@@ -478,7 +445,8 @@ GO
 
 
 ALTER TABLE acce.tbRolesXPantallas
-ADD	CONSTRAINT FK_acce_tbRolesXPantallas_roleXpant_UsuarioCreador_tbUsuarios_usua_ID FOREIGN KEY (roleXpant_UsuarioCreador) REFERENCES acce.tbUsuarios (usua_ID),
+ADD CONSTRAINT FK_acce_tbRolesXPantallas_tbUsuarios_usua_ID FOREIGN KEY (usua_ID) REFERENCES acce.tbUsuarios (usua_ID),
+	CONSTRAINT FK_acce_tbRolesXPantallas_roleXpant_UsuarioCreador_tbUsuarios_usua_ID FOREIGN KEY (roleXpant_UsuarioCreador) REFERENCES acce.tbUsuarios (usua_ID),
 	CONSTRAINT FK_acce_tbRolesXPantallas_roleXpant_UsuarioModificador_tbUsuarios_usua_ID FOREIGN KEY (roleXpant_UsuarioModificador) REFERENCES acce.tbUsuarios (usua_ID)
 GO
 

@@ -19,7 +19,8 @@ namespace Terminal.BusinessLogic
             service.AddScoped<BoletosRepository>();
             service.AddScoped<CompañiaRepository>();
             service.AddScoped<EmpleadoRepository>();
-            service.AddScoped<UsuariosRepository>();
+            service.AddScoped<RolesRepository>();
+
 
             TerminalContext.BuildConnectionString(connectionString);
         }
@@ -27,7 +28,6 @@ namespace Terminal.BusinessLogic
         public static void BusinessLogic(this IServiceCollection service)
         {
             service.AddScoped<TerminalService>();
-            service.AddScoped<AccesoService>();
         }
     }
 }

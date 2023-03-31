@@ -25,6 +25,8 @@ namespace Terminal.Entities.Entities
         public DateTime? term_FechaModificacion { get; set; }
 
         public virtual tbMunicipios muni { get; set; }
+        public virtual tbUsuarios term_UsuarioCreadorNavigation { get; set; }
+        public virtual tbUsuarios term_UsuarioModificadorNavigation { get; set; }
         public virtual ICollection<tbBoletos> tbBoletos { get; set; }
     }
 }

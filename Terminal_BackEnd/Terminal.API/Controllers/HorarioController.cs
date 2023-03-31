@@ -59,7 +59,7 @@ namespace Terminal.API.Controllers
         public IActionResult Delete(int id)
         {
             var listado = _terminalService.BorrarHorarios(id);
-            return Ok(listado);
+            return Ok();
         }
     }
 }

@@ -74,7 +74,11 @@
          "ObjectType": 0
       },
       {
-         "Name": "[acce].[VW_tbUsuarios]",
+         "Name": "[dbo].[VW_Roles_VW]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[VW_RolXPantalla_VW]",
          "ObjectType": 3
       },
       {
@@ -87,6 +91,10 @@
       },
       {
          "Name": "[term].[VW_tbBoletos]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[term].[VW_tbBoletos2]",
          "ObjectType": 3
       },
       {
@@ -110,7 +118,7 @@
          "ObjectType": 3
       }
    ],
-   "UiHint": "DESKTOP-E6OAL4S\\SERVIDORLOCALDM.dbTerminal",
+   "UiHint": "DESKTOP-4VGT370.dbTerminal",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDbContextSplitting": false,

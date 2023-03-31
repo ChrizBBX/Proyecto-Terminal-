@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FA1mhxTAm/dcRKhWNVJuhYD8xw4YeXvddxl1+9X4huROhTcnA0eOIZfybcwypa1ghys1O3tT4zPR/neksckL7w==",
+  "dgSpecHash": "QbndlrCY1up2PYOL8TKmpU9lkMCLL/9j3hVh57tDZcEihY8S9eFfhLRMq/d1Hai9j//pJqRM0j2/EwCRMfIiRw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\selvin almendarez\\Documents\\GitHub\\Proyecto-Terminal-\\FrontEnd\\Terminal.WebUI\\Terminal.WebUI.csproj",
+  "projectFilePath": "C:\\Users\\selvin almendarez\\Desktop\\adsfadfad\\Proyecto-Terminal--Selvin\\FrontEnd\\Terminal.WebUI\\Terminal.WebUI.csproj",
   "expectedPackageFiles": [
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
