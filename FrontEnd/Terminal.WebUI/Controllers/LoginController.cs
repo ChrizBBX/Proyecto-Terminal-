@@ -31,6 +31,12 @@ namespace Terminal.WebUI.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Recover()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Login(string user, string contrasena)
         {
             using (var httpClient = new HttpClient())
@@ -65,12 +71,36 @@ namespace Terminal.WebUI.Controllers
                     }
                     else
                     {
+                        ViewBag.user = user;
+                        ViewBag.contrasena = contrasena;
+                        ModelState.AddModelError("Validacion", "El usuario o contraseña son incorrectos");
                         HttpContext.Session.SetInt32("usua_ID", 0);
                         return View("Index");
                     }
                 }
                 else
                 {
+                    return View();
+                }
+            }
+        }
+
+        public async Task<IActionResult> Recover(string user, string contrasena)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var content = new StringContent("", Encoding.UTF8, "application/json");
+                var response = await httpClient.PutAsync(_baseurl + $"api/Usuario/Recover?usuario={user}&contrasena={contrasena}'",content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.user1 = user;
+                    ViewBag.contrasena1 = contrasena;
+                    ModelState.AddModelError("Validacion1", "El usuario es incorrecto");
                     return View();
                 }
             }

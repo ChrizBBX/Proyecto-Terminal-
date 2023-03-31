@@ -1126,11 +1126,17 @@ CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_ChangePassword
 	@usua_Clave   VARCHAR(150)
 AS
 BEGIN
+BEGIN TRY
 	DECLARE @Pass VARBINARY(MAX) = CONVERT(VARBINARY(MAX), HASHBYTES('SHA2_512', @usua_Clave));
 
 	UPDATE acce.tbUsuarios
 	   SET usua_Clave = @Pass
 	 WHERE usua_Usuario = @usua_Usuario
+	 SELECT 'Contrasena Restablecida'
+	 END TRY
+	 BEGIN CATCH
+	 SELECT 'Ha ocurrido un error'
+	 END CATCH
 END
 GO
 

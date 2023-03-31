@@ -113,6 +113,18 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
+        public RequestStatus Recover(string usuario, string contrasena)
+        {
+            try
+            {
+                return _usuariosRepository.Recover(usuario,contrasena);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
         public IEnumerable<VW_tbUsuarios> Login(string user, string contrasena)
         {
             try

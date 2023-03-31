@@ -81,6 +81,7 @@ namespace Terminal.DataAccess.Repository
             public static string UDP_Usuarios_Delete = "acce.UDP_tbUsuarios_Delete";
             public static string UDP_Login = "acce.UDP_tbUsuarios_Login";
             public static string UDP_Roles = "acce.RolesxPantallaMenu";
+            public static string UDP_Recover = "acce.UDP_tbUsuarios_ChangePassword";
         #endregion
 
     }
