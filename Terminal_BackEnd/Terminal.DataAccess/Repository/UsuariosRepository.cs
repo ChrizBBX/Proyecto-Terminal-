@@ -62,7 +62,18 @@ namespace Terminal.DataAccess.Repository
             result.MessageStatus = answer;
 
             return result;
+        }
 
+        public RequestStatus Recover(string usuario,string contrasena)
+        {
+            RequestStatus result = new RequestStatus();
+
+            using var db = new SqlConnection(TerminalContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@usua_Usuario", usuario, DbType.String, ParameterDirection.Input);
+            parametros.Add("@usua_Clave", contrasena, DbType.String, ParameterDirection.Input);
+
+            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_Recover, parametros, commandType: CommandType.StoredProcedure);
         }
 
         public RequestStatus Delete(int id)

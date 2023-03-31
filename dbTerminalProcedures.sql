@@ -1081,12 +1081,15 @@ ON acce.tbRoles
 AFTER UPDATE
 AS
 BEGIN
-  IF UPDATE(role_Estado)
-  BEGIN
-    DELETE FROM acce.tbRolesXPantallas
-    WHERE role_ID IN (SELECT deleted.role_ID FROM deleted)
-    
-    DELETE FROM acce.tbRoles
-    WHERE role_ID IN (SELECT deleted.role_ID FROM deleted)
-  END
+BEGIN TRY
+	DECLARE @Pass VARBINARY(MAX) = CONVERT(VARBINARY(MAX), HASHBYTES('SHA2_512', @usua_Clave));
+
+	UPDATE acce.tbUsuarios
+	   SET usua_Clave = @Pass
+	 WHERE usua_Usuario = @usua_Usuario
+	 SELECT 'Contrasena Restablecida'
+	 END TRY
+	 BEGIN CATCH
+	 SELECT 'Ha ocurrido un error'
+	 END CATCH
 END

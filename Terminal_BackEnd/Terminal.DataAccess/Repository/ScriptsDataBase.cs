@@ -83,6 +83,15 @@ namespace Terminal.DataAccess.Repository
         public static string UDP_tbRolesXPantallas_Find   = "acce.UDP_tbRolesXPantallas_Find";
         public static string UDP_tbRolesXPantallas_Update = "acce.UDP_tbRolesXPantallas_Update ";
 
+        #region Usuarios
+            public static string UDP_Usuarios_Select = "acce.UDP_VW_tbUsuarios_VW";
+            public static string UDP_Usuarios_Create = "acce.UDP_tbUsuarios_Create";
+            public static string UDP_Usuarios_Find = "acce.UDP_VW_tbUsuarios_Find";
+            public static string UDP_Usuarios_Update = "acce.UDP_tbUsuarios_Update";
+            public static string UDP_Usuarios_Delete = "acce.UDP_tbUsuarios_Delete";
+            public static string UDP_Login = "acce.UDP_tbUsuarios_Login";
+            public static string UDP_Roles = "acce.RolesxPantallaMenu";
+            public static string UDP_Recover = "acce.UDP_tbUsuarios_ChangePassword";
         #endregion
     }
 }

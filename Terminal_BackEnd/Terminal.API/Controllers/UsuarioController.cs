@@ -68,6 +68,13 @@ namespace Terminal.API.Controllers
             return Ok(Result);
         }
 
+        [HttpPut("Recover")]
+        public IActionResult Recover(string usuario,string contrasena)
+        {
+            var Result = _accesoService.Recover(usuario, contrasena);
+            return Ok(Result);
+        }
+
         [HttpPost("Usuario/Delete/{id}")]
         public IActionResult Delete(int id)
         {
