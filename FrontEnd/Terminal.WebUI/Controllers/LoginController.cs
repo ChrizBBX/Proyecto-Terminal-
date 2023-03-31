@@ -90,7 +90,7 @@ namespace Terminal.WebUI.Controllers
             using (var httpClient = new HttpClient())
             {
                 var content = new StringContent("", Encoding.UTF8, "application/json");
-                var response = await httpClient.PutAsync(_baseurl + $"api/Usuario/Recover?usuario={user}&contrasena={contrasena}'",content);
+                var response = await httpClient.PutAsync(_baseurl + $"api/Usuario/Recover?usuario={user}&contrasena={contrasena}",content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -105,5 +105,6 @@ namespace Terminal.WebUI.Controllers
                 }
             }
         }
+
     }
 }

@@ -388,7 +388,7 @@ GO
 
 
 INSERT INTO acce.tbPantallas(pant_Descripcion, pant_URL, pant_Menu, pant_HtmlID, pant_UsuarioCreador, pant_UsuarioModificador, pant_FechaModificacion)
-VALUES	('Estadisticas', '/Estadistica', 'Terminal', 'estadisticaItem', 1, NULL, NULL),
+VALUES	('Estadisticas', '/Home', 'Terminal', 'estadisticaItem', 1, NULL, NULL),
 		('Boletos', '/Boleto', 'Terminal', 'boletoItem', 1, NULL, NULL),
 		('Cargos', '/Cargo', 'Terminal', 'cargoItem', 1, NULL, NULL),
 		('Clientes', '/Cliente', 'Terminal', 'clienteItem', 1, NULL, NULL),
