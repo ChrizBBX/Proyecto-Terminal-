@@ -305,11 +305,6 @@ GO
 
 
 
--- por mostrar en proyecto final 
---cargos , boletos, clientes, horarios, terminales
-
-
-
 
 
 

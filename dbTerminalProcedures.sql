@@ -945,7 +945,8 @@ BEGIN
 END
 GO
 
-
+SELECT DISTINCT * FROM acce.tbRolesXPantallas WHERE role_ID = 13
+GO	
 --------> CREATE	
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Create
 	@usua_UsuarioCreador	INT,
@@ -1182,7 +1183,7 @@ end
 
 -- crud de roles
 GO
-create or alter procedure acce.UDP_tbRoles_Insert   
+create or alter procedure acce.UDP_tbRoles_Insert
 @role_Descripcion varchar(250),
 @role_UsuarioCreador int
 AS
@@ -1302,7 +1303,10 @@ begin
 
 end
 
+SELECT * FROM acce.tbRoles
+SELECT * FROM acce.tbPantallas
 GO
+
 CREATE OR ALTER PROCEDURE acce.UDP_tbRolesXPantallas_Insert
 @role_ID  int,
 @pant_ID  int,
@@ -1333,10 +1337,9 @@ BEGIN
  
 END
 
-EXEC acce.UDP_tbRolesXPantallas_Insert 4,1,1,1
 
 go
-CREATE OR ALTER PROCEDURE acce.UDP_tbRolesXPantallas_Update
+CREATE OR ALTER PROCEDURE acce.UDP_tbRolesXPantallas_Update 
 @roleXpant_ID int,
 @role_ID  int,
 @pant_ID  int,
@@ -1363,7 +1366,9 @@ END
 GO
 EXEC acce.UDP_tbRolesXPantallas_Update 4,4,1,1
 go
-CREATE OR ALTER TRIGGER tr_editar_roles
+
+
+CREATE OR ALTER TRIGGER acce.tr_editar_roles
 ON acce.tbRoles
 AFTER UPDATE
 AS
@@ -1377,3 +1382,8 @@ BEGIN
     WHERE role_ID IN (SELECT deleted.role_ID FROM deleted)
   END
 END
+
+
+select * from acce.tbUsuarios
+
+

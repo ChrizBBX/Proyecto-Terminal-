@@ -413,6 +413,16 @@ VALUES	('Maria', 'Jose','Antonieta', 'De las nieves', '1234567891234', GETDATE()
 		('Edwin', 'Josue','Rodriguez', 'Ortíz', '3333333333333', GETDATE(), 'M', '00000000', 1, 2 ,1,'0501', 1, NULL, NULL),
 		('Josue', 'Obed','Sarmiento', 'Elvir', '1111111111111', GETDATE(), 'M', '00000000', 1, 3 ,1, '0501', 1, NULL, NULL)
 GO
+select * from ACCE.tbRoles
+
+INSERT INTO term.tbEmpleados(empl_PrimerNombre, empl_SegundoNombre, empl_PrimerApellido, empl_SegundoApellido, empl_DNI, empl_FechaNacimiento, empl_Sexo, empl_Telefono, carg_ID, role_ID, estciv_ID, muni_ID, empl_UsuarioCreador, empl_UsuarioModificador, empl_FechaModificacion)
+VALUES	('TEST', 'TEST','TEST', 'TEST', '1112223334445', GETDATE(), 'F', '00000000', 1, 13 ,1, '0501',1 , NULL, NULL)
+
+
+		
+	
+GO
+
 
 DECLARE @PassEncrypt VARBINARY(MAX) = HASHBYTES('SHA2_512', 'AWSD')
 INSERT INTO acce.tbUsuarios(usua_Usuario, usua_Clave, usua_EsAdmin, empl_ID, usua_UsuarioCreador, usua_UsuarioModificador, usua_FechaModificacion)
@@ -433,7 +443,6 @@ GO
 INSERT INTO term.tbBoletos(bole_Fecha, term_ID, comp_ID, empl_ID, clie_ID, hora_ID, pago_ID, bole_UsuarioCreador, bole_UsuarioModificador, bole_FechaModificacion)
 VALUES (GETDATE(), 1, 1, 1, 1, 1, 1, 1, NULL, NULL)
 GO
-
 
 
 

@@ -76,7 +76,7 @@ namespace Terminal.WebUI.Controllers
 
                     if (response.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("Index");
+                        return View();
                     }
                     else
                     {
