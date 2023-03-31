@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -83,6 +84,7 @@ namespace Terminal.WebUI.Controllers
 
         public async Task<IActionResult> Create(ClientesModel cliente)
         {
+            cliente.clie_UsuarioCreador = (int)HttpContext.Session.GetInt32("usua_ID");
             if (ModelState.IsValid)
             {
                 using (var httpClient = new HttpClient())
@@ -149,6 +151,7 @@ namespace Terminal.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(ClientesModel cliente)
         {
+            cliente.clie_UsuarioModificador = (int)HttpContext.Session.GetInt32("usua_ID");
             if (ModelState.IsValid)
             {
                 using (var httpClient = new HttpClient())

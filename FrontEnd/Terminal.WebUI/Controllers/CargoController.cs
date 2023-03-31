@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -74,6 +75,7 @@ namespace Terminal.WebUI.Controllers
 
         public async Task<IActionResult> Create(CargosViewModel cargos)
         {
+            cargos.carg_UsuarioCreador = (int)HttpContext.Session.GetInt32("usua_ID");
             if (ModelState.IsValid)
             {
                 using (var httpClient = new HttpClient())
@@ -141,6 +143,7 @@ namespace Terminal.WebUI.Controllers
 
         public async Task<IActionResult> Update(CargosViewModel cargos)
         {
+            cargos.carg_UsuarioModificador = (int)HttpContext.Session.GetInt32("usua_ID");
             if (ModelState.IsValid)
             {
                 using (var httpClient = new HttpClient())

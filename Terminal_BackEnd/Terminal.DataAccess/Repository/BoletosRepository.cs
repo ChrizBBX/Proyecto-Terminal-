@@ -33,7 +33,7 @@ namespace Terminal.DataAccess.Repository
             using var db = new SqlConnection(TerminalContext.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@bole_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@bole_UsuarioCreador", item.bole_UsuarioCreador, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@term_ID", item.term_ID, DbType.String, ParameterDirection.Input);
             parametros.Add("@comp_ID", item.comp_ID, DbType.String, ParameterDirection.Input);
             parametros.Add("@empl_ID", item.empl_ID, DbType.String, ParameterDirection.Input);
@@ -52,7 +52,7 @@ namespace Terminal.DataAccess.Repository
             using var db = new SqlConnection(TerminalContext.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@bole_UsuarioModificador", 1, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@bole_UsuarioModificador", item.bole_UsuarioCreador, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@bole_ID", item.bole_ID, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@term_ID", item.term_ID, DbType.String, ParameterDirection.Input);
             parametros.Add("@comp_ID", item.comp_ID, DbType.String, ParameterDirection.Input);

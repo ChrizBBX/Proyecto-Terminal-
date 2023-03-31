@@ -36,7 +36,7 @@ namespace Terminal.DataAccess.Repository
             RequestStatus result = new RequestStatus();
 
             var parametros = new DynamicParameters();
-            parametros.Add("@term_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@term_UsuarioCreador", item.term_UsuarioCreador, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@muni_ID", item.muni_ID, DbType.String, ParameterDirection.Input);
             parametros.Add("@term_Nombre", item.term_Nombre, DbType.String, ParameterDirection.Input);
             parametros.Add("@term_DireccionExacta", item.term_DireccionExacta, DbType.String, ParameterDirection.Input);
@@ -55,7 +55,7 @@ namespace Terminal.DataAccess.Repository
             RequestStatus result = new RequestStatus();
 
             var parametros = new DynamicParameters();
-            parametros.Add("@term_UsuarioModificador", 1, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@term_UsuarioModificador", item.term_UsuarioModificador, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@term_ID", item.term_ID, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@muni_ID", item.muni_ID, DbType.String, ParameterDirection.Input);
             parametros.Add("@term_Nombre", item.term_Nombre, DbType.String, ParameterDirection.Input);

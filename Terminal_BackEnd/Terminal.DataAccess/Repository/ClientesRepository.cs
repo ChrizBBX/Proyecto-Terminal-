@@ -32,7 +32,7 @@ namespace Terminal.DataAccess.Repository
             using var db = new SqlConnection(TerminalContext.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@clie_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@clie_UsuarioCreador", item.clie_UsuarioCreador, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@clie_Nombres", item.clie_Nombres, DbType.String, ParameterDirection.Input);
             parametros.Add("@clie_Apellidos", item.clie_Apellidos, DbType.String, ParameterDirection.Input);
             parametros.Add("@clie_DNI", item.clie_DNI, DbType.String, ParameterDirection.Input);
@@ -51,7 +51,7 @@ namespace Terminal.DataAccess.Repository
             using var db = new SqlConnection(TerminalContext.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@clie_UsuarioModificador", 1, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@clie_UsuarioModificador", item.clie_UsuarioModificador, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@clie_ID", item.clie_ID, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@clie_Nombres", item.clie_Nombres, DbType.String, ParameterDirection.Input);
             parametros.Add("@clie_Apellidos", item.clie_Apellidos, DbType.String, ParameterDirection.Input);

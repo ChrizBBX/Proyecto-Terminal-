@@ -59,6 +59,7 @@ namespace Terminal.WebUI.Controllers
                         HttpContext.Session.SetString("usua_empl_NombreCompleto", usua_empl_NombreCompleto);
                         HttpContext.Session.SetInt32("carg_ID", carg_ID);
                         HttpContext.Session.SetInt32("role_ID", role_ID);
+                        ViewBag.usua_empl_NombreCompleto = HttpContext.Session.GetString("usua_empl_NombreCompleto");
 
                         return RedirectToAction("Index","Home");
                     }

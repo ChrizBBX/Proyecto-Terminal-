@@ -34,7 +34,7 @@ namespace Terminal.DataAccess.Repository
             using var db = new SqlConnection(TerminalContext.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@carg_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@carg_UsuarioCreador", item.carg_UsuarioCreador, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@carg_Nombre", item.carg_Nombre, DbType.String, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.UDP_Cargos_Insert, parametros, commandType: CommandType.StoredProcedure);
             
@@ -48,7 +48,7 @@ namespace Terminal.DataAccess.Repository
             using var db = new SqlConnection(TerminalContext.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@carg_UsuarioModificador", 1, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@carg_UsuarioModificador", item.carg_UsuarioModificador, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@carg_ID", item.carg_ID, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@carg_Nombre", item.carg_Nombre, DbType.String, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.UDP_Cargos_Update, parametros, commandType: CommandType.StoredProcedure);

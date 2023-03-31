@@ -104,6 +104,7 @@ namespace Terminal.WebUI.Controllers
 
         public async Task<IActionResult> Create(TerminalesViewModel terminales)
         {
+            terminales.term_UsuarioCreador = (int)HttpContext.Session.GetInt32("usua_ID");
 
             if (string.IsNullOrEmpty(terminales.dept_ID) || terminales.dept_ID == "0" || string.IsNullOrEmpty(terminales.muni_ID))
             {
@@ -237,7 +238,7 @@ namespace Terminal.WebUI.Controllers
         [HttpPost("/Termianl/Edit/{id}")]
         public async Task<IActionResult> Edit(TerminalesViewModel terminales)
         {
-
+            terminales.term_UsuarioModificador = (int)HttpContext.Session.GetInt32("usua_ID");
             if (string.IsNullOrEmpty(terminales.dept_ID) || string.IsNullOrEmpty(terminales.muni_ID))
             {
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -95,8 +96,8 @@ namespace Terminal.WebUI.Controllers
 
 
         public async Task<IActionResult> Create(HorariosViewModel horarios)
-        
         {
+            horarios.hora_UsuarioCreador = (int)HttpContext.Session.GetInt32("usua_ID");
             if (ModelState.IsValid)
             {
                 using (var httpClient = new HttpClient())
@@ -189,6 +190,7 @@ namespace Terminal.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(HorariosViewModel horarios)
         {
+            horarios.hora_UsuarioModificador = (int)HttpContext.Session.GetInt32("usua_ID");
             if (ModelState.IsValid)
             {
                 using (var httpClient = new HttpClient())

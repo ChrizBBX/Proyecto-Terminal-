@@ -35,7 +35,25 @@ namespace Terminal.WebUI.Controllers
             {
                 HttpContext.Session.SetInt32("usua_ID", 0);
             }
+            ViewBag.usua_empl_NombreCompleto = HttpContext.Session.GetString("usua_empl_NombreCompleto");
             return View();
+        }
+
+        public IActionResult Logout()
+        {
+
+            HttpContext.Session.SetInt32("usua_ID", 0);
+            HttpContext.Session.SetString("usua_Usuario", "");
+            HttpContext.Session.SetString("usua_EsAdmin", "");
+            HttpContext.Session.SetInt32("empl_ID", 0);
+            HttpContext.Session.SetString("usua_empl_NombreCompleto", "");
+            HttpContext.Session.SetInt32("carg_ID", 0);
+            HttpContext.Session.SetInt32("role_ID", 0);
+            HttpContext.Response.Headers.Add("Cache-Control", "no-cache, no-store, must-revalidate");
+            HttpContext.Response.Headers.Add("Pragma", "no-cache");
+            HttpContext.Response.Headers.Add("Expires", "0");
+
+            return RedirectToAction("Index", "Login");
         }
 
         public async Task<IActionResult> PantallasMenu(PantallaViewModel item)

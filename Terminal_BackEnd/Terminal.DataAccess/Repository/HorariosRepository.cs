@@ -34,7 +34,7 @@ namespace Terminal.DataAccess.Repository
             var parametros = new DynamicParameters();
             RequestStatus result = new RequestStatus();
 
-            parametros.Add("@hora_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@hora_UsuarioCreador", item.hora_UsuarioCreador, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@hora_Salida", item.hora_Salida, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@hora_Llegada", item.hora_Llegada, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@hora_Origen", item.hora_Origen, DbType.String, ParameterDirection.Input);
@@ -54,7 +54,7 @@ namespace Terminal.DataAccess.Repository
 
             using var db = new SqlConnection(TerminalContext.ConnectionString);
             var parametros = new DynamicParameters();
-            parametros.Add("@hora_UsuarioModificador", 1, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@hora_UsuarioModificador", item.hora_UsuarioModificador, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@hora_ID", item.hora_ID, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@hora_Salida", item.hora_Salida, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@hora_Llegada", item.hora_Llegada, DbType.DateTime, ParameterDirection.Input);
