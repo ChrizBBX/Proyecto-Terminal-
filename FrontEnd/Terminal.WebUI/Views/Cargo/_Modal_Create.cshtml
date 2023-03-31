@@ -31,7 +31,7 @@
                     <div class="row">
                         <div class="col-2"></div>
                         <div class="col-5"><button type="button" onclick="GuardarModalCreate()" class="btn btn-primary">Guardar</button></div>
-                        <div class="col-4"><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button></div>
+                        <div class="col-4"><button type="button" class="btn btn-danger" onclick="Limpiar()" data-bs-dismiss="modal">Cancelar</button></div>
                     </div>                                                        
                 </div>
             </div>
@@ -51,17 +51,16 @@
 }
 
 <script>
-    //Limitar Inputs
-</script>
+    function Limpiar() {
+        $("#carg_Nombre").val("");
+        $("#lbl_carg_Nombre_CreateError").attr('hidden', true);
+    };
 
-<script>
     function AbrirModalCreate() {
         $("#lbl_carg_Nombre_CreateError").attr('hidden', true);
         $("#_Modal_Create").appendTo('body').modal('show');
     };
-</script>
 
-<script>
     function GuardarModalCreate() {
         var carg_Nombre = $("#carg_Nombre").val();
         console.log(carg_Nombre);
