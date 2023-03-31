@@ -83,7 +83,6 @@ namespace Terminal.DataAccess.Repository
             parametros.Add("@roleXpant_UsuarioCreador", 1, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@role_ID", item.role_ID, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@pant_ID", item.pant_ID, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_ID", item.usua_ID, DbType.Int32, ParameterDirection.Input);
 
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbRolesXPantallas_Insert, parametros, commandType: CommandType.StoredProcedure);
 
@@ -96,7 +95,6 @@ namespace Terminal.DataAccess.Repository
             parametros.Add("@@roleXpant_UsuarioModificador", 1, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@role_ID", item.role_ID, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@pant_ID", item.pant_ID, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_ID", item.usua_ID, DbType.Int32, ParameterDirection.Input);
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbRoles_Update, parametros, commandType: CommandType.StoredProcedure);
 
         }

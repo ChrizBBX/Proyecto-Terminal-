@@ -395,7 +395,7 @@ VALUES	('Estadisticas', '/Home', 'Terminal', 'estadisticaItem', 1, NULL, NULL),
 		('Horarios', '/Horario', 'Terminal', 'horarioItem', 1, NULL, NULL),
 		('Terminales', '/Terminal', 'Terminal', 'terminalItem', 1, NULL, NULL),
 		('Usuarios', '/Usuario', 'Acceso', 'usuarioItem', 1, NULL, NULL),
-		('Roles', '/Rol', 'Acceso', 'rolItem', 1, NULL, NULL)
+		('Roles', '/Role', 'Acceso', 'rolItem', 1, NULL, NULL)
 GO
 
 

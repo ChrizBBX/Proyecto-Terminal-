@@ -6,20 +6,17 @@ using System.Collections.Generic;
 
 namespace Terminal.Entities.Entities
 {
-    public partial class tbRolesXPantallas
+    public partial class VW_RolXPantalla_VW
     {
         public int roleXpant_ID { get; set; }
         public int? role_ID { get; set; }
+        public string role_Descripcion { get; set; }
         public int? pant_ID { get; set; }
+        public string pant_Descripcion { get; set; }
         public int? roleXpant_Estado { get; set; }
         public int? roleXpant_UsuarioCreador { get; set; }
         public DateTime? roleXpant_FechaCreacion { get; set; }
         public int? roleXpant_UsuarioModificador { get; set; }
         public DateTime? roleXpant_FechaModificacion { get; set; }
-
-        public virtual tbPantallas pant { get; set; }
-        public virtual tbRoles role { get; set; }
-        public virtual tbUsuarios roleXpant_UsuarioCreadorNavigation { get; set; }
-        public virtual tbUsuarios roleXpant_UsuarioModificadorNavigation { get; set; }
     }
 }

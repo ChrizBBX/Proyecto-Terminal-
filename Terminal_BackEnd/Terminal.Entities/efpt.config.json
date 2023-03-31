@@ -78,6 +78,14 @@
          "ObjectType": 3
       },
       {
+         "Name": "[dbo].[VW_Roles_VW]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[VW_RolXPantalla_VW]",
+         "ObjectType": 3
+      },
+      {
          "Name": "[gral].[VW_graficaSexo]",
          "ObjectType": 3
       },

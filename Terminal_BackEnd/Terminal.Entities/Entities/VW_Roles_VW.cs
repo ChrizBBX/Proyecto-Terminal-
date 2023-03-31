@@ -6,14 +6,8 @@ using System.Collections.Generic;
 
 namespace Terminal.Entities.Entities
 {
-    public partial class tbRoles
+    public partial class VW_Roles_VW
     {
-        public tbRoles()
-        {
-            tbEmpleados = new HashSet<tbEmpleados>();
-            tbRolesXPantallas = new HashSet<tbRolesXPantallas>();
-        }
-
         public int role_ID { get; set; }
         public string role_Descripcion { get; set; }
         public int? role_Estado { get; set; }
@@ -21,10 +15,5 @@ namespace Terminal.Entities.Entities
         public DateTime? role_FechaCreacion { get; set; }
         public int? role_UsuarioModificador { get; set; }
         public DateTime? role_FechaModificacion { get; set; }
-
-        public virtual tbUsuarios role_UsuarioCreadorNavigation { get; set; }
-        public virtual tbUsuarios role_UsuarioModificadorNavigation { get; set; }
-        public virtual ICollection<tbEmpleados> tbEmpleados { get; set; }
-        public virtual ICollection<tbRolesXPantallas> tbRolesXPantallas { get; set; }
     }
 }
