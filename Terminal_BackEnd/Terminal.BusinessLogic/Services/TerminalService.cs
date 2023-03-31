@@ -423,6 +423,19 @@ namespace Terminal.BusinessLogic.Services
             }
         }
 
+        public IEnumerable<VW_tbBoletos2> VistaPrevia()
+        {
+            try
+            {
+                return _boletosRepository.VistaPrevia();
+            }
+            catch (Exception e)
+            {
+
+                return Enumerable.Empty<VW_tbBoletos2>();
+            }
+        }
+
         public ServiceResult InsertarBoletos(tbBoletos item)
         {
             var result = new ServiceResult();

@@ -50,6 +50,7 @@ namespace Terminal.DataAccess.Repository
             public static string UDP_Boletos_Find = "term.UDP_VW_tbBoletos_Find";
             public static string UDP_Boletos_Update = "term.UDP_tbBoletos_Update";
             public static string UDP_Boletos_Delete = "term.UDP_tbBoletos_Delete";
+        public static string UDP_VW_VistaPrevia_VW = "term.UDP_VW_VistaPrevia_VW";
         #endregion
 
         #region ddls

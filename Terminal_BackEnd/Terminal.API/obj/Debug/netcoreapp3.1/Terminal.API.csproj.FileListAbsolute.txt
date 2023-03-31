@@ -743,7 +743,6 @@ C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\Terminal_BackEnd
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\Terminal_BackEnd\Terminal.API\obj\Debug\netcoreapp3.1\Terminal.API.AssemblyInfoInputs.cache
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\Terminal_BackEnd\Terminal.API\obj\Debug\netcoreapp3.1\Terminal.API.AssemblyInfo.cs
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\Terminal_BackEnd\Terminal.API\obj\Debug\netcoreapp3.1\Terminal.API.csproj.CoreCompileInputs.cache
-C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\Terminal_BackEnd\Terminal.API\obj\Debug\netcoreapp3.1\Terminal.API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\Terminal_BackEnd\Terminal.API\obj\Debug\netcoreapp3.1\Terminal.API.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\Terminal_BackEnd\Terminal.API\obj\Debug\netcoreapp3.1\staticwebassets\Terminal.API.StaticWebAssets.Manifest.cache
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\Terminal_BackEnd\Terminal.API\obj\Debug\netcoreapp3.1\staticwebassets\Terminal.API.StaticWebAssets.xml

@@ -663,3 +663,9 @@ C:\Users\Chris\Documents\GitHub\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\D
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Login\Recover.cshtml.g.cs
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Role\Create.cshtml.g.cs
 C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Role\Index.cshtml.g.cs
+C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Terminal.WebUI.csproj.AssemblyReference.cache
+C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Role\Details.cshtml.g.cs
+C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Role\_Model_Delete.cshtml.g.cs
+C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Role\Edit.cshtml.g.cs
+C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Boleto\VistaPrevia.cshtml.g.cs
+C:\Users\LAB01\Documents\GitHub\Gen6Matutina\Proyecto-Terminal-\FrontEnd\Terminal.WebUI\obj\Debug\netcoreapp3.1\Razor\Views\Terminal\Departamento.cshtml.g.cs

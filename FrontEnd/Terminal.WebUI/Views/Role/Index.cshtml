@@ -1,72 +1,85 @@
 ﻿@model IEnumerable<Terminal.WebUI.Models.RolesViewModel>
 
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@{ ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
 
-<h1>Index</h1>
+<div class="card border-5">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="float-e-margins">
+                    <div class="ibox-title">
+                        <div class="ibox-tools  align-items-center">
+                            <div class="row">
+                                <div class="col-5"></div>
+                                <div class="col-4">
+                                    <strong><span style="font-family: Cooper; color: indigo; font-size: xx-large;">Roles</span></strong>
+                                </div>
+                                <div class="col-3"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5"></div>
+                                <div class="col-4 ml-1">
+                                    <p><a asp-action="Create" class="btn bg-purple-700 text-light">Nuevo rol</a></p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.role_ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.role_Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.role_Estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.role_UsuarioCreador)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.role_FechaCreacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.role_UsuarioModificador)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.role_FechaModificacion)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.role_ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.role_Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.role_Estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.role_UsuarioCreador)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.role_FechaCreacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.role_UsuarioModificador)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.role_FechaModificacion)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+                                </div>
+                                <div class="col-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="table-responsive-xxl">
+                        <table class="table text-nowrap table-striped table-hover dataTables-example" id="DataTable">
+                            <thead class="">
+                                <tr class="text-dark">
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.role_ID)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.role_Descripcion)</th>
+                                    <th class="text-dark">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.role_ID)</td>
+                        <td>@Html.DisplayFor(modelItem => item.role_Descripcion)</td>
+
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.role_ID" class="btn btn-outline-primary btn-sm">Editar</a> |
+                            <a asp-action="Details" asp-route-id="@item.role_ID" class="btn btn-outline-secondary btn-sm">Detalle</a> |
+                            <button class="btn btn-outline-danger btn-sm" id="btnEliminar" onclick="eliminar('@item.role_ID')">Eliminar</button>
+                        </td>
+                    </tr>}
+                            </tbody>
+                            <tfoot class="">
+                                <tr class="text-dark">
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.role_ID)</th>
+                                    <th class="text-dark">@Html.DisplayNameFor(model => model.role_Descripcion)</th>
+
+                                    <th class="text-dark">Acciones</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#menuTerminal").addClass('show');
+        $("#SubMenuTerminal").addClass('active');
+    });
+</script>
+@if (ViewBag.Script != null)
+{
+    <script>
+        $(document).ready(function () {
+            @Html.Raw(ViewBag.Script)
+        })
+    </script>
+
+    ViewBag.Script = null;
 }
-    </tbody>
-</table>
+@Html.Partial("_Model_Delete", new Terminal.WebUI.Models.RolesViewModel())

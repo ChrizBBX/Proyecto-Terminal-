@@ -412,5 +412,28 @@ namespace Terminal.WebUI.Controllers
                 }
             }
         }
+
+
+        [HttpGet("/Reporte/Departamento")]
+        public async Task<IActionResult> Departamento()
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var depa = await httpClient.GetAsync(_baseurl + "api/Terminal/LoadDepartamento");
+
+                if (depa.IsSuccessStatusCode)
+                {
+
+                    var content = await depa.Content.ReadAsStringAsync();
+                    var departamentos = JsonConvert.DeserializeObject<List<DepartamentoViewModel>>(content);
+                    return View(departamentos);
+                }
+                else
+                {
+                    return View();
+                }
+            }
+
+        }
     }
 }

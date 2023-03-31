@@ -49,7 +49,23 @@ namespace Terminal.WebUI.Controllers
             }
         }
 
+        public async Task<IActionResult> VistaPrevia()
+        {
 
+            List<PreviaViewModelcs> listado = new List<PreviaViewModelcs>();
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(_baseurl + "api/Boleto/VistaPrevia");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    listado = JsonConvert.DeserializeObject<List<PreviaViewModelcs>>(jsonResponse);
+                }
+                return View(listado);
+            }
+        }
         public async Task<IActionResult> Details(int id)
         {
 

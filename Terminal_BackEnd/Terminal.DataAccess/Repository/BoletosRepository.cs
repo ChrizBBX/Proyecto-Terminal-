@@ -20,6 +20,14 @@ namespace Terminal.DataAccess.Repository
 
         }
 
+        public IEnumerable<VW_tbBoletos2> VistaPrevia()
+        {
+            using var db = new SqlConnection(TerminalContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            return db.Query<VW_tbBoletos2>(ScriptsDataBase.UDP_VW_VistaPrevia_VW, null, commandType: CommandType.StoredProcedure);
+
+        }
+
         public IEnumerable<VW_tbBoletos> List()
         {
             using var db = new SqlConnection(TerminalContext.ConnectionString);

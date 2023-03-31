@@ -1,9 +1,10 @@
-﻿@model IEnumerable<Terminal.WebUI.Models.CargosViewModel>
+﻿@model IEnumerable<Terminal.WebUI.Models.RolesViewModel>
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 <div class="card border-5">
     <div class="card-header" style="background-image: linear-gradient(to right, #A4F6FA,#9CB0D7 ,#4EBBC0 ) ">
@@ -25,21 +26,22 @@
                 <div class="col-4">
                     <div class="form-group">
                         <h5>ID :</h5>
-                        <label class="text-dark">@Html.DisplayFor(modelItem => item.carg_ID)</label>
+                        <label class="text-dark">@Html.DisplayFor(modelItem => item.role_ID)</label>
                     </div>
                 </div>
 
                 <div class="form-group col-3">
                     <h5>Descripción :</h5>
-                    <label class="text-dark">@Html.DisplayFor(modelItem => item.carg_Nombre)</label>
+                    <label class="text-dark">@Html.DisplayFor(modelItem => item.role_Descripcion)</label>
                 </div>
 
             </div>
 
+
             <div class="row mt-3">
                 <div class="col-9 mt-3"></div>
                 <div class="form-group col-3 mt-3">
-                    <a asp-action="Edit" asp-route-id="@item.carg_ID" class="btn btn-primary">Editar</a> |
+                    <a asp-action="Edit" asp-route-id="@item.role_ID" class="btn btn-primary">Editar</a> |
                     <a asp-action="Index" class="btn btn-secondary">Regresar</a>
                 </div>
             </div>
@@ -60,13 +62,13 @@
                     {
                         <tr>
                             <td><label>Creación</label></td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_UsuarioCreador_Nombre)</td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_FechaCreacion)</td>
+                            <td>@Html.DisplayFor(modelItem => item.role_UsuarioCreador)</td>
+                            <td>@Html.DisplayFor(modelItem => item.role_FechaCreacion)</td>
                         </tr>
                         <tr>
                             <td><label>Modificación</label></td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_UsuarioModificador_Nombre)</td>
-                            <td>@Html.DisplayFor(modelItem => item.carg_FechaModificacion)</td>
+                            <td>@Html.DisplayFor(modelItem => item.role_UsuarioModificador)</td>
+                            <td>@Html.DisplayFor(modelItem => item.role_FechaModificacion)</td>
                         </tr>
                     }
                 </tbody>

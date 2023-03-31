@@ -1,9 +1,8 @@
-﻿@model Terminal.WebUI.Models.RolesViewModel
+﻿
+@model Terminal.WebUI.Models.RolesViewModel
 
-@{
-    ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@{ ViewData["Title"] = "Create";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <h1>Create</h1>
 
@@ -20,14 +19,102 @@
                 <span asp-validation-for="role_Descripcion" class="text-danger"></span>
             </div>
 
+            <div id="check">
+
+                <label class="control-label">aaaa</label>
+                <input type="checkbox" value="1" class="miCheckbox">
+
+                <label class="control-label">aaaa</label>
+                <input type="checkbox" value="2" class="miCheckbox">
+
+                <label class="control-label">aaaa</label>
+                <input type="checkbox" value="3" class="miCheckbox">
+
+                <label class="control-label">aaaa</label>
+                <input type="checkbox" value="4" class="miCheckbox">
+
+                <label class="control-label">aaaa</label>
+                <input type="checkbox" value="5" class="miCheckbox">
+
+                <label class="control-label">aaaa</label>
+                <input type="checkbox" value="6" class="miCheckbox">
+
+                <label class="control-label">aaaa</label>
+                <input type="checkbox" value="7" class="miCheckbox">
+
+                <label class="control-label">aaaa</label>
+                <input type="checkbox" value="8" class="miCheckbox">
+
+            </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" id="enviar" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a id="cerrar" asp-action="Index">Back to List</a>
 </div>
 
+<script>$(document).ready(function () {
+
+
+            localStorage.getItem("miCheckbox");
+
+        if (localStorage.getItem("miCheckbox") == "si esta") {
+            $("#role_Descripcion").prop('disabled', true);
+            $('.miCheckbox').prop('disabled', true);
+
+            console.log("si dentro");
+
+        } else if (localStorage.getItem("miCheckbox") == "") {
+            $('.miCheckbox').prop('disabled', false);
+
+            console.log("mooooo");
+
+        }
+
+        $("#cerrar").click(function () {
+
+
+
+            localStorage.setItem("miCheckbox", "si esta");
+
+            $("#role_Descripcion").prop('disabled', true);
+            $('.miCheckbox').prop('disabled', false);
+
+        })
+
+        ///////////////////////////////////
+        $(document).ready(function () {
+            $('.miCheckbox').click(function () {
+                $(this).prop('disabled', true);
+
+                if ($(this).is(':checked')) {
+                    console.log("Chequeado");
+
+                    // Realiza una solicitud AJAX para enviar el valor del checkbox
+                    $.ajax({
+                        url: 'CreateX',
+                        method: 'POST',
+                        data: { valor: $(this).val() },
+                        success: function (response) {
+                            console.log(response);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus + ': ' + errorThrown);
+                        }
+                    });
+
+                } else {
+                    console.log("No chequeado");
+                }
+
+                console.log($(this).val());
+                setTimeout(() => {
+                    $(this).prop('disabled', false);
+                }, 3000);
+            });
+        });
+    });</script>
