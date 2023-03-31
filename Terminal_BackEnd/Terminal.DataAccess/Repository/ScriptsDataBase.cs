@@ -71,7 +71,22 @@ namespace Terminal.DataAccess.Repository
         #region Empleado
         public static string UDP_EmpleadoSelect = "term.UDP_tbEmpleado_List";
         #endregion
+    
+        #region rol
 
+        public static string UDP_tbRoles_Select = "acce.UDP_tbRoles_Select";
+        public static string UDP_tbRoles_Insert = "acce.UDP_tbRoles_Insert   ";
+        public static string UDP_tbRoles_Find   = "acce.UDP_tbRoles_Find";
+        public static string UDP_tbRoles_Delete = "acce.UDP_tbRoles_Delete ";
+        public static string UDP_tbRoles_Update = "acce.UDP_tbRoles_Update ";
+
+
+        public static string UDP_tbRolesXPantallas_Select = "acce.UDP_tbRolesXPantallas_Select";
+        public static string UDP_tbRolesXPantallas_Insert = "acce.UDP_tbRolesXPantallas_Insert";
+        public static string UDP_tbRolesXPantallas_Find   = "acce.UDP_tbRolesXPantallas_Find";
+        public static string UDP_tbRolesXPantallas_Update = "acce.UDP_tbRolesXPantallas_Update ";
+
+        #endregion
 
         #region Usuarios
             public static string UDP_Usuarios_Select = "acce.UDP_VW_tbUsuarios_VW";

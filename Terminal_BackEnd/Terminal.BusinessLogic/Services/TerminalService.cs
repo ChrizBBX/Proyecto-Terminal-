@@ -16,9 +16,11 @@ namespace Terminal.BusinessLogic.Services
         private readonly BoletosRepository _boletosRepository;
         private readonly CompañiaRepository _compañiaRepository;
         private readonly EmpleadoRepository _empleadoRepository;
+        private readonly RolesRepository _rolesRepository;
 
         public TerminalService(ClientesRepository clientesRepository, CargosRepository cargosRepository, TerminalesRepository terminalesRepository, 
-            HorariosRepository horariosRepository, BoletosRepository boletosRepository, CompañiaRepository compañiaRepository, EmpleadoRepository empleadoRepository)
+            HorariosRepository horariosRepository, BoletosRepository boletosRepository, CompañiaRepository compañiaRepository, EmpleadoRepository empleadoRepository,
+            RolesRepository rolesRepository)
         {
             _clientesRepository = clientesRepository;
             _cargosRepository = cargosRepository;
@@ -27,6 +29,7 @@ namespace Terminal.BusinessLogic.Services
             _boletosRepository = boletosRepository;
             _compañiaRepository = compañiaRepository;
             _empleadoRepository = empleadoRepository;
+            _rolesRepository = rolesRepository;
         }
 
         #region Clientes
@@ -578,6 +581,185 @@ namespace Terminal.BusinessLogic.Services
             {
 
                 return Enumerable.Empty<VW_tbEmpleados>();
+            }
+        }
+        #endregion
+
+         #region Roles
+
+        public IEnumerable<VW_Roles_VW> ListadoRoles()
+        {
+            try
+            {
+                return _rolesRepository.List();
+            }
+            catch (Exception e)
+            {
+
+                return Enumerable.Empty<VW_Roles_VW>();
+            }
+        }
+        public ServiceResult InsertarRoles(string roles)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _rolesRepository.Insert(roles);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public ServiceResult ActualizarRoles(tbRoles roles)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _rolesRepository.Update(roles);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public ServiceResult DeleterRoles(int id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _rolesRepository.Delete(id);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public VW_Roles_VW BuscarRoles(int id)
+        {
+            try
+            {
+                return _rolesRepository.Find(id);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region Xpantalla
+        public IEnumerable<VW_RolXPantalla_VW> ListadoRolesX()
+        {
+            try
+            {
+                return _rolesRepository.ListXpantalla();
+            }
+            catch (Exception e)
+            {
+
+                return Enumerable.Empty<VW_RolXPantalla_VW>();
+            }
+        }
+        public ServiceResult InsertarRolesX(tbRolesXPantallas roles)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _rolesRepository.InsertXpantalla(roles);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public ServiceResult ActualizarRolesX(tbRolesXPantallas roles)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _rolesRepository.UpdateXpantalla(roles);
+                return result.Ok(map);
+                //if (map.CodeStatus > 0)
+                //{
+
+                //}
+                //else
+                //{ 
+                //    map.MessageStatus = (map.CodeStatus == 0) ? "404 Error de consulta" : map.MessageStatus;
+                //    return result.Error(map);
+                //}
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+         
+        public VW_RolXPantalla_VW BuscarRolesX(int id)
+        {
+            try
+            {
+                return _rolesRepository.FindXpantalla(id);
+            }
+            catch (Exception e)
+            {
+                return null;
             }
         }
         #endregion

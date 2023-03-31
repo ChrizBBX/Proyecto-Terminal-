@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Terminal.WebUI.Models.RolesViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.role_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.role_Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.role_Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.role_UsuarioCreador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.role_FechaCreacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.role_UsuarioModificador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.role_FechaModificacion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.role_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.role_Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.role_Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.role_UsuarioCreador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.role_FechaCreacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.role_UsuarioModificador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.role_FechaModificacion)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

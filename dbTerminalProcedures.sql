@@ -1108,16 +1108,6 @@ GO
 
 
 
---CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_UserExists
---    @usua_Usuario    NVARCHAR(20)
---AS
---BEGIN
---    SELECT usua_ID  
---	  FROM acce.[tbUsuarios] 
---	 WHERE usua_Usuario = @usua_Usuario 
---	   AND usua_Estado = 1
---END
---GO
 
 
 --CREATE PROCEDURE 'UDP_tbUsuarios_ActualizarContraseniausuario'
@@ -1155,4 +1145,235 @@ IF @esAdmin = 1
 		FROM acce.tbPantallas t1 INNER JOIN acce.tbRolesXPantallas t2
 		ON t1.pant_ID  = t2.pant_ID
 		WHERE role_ID = @role_ID
+END
+
+
+GO
+CREATE OR ALTER VIEW VW_Roles_VW
+AS
+SELECT  [role_ID], 
+		[role_Descripcion], 
+		[role_Estado], 
+		[role_UsuarioCreador], 
+		[role_FechaCreacion], 
+		[role_UsuarioModificador],
+		[role_FechaModificacion]
+FROM acce.tbRoles
+
+GO
+CREATE OR ALTER PROCEDURE acce.UDP_tbRoles_Select
+as
+begin
+	
+	SELECT * FROM VW_Roles_VW
+
+end
+
+
+GO
+CREATE OR ALTER PROCEDURE acce.UDP_tbRoles_Find
+@role_ID  int
+as
+begin
+	
+	SELECT * FROM VW_Roles_VW  where [role_ID] = @role_ID
+
+end
+
+-- crud de roles
+GO
+create or alter procedure acce.UDP_tbRoles_Insert   
+@role_Descripcion varchar(250),
+@role_UsuarioCreador int
+AS
+BEGIN
+
+BEGIN TRY
+	INSERT INTO [acce].[tbRoles]
+           ([role_Descripcion]
+            ,[role_UsuarioCreador]
+            ,[role_UsuarioModificador]
+           ,[role_FechaModificacion])
+     VALUES
+           (@role_Descripcion
+            ,@role_UsuarioCreador
+            ,NULL
+           ,NULL)
+
+		   SELECT 'Registro Agregado Correctamente'
+		   	END TRY
+	BEGIN CATCH 
+		SELECT 'Ha Ocurrido Un Error'
+	END CATCH
+ 
+
+END
+
+GO
+exec acce.UDP_tbRoles_Insert 'Gerente(a)',1
+exec acce.UDP_tbRoles_Insert 'Boletero(a)',1
+exec acce.UDP_tbRoles_Insert 'Conserge',1
+exec acce.UDP_tbRoles_Insert 'Atencion al Cliente',1
+
+GO
+create or alter procedure acce.UDP_tbRoles_Delete 
+@role_ID   INT
+AS
+BEGIN
+
+BEGIN TRY
+
+	UPDATE [acce].[tbRoles]
+   SET  [role_Estado] = 0
+  WHERE role_ID = @role_ID
+
+		   SELECT 'Registro Eliminado Correctamente'
+		   	END TRY
+	BEGIN CATCH 
+		SELECT 'Ha Ocurrido Un Error'
+	END CATCH
+ 
+
+END
+
+
+GO
+create or alter procedure acce.UDP_tbRoles_Update 
+@role_ID   INT,
+@role_Descripcion varchar(250),
+@role_UsuarioModificador int
+AS
+BEGIN
+
+BEGIN TRY
+
+	UPDATE [acce].[tbRoles]
+   SET [role_Descripcion] = @role_Descripcion,
+       [role_UsuarioModificador] = @role_UsuarioModificador,
+      [role_FechaModificacion] = GETDATE()
+ WHERE  [role_ID] = @role_ID
+
+		   SELECT 'Registro Guardado Correctamente'
+		   	END TRY
+	BEGIN CATCH 
+		SELECT 'Ha Ocurrido Un Error'
+	END CATCH
+ 
+
+END
+
+select * from acce.tbPantallas
+
+
+GO
+CREATE OR ALTER VIEW VW_RolXPantalla_VW
+AS
+select  [roleXpant_ID], 
+		t1.[role_ID], 
+		t2.role_Descripcion,
+		t1.[pant_ID], 
+		t3.pant_Descripcion,
+		[roleXpant_Estado], 
+		[roleXpant_UsuarioCreador],
+		[roleXpant_FechaCreacion], 
+		[roleXpant_UsuarioModificador],
+		[roleXpant_FechaModificacion]
+from	acce.tbRolesXPantallas t1 inner join acce.tbRoles t2
+on		t1.role_ID = t2.role_ID inner join acce.tbPantallas t3
+on		t1.pant_ID = t3.pant_ID
+
+go
+CREATE OR ALTER PROCEDURE acce.UDP_tbRolesXPantallas_Select
+as
+begin
+	
+	select * from VW_RolXPantalla_VW
+
+end
+
+
+go
+CREATE OR ALTER PROCEDURE acce.UDP_tbRolesXPantallas_Find
+@role_ID   int 
+as
+begin
+	
+	select * from VW_RolXPantalla_VW WHERE [role_ID] = @role_ID
+
+end
+
+GO
+CREATE OR ALTER PROCEDURE acce.UDP_tbRolesXPantallas_Insert
+@role_ID  int,
+@pant_ID  int,
+@roleXpant_UsuarioCreador int
+AS
+BEGIN 
+	
+	BEGIN TRY
+		
+		INSERT INTO [acce].[tbRolesXPantallas]
+           ([role_ID]
+           ,[pant_ID]
+           ,[roleXpant_UsuarioCreador]
+           ,[roleXpant_UsuarioModificador]
+           ,[roleXpant_FechaModificacion])
+     VALUES
+           (@role_ID  
+		   ,@pant_ID  
+		   ,@roleXpant_UsuarioCreador 
+           ,NULL
+           ,NULL)
+
+		   SELECT 'Registro Agregado Correctamente'
+		   	END TRY
+	BEGIN CATCH 
+		SELECT 'Ha Ocurrido Un Error'
+	END CATCH
+ 
+END
+
+EXEC acce.UDP_tbRolesXPantallas_Insert 4,1,1,1
+
+go
+CREATE OR ALTER PROCEDURE acce.UDP_tbRolesXPantallas_Update
+@roleXpant_ID int,
+@role_ID  int,
+@pant_ID  int,
+@roleXpant_UsuarioModificador int
+AS
+BEGIN 
+	
+	BEGIN TRY
+		
+UPDATE [acce].[tbRolesXPantallas]
+   SET [role_ID] = @role_ID
+      ,[pant_ID] = @pant_ID
+      ,[roleXpant_UsuarioModificador] = @roleXpant_UsuarioModificador
+      ,[roleXpant_FechaModificacion] = GETDATE()
+ WHERE  [roleXpant_ID] = @roleXpant_ID
+
+		   SELECT 'Registro Guardo Correctamente'
+		   	END TRY
+	BEGIN CATCH 
+		SELECT 'Ha Ocurrido Un Error'
+	END CATCH
+ 
+END
+GO
+EXEC acce.UDP_tbRolesXPantallas_Update 4,4,1,1
+go
+CREATE OR ALTER TRIGGER tr_editar_roles
+ON acce.tbRoles
+AFTER UPDATE
+AS
+BEGIN
+  IF UPDATE(role_Estado)
+  BEGIN
+    DELETE FROM acce.tbRolesXPantallas
+    WHERE role_ID IN (SELECT deleted.role_ID FROM deleted)
+
+    DELETE FROM acce.tbRoles
+    WHERE role_ID IN (SELECT deleted.role_ID FROM deleted)
+  END
 END

@@ -20,6 +20,7 @@ namespace Terminal.BusinessLogic
             service.AddScoped<CompañiaRepository>();
             service.AddScoped<EmpleadoRepository>();
             service.AddScoped<UsuariosRepository>();
+            service.AddScoped<RolesRepository>();
 
             TerminalContext.BuildConnectionString(connectionString);
         }
